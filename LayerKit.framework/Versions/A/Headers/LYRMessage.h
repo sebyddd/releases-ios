@@ -28,10 +28,31 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 };
 
 /**
+ @abstract The key used in the message metadata to specify the APNS alert message the server should include in the push delivered to the receiver of the message.
+ The value associated to this key must be passed in before the message is sent and will not be seen by any of the receivers of the message.
+ */
+extern NSString *const LYRMessagePushNotificationAlertMessageKey;
+
+/**
+ @abstract The key used in the message metadata to specify the APNS sound name the server should include in the push delivered to the receiver of the message.
+ The value associated to this key must be passed in before the message is sent and will not be seen by any of the receivers of the message.
+ */
+extern NSString *const LYRMessagePushNotificationSoundNameKey;
+
+/**
  @abstract The `LYRMessage` class represents a message within a conversation (modeled by the `LYRConversation` class) between two or
  more participants within Layer.
  */
 @interface LYRMessage : NSObject
+
+/**
+ @abstract Creates and returns a new message with the given conversation and set of message parts.
+ @param conversation The conversation that the message is a part of. Cannot be `nil`.
+ @param messageParts An array of `LYRMessagePart` objects specifying the content of the message. Cannot be `nil` or empty.
+ @return A new message that is ready to be sent.
+ @raises NSInvalidArgumentException Raised if `conversation` is `nil` or `messageParts` is empty.
+ */
++ (instancetype)messageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts;
 
 /**
  @abstract A unique identifier for the message.
@@ -56,20 +77,9 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 @property (nonatomic, readonly) NSArray *parts;
 
 /**
- @abstract Returns a Boolean value that indicates if the receiver is a draft.
- 
- @discussion Draft messages are persisted into the local database but will not be transported to Layer until the client is instructed to send the message.
+ @abstract Returns a Boolean value that is true when the receiver has been sent by a client and posted to the Layer services.
  */
-@property (nonatomic, readonly) BOOL isDraft;
-
-/**
- @abstract Returns a Boolean value that is true when the receiver has been sent by a client, but not yet transported to Layer.
- 
- @discussion A message becomes pending once it is sent via a client and remains pending until successfully posted to Layer for synchronization by recipients. 
- For a connnected client, messages will remain pending only until the next synchronization operation is completed. For offline clients the message will remain pending
- until network access becomes available and synchronization can be performed.
- */
-@property (nonatomic, readonly) BOOL isPending;
+@property (nonatomic, readonly) BOOL isSent;
 
 /**
  @abstract Returns a Boolean value that indicates if the receiver has been deleted.

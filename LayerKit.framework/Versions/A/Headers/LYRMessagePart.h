@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-//-------------------------
-/// @name Common MIME Types
-//-------------------------
-
-extern NSString *const LYRMIMETypeTextPlain; /// text/plain
-extern NSString *const LYRMIMETypeTextHTML;  /// text/html
-extern NSString *const LYRMIMETypeImagePNG;  /// image/png
-
 /**
  @abstract The `LYRMessagePart` class represents a piece of content embedded within a containing message. Each part has a specific MIME Type
  identifying the type of content it contains. Messages may contain an arbitrary number of parts with any MIME Type that the application

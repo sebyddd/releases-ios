@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
 #import "LYRConversation.h"
 #import "LYRMessage.h"
 #import "LYRMessagePart.h"
@@ -176,14 +178,26 @@ extern NSString *const LYRClientObjectChangesUserInfoKey;
  */
 - (void)deauthenticate;
 
+///-------------------------------------------------------
+/// @name Registering For and Receiving Push Notifications
+///-------------------------------------------------------
+
 /**
- @abstract Triggers the device token update action.
+ @abstract Tells the receiver to update the device token used to deliver Push Notificaitons to the current device via the Apple Push Notification Service.
  @param deviceToken An `NSData` object containing the device token.
  @param error A reference to an `NSError` object that will contain error information in case the action was not successful.
  @return A Boolean value that determines whether the action was successful.
  @discussion The device token is expected to be an `NSData` object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken:. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.
  */
-- (BOOL)updateDeviceToken:(NSData *)deviceToken error:(NSError **)error;
+- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error;
+
+/**
+ @abstract Inspects an incoming push notification and synchronizes the client if it was sent by Layer.
+ @param userInfo The user info dictionary received from the UIApplicaton delegate method application:didReceiveRemoteNotification:fetchCompletionHandler:'s `userInfo` parameter.
+ @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given `fetchResult`.
+ @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer.
+ */
+- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void(^)(UIBackgroundFetchResult fetchResult, NSError *error))completion;
 
 ///----------------
 /// @name Messaging
@@ -205,14 +219,6 @@ extern NSString *const LYRClientObjectChangesUserInfoKey;
 - (LYRConversation *)conversationForParticipants:(NSArray *)participants;
 
 /**
- @abstract Creates a new Conversation with the given set of participants.
- @param participants An array of participants with which to initialize the new Conversation.
- @discussion This method will always create a new Conversation. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using `conversationForParticipants:` first.
- @return The newly created Conversation.
- */
-- (LYRConversation *)conversationWithParticipants:(NSArray *)participants;
-
-/**
  @abstract Adds participants to a given conversation.
  @param participants An array of `providerUserID` in a form of `NSString` objects.
  @param conversation The conversation which to add the participants. Cannot be `nil`.
@@ -229,15 +235,6 @@ extern NSString *const LYRClientObjectChangesUserInfoKey;
  @return A Boolean value indicating if the operation of removing participants was successful.
  */
 - (BOOL)removeParticipants:(NSArray *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error;
-
-/**
- @abstract Creates and returns a new message with the given conversation and set of message parts.
- @param conversation The conversation that the message is a part of. Cannot be `nil`.
- @param messageParts An array of `LYRMessagePart` objects specifying the content of the message. Cannot be `nil` or empty.
- @return A new message that is ready to be sent.
- @raises NSInvalidArgumentException Raised if `conversation` is `nil` or `messageParts` is empty.
- */
-- (LYRMessage *)messageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts;
 
 /**
  @abstract Sends the specified message.
@@ -258,6 +255,14 @@ extern NSString *const LYRClientObjectChangesUserInfoKey;
  @return `YES` if the message was marked as read or `NO` if the message was already marked as read.
  */
 - (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error;
+
+/**
+ @abstract Sets the metadata associated with an object. The object must be of the type `LYRMessage` or `LYRConversation`.
+ @param metadata The metadata to set on the object.
+ @param object The object on which to set the metadata.
+ @return `YES` if the metadata was set successfully.
+ */
+- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object;
 
 ///------------------------------------------
 /// @name Deleting Messages and Conversations

@@ -8,11 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@class LYRMessage;
+
 /**
  @abstract The `LYRConversation` class models a conversations between two or more participants within Layer. A conversation is an
  on-going stream of messages (modeled by the `LYRMessage` class) synchronized among all participants.
  */
 @interface LYRConversation : NSObject
+
+/**
+ @abstract Creates a new Conversation with the given set of participants.
+ @param participants An array of participants with which to initialize the new Conversation.
+ @discussion This method will create a new `LYRConversation` instance, creating new message instances with a new `LYRConversation` object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using LYRClient's `conversationForParticipants:` first.
+ @return The newly created Conversation.
+ */
++ (instancetype)conversationWithParticipants:(NSArray *)participants;
 
 /**
  @abstract A unique identifier assigned to every conversation by Layer.
@@ -49,9 +59,10 @@
 @property (nonatomic, readonly) NSDate *createdAt;
 
 /**
- @abstract Returns the date and time that the last Message was received in the Conversation.
+ @abstract Returns the last Message recevied or sent in this Conversation.
+ @discussion May be `nil`, if no messages exist in the conversation.
  */
-@property (nonatomic, readonly) NSDate *lastMessageReceivedAt;
+@property (nonatomic, readonly) LYRMessage *lastMessage;
 
 /**
  @abstract Returns a Boolean value that indicates if the receiver has been deleted.

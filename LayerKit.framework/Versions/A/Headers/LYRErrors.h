@@ -31,4 +31,7 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     
     // Authentication
     LYRClientErrorFailedToPersistSession  = 7003,
+
+    // Push Notification Errors
+    LYRClientErrorDeviceTokenInvalid      = 8000,
 };

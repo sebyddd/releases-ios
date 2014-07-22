@@ -97,7 +97,6 @@ CREATE TABLE messages (
   event_database_identifier INTEGER UNIQUE,
   version INT,
   object_identifier TEXT UNIQUE NOT NULL,
-  is_draft INTEGER NOT NULL DEFAULT 1,
   message_index INT,
   UNIQUE(conversation_database_identifier, seq),
   FOREIGN KEY(conversation_database_identifier) REFERENCES conversations(database_identifier) ON DELETE CASCADE,
@@ -111,7 +110,7 @@ CREATE TABLE schema_migrations (
 CREATE TABLE stream_members (
   stream_database_identifier INTEGER NOT NULL,
   member_id STRING NOT NULL,
-  PRIMARY KEY(stream_database_identifier,member_id),
+  PRIMARY KEY(stream_database_identifier, member_id),
   FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
 
@@ -199,15 +198,9 @@ BEGIN
 END;
 
 CREATE TRIGGER track_message_send_on_insert AFTER INSERT ON messages
-WHEN NEW.seq IS NULL AND NEW.is_draft = 0
+WHEN NEW.seq IS NULL
 BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 0);
-END;
-
-CREATE TRIGGER track_message_send_on_update AFTER UPDATE OF is_draft ON messages
-WHEN (NEW.seq IS NULL AND NEW.is_draft = 0 AND OLD.is_draft = 1)
-BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 1);
 END;
 
 CREATE TRIGGER track_re_inserts_of_conversation_participants AFTER UPDATE OF deleted_at ON conversation_participants
@@ -261,3 +254,7 @@ INSERT INTO schema_migrations (version) VALUES (20140708154438053);
 INSERT INTO schema_migrations (version) VALUES (20140709095453868);
 
 INSERT INTO schema_migrations (version) VALUES (20140715104949748);
+
+INSERT INTO schema_migrations (version) VALUES (20140717013309255);
+
+INSERT INTO schema_migrations (version) VALUES (20140717021208447);
