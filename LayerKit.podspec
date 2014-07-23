@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
   s.homepage = 'https://github.com/layerhq/LayerKit'
-  s.source = {}
+  s.source = { git: 'git@github.com:layerhq/releases-ios.git', tag: "v#{s.version}" }
   
   s.ios.frameworks = 'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration'
   s.libraries = 'z'
