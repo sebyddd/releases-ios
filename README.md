@@ -6,7 +6,7 @@ This repository contains binary distributions of iOS products released by [Layer
 
 LayerKit is the iOS SDK for interacting with the Layer communications cloud. It provides a simple, object oriented interface to the rich messaging capabilities provided by the platform.
 
-In order to use LayerKit you must be a registered developer with a provisioned application identifier and have configured a backend system to act as an identity provider for your client applications. All details of this setup are covered in detail in the [Layer Integration Guide](https://na-3.preview.layer.com/docs/integration).
+In order to use LayerKit you must be a registered developer with a provisioned application identifier and have configured a backend system to act as an identity provider for your client applications. All aspects of this setup are covered in detail in the [Layer Integration Guide](https://na-3.preview.layer.com/docs/integration).
 
 ### Installation
 
