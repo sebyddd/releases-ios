@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary = 'LayerKit is the iOS client interface for the Layer communications cloud.'
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
-  s.homepage = 'https://github.com/layerhq/LayerKit'
+  s.homepage = 'http://layer.com'
   s.source = { git: 'git@github.com:layerhq/releases-ios.git', tag: "v#{s.version}" }
   
   s.ios.frameworks = 'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration'
