@@ -14,7 +14,7 @@ LayerKit can be installed directly into your application by importing a framewor
 
 #### CocoaPods Installation
 
-The recommended path for installation is [CocoaPods](http://cocoapods.org/). CocoaPods provides a simple, versioned dependency management systems that automates the tedious and error prone aspects of manually configuring libraries and frameworks. You can add LayerKit to your project via CocoaPods by doing the following:
+The recommended path for installation is [CocoaPods](http://cocoapods.org/). CocoaPods provides a simple, versioned dependency management system that automates the tedious and error prone aspects of manually configuring libraries and frameworks. You can add LayerKit to your project via CocoaPods by doing the following:
 
 ```sh
 $ sudo gem install cocoapods
@@ -34,7 +34,7 @@ Complete the installation by executing:
 $ pod install
 ```
 
-These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project.
+These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project. Once this has completed, test your installation by referring to the [Verifying LayerKit Configuration]() section below.
 
 #### Framework Installation
 
@@ -43,9 +43,31 @@ If you wish to install LayerKit directly into your application via the binary fr
 1. Drag and drop the framework onto your project, instructing Xcode to copy items into your destination group's folder.
 2. Update your project settings to include the linker flags: `-Objc -lz`
 3. Add the following Cocoa SDK frameworks to your project: `'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration'`
-4. Import LayerKit into your application delegate by adding `#import <LayerKit/LayerKit.h>`
 
-Build and run your project to verify installation was successful.
+Build and run your project to verify installation was successful. Once you have completed a successful build, refer to the [Verifying LayerKit Configuration]() section below for details on how to test your setup.
+
+### Verifying LayerKit Configuration
+
+Once you have finished installing LayerKit via CocoaPods or framework, you can test your configuration by importing the headers and connecting a client to the Layer cloud. To do so, edit your application delegate to include the code below (note that you must substitute the app ID placeholder text with your actuall app identifier):
+
+```objc
+#import <LayerKit/LayerKit.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+	NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"INSERT-UUID-HERE"];
+	LYRClient *layerClient = [LYRClient clientWithAppID:LSLayerAppID()];
+	[layerClient connectWithCompletion:^(BOOL success, NSError *error) {
+		if (success) {
+			NSLog(@"Sucessfully connected to Layer!");
+		} else {
+			NSLog(@"Failed connection to Layer with error: %@", error);
+		}
+	}];
+}
+```
+
+Launch your application and verify that the connection is successful. You are now ready to begin authenticating clients and sending messages. Please refer to the [Layer Integration Guide](https://na-3.preview.layer.com/docs/integration) for details.
 
 ## Contact
 
