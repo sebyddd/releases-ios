@@ -1,0 +1,56 @@
+# Layer iOS Releases
+
+This repository contains binary distributions of iOS products released by [Layer](http://layer.com).
+
+## LayerKit
+
+LayerKit is the iOS SDK for interacting with the Layer communications cloud. It provides a simple, object oriented interface to the rich messaging capabilities provided by the platform.
+
+In order to use LayerKit you must be a registered developer with a provisioned application identifier and have configured a backend system to act as an identity provider for your client applications. All details of this setup are covered in detail in the [Layer Integration Guide](https://na-3.preview.layer.com/docs/integration).
+
+### Installation
+
+LayerKit can be installed directly into your application by importing a framework or via CocoaPods. Quick installation instructions are provided below for reference, but please refer to the [Layer Integration Guide](https://na-3.preview.layer.com/docs/integration) for full details and troubleshooting.
+
+#### CocoaPods Installation
+
+The recommended path for installation is [CocoaPods](http://cocoapods.org/). CocoaPods provides a simple, versioned dependency management systems that automates the tedious and error prone aspects of manually configuring libraries and frameworks. You can add LayerKit to your project via CocoaPods by doing the following:
+
+```sh
+$ sudo gem install cocoapods
+$ pod setup
+$ pod repo add layer-releases git@github.com:layerhq/releases-cocoapods.git
+```
+
+Now create a `Podfile` in the root of your project directory and add the following:
+
+```ruby
+pod 'LayerKit'
+```
+
+Complete the installation by executing:
+
+```sh
+$ pod install
+```
+
+These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project.
+
+#### Framework Installation
+
+If you wish to install LayerKit directly into your application via the binary framework, then download `LayerKit.framework` from this repository and add it to your application:
+
+1. Drag and drop the framework onto your project, instructing Xcode to copy items into your destination group's folder.
+2. Update your project settings to include the linker flags: `-Objc -lz`
+3. Add the following Cocoa SDK frameworks to your project: `'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration'`
+4. Import LayerKit into your application delegate by adding `#import <LayerKit/LayerKit.h>`
+
+Build and run your project to verify installation was successful.
+
+## Contact
+
+You can reach the Layer team at any time by emailing [support@layer.com](mailto:support@layer.com).
+
+## License
+
+This repository contains proprietary software that is copyright 2014, Layer. Access is restricted to authorized developers and is not to be redistributed.
