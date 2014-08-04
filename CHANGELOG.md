@@ -1,3 +1,9 @@
+## 0.7.8
+
+#### Bug Fixes
+
+* Fix issue with updating Push Notification tokens.
+
 ## 0.7.7
 
 #### Bug Fixes
