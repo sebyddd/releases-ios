@@ -1,3 +1,22 @@
+## 0.7.10
+
+#### Bug Fixes
+
+* Miscellaneous internal bug fixes.
+
+## 0.7.9
+
+#### Enhancements
+
+* Deauthentication now includes a completion callback.
+
+#### Bug Fixes
+
+* Ensure that `createdAt` is populated on `LYRConversation` objects
+* Fixed issue wherein timestamp properties were incorrectly populated with the Epoch date.
+* Fixed an issue where `lastMessage` could be nil during change notifications.
+* The `LYRClient` delegate will no longer receive authentication challenge callbacks during initial connection (as documented).
+
 ## 0.7.8
 
 #### Bug Fixes
