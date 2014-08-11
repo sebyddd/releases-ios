@@ -1,3 +1,16 @@
+## 0.7.11
+
+#### Enhancements
+
+* Distribution is now done via an .embeddedframework for easier non-CocoaPods installation.
+
+#### Bug Fixes
+
+* Fixed an issue with incorrect message ordering.
+* Ensure that 64bit values are handled consistently across CPU architectures.
+* Fixed a race condition that could result in multiple connection attempts from the client during push notifications.
+* Ensure that the deauthentication callback is always delivered on the main thread.
+
 ## 0.7.10
 
 #### Bug Fixes
