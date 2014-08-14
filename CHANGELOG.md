@@ -1,3 +1,29 @@
+## 0.7.12
+
+#### API changes
+
+* Method `conversationForParticipants:` which returned a single result, changed to `conversationsForParticipants:` which now returns a set of conversations.
+* `LYRMessage`'s `recipientStatusByUserID` property now populated immediately after the `sendMessage:` call.
+* LYRConversation's `conversationWithParticipants:` method now accepts an `NSSet` instead of an `NSArray` of participants.
+* LYRClient's `conversationsForParticipants:` method now accepts an `NSSet` instead of an `NSArray` of participants.
+* LYRClient's `addParticipants:toConversation:error:` method now accepts an `NSSet` instead of an `NSArray` of participants.
+* LYRClient's `removeParticipants:fromConversation:error:` method now accepts an `NSSet` instead of an `NSArray` of participants.
+
+#### Enhancements
+
+* Many API methods on `LYRClient` will now validate authentication state and log warnings when invoked from an unauthenticated state.
+* `LYRClient` will now enforce a single authentication request limit. If concurrent authentication cycles are begun the latest request will cancel its predecessors.
+
+#### Bug Fixes
+
+* Attempts to authenticate while already connected will now return errors.
+* Silent push notifications no longer start synchronization.
+* Fixed an issue where incorrect conversations could be returned by `conversationForParticipants:`.
+* Object change notifications will no longer return non-uniqued instances of a given object.
+* Receivers don't generate delivery events anymore for messages already marked as delivered or read.
+* `conversationsForParticipants:` will now implicitly include the current user in the queried set.
+* Fixed an issue where messages sent during a synchronization process had incorrect index values.
+
 ## 0.7.11
 
 #### Enhancements
