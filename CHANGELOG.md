@@ -1,3 +1,15 @@
+## 0.7.13
+
+#### Enhancements
+
+* All public API methods that accept a collection now perform type checks to provide clear feedback on input violations.
+
+#### Bug Fixes
+
+* LYRClient reports unprocessable pushed payloads via `layerClient:didFailSynchronizationWithError:`.
+* The sync engine will no longer attempt to write delivery receipts when you are no longer a participant in a Conversation.
+* conversationsForParticipants: didn't fetch any conversations.
+
 ## 0.7.12
 
 #### API changes
