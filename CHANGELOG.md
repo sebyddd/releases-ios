@@ -1,3 +1,13 @@
+## 0.7.14
+
+#### Enhancements
+
+* LayerKit is now compatible with iOS 8 on an experimental basis.
+
+#### Bug Fixes
+
+* Fix exception related to marking messages as read.
+
 ## 0.7.13
 
 #### Enhancements
