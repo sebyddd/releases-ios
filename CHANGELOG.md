@@ -1,3 +1,20 @@
+## 0.7.15
+
+#### Enhancements
+
+* Improved performance when synchronizing large data sets.
+* Enhanced concurrency and cancellation behaviors in synchronization engine.
+
+#### Bug Fixes
+
+* Fixed SQL errors logged due to persistence of duplicated delivery and read receipts.
+* Fixed an error when an attempt is made to delete a Conversation that was already deleted by another participant.
+* Fixed an issue where the `sentAt` timestamp was incorrectly truncated on 32 bit processors.
+* Fixed several Keychain Services errors.
+* Fixed an issue where Push Notification device tokens were not guaranteed to be transmitted across authentication changes.
+* Fixed an intermittent issue where `conversationsForParticipants:` could inappropriately return `nil`.
+* `LYRClient` delegate method `layerClient:didFailSynchronizationWithError:` now only reports a single error if synchronization fails.
+
 ## 0.7.14
 
 #### Enhancements

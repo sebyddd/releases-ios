@@ -77,13 +77,14 @@ CREATE TABLE message_parts (
   FOREIGN KEY(message_database_identifier) REFERENCES messages(database_identifier) ON DELETE CASCADE
 );
 
-CREATE TABLE message_recipient_status (
-  database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  message_database_identifier INTEGER NOT NULL,
-  user_id STRING,
-  status INTEGER NOT NULL,
-  seq INTEGER,
-  FOREIGN KEY(message_database_identifier) REFERENCES messages(database_identifier) ON DELETE CASCADE
+CREATE TABLE "message_recipient_status" (
+    database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    message_database_identifier INTEGER NOT NULL,
+    user_id STRING,
+    status INTEGER NOT NULL,
+    seq INTEGER,
+    UNIQUE (message_database_identifier, user_id, status),
+    FOREIGN KEY(message_database_identifier) REFERENCES messages(database_identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE messages (
@@ -213,7 +214,7 @@ END;
 CREATE TRIGGER track_syncable_changes_for_message_receipts AFTER INSERT ON message_recipient_status
 WHEN NEW.seq IS NULL
 BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('message_recipient_status', NEW.database_identifier, 0);
+    INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('message_recipient_status', NEW.database_identifier, 0);
 END;
 
 CREATE TRIGGER track_updates_of_keyed_values AFTER UPDATE OF value ON keyed_values
@@ -261,3 +262,5 @@ INSERT INTO schema_migrations (version) VALUES (20140717013309255);
 INSERT INTO schema_migrations (version) VALUES (20140717021208447);
 
 INSERT INTO schema_migrations (version) VALUES (20140806143305965);
+
+INSERT INTO schema_migrations (version) VALUES (20140820112730372);
