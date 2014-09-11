@@ -1,3 +1,12 @@
+## 0.7.16
+
+#### Bug Fixes
+
+* Fixed an issue where deleted messages brought the conversation into an inconsistent state.
+* Fixed an issue where in some situations `lastMessage` property didn't get updated.
+* Fixed an issue where conversation synchronization aborted due to a network error resulted in local conversation deletion.
+* Fixed an issue where the transport became unresponsive for a moment.
+
 ## 0.7.15
 
 #### Enhancements
