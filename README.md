@@ -33,7 +33,7 @@ Complete the installation by executing:
 $ pod install
 ```
 
-These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project. Once this has completed, test your installation by referring to the [Verifying LayerKit Configuration]() section below.
+These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project. Once this has completed, test your installation by referring to the [Verifying LayerKit Configuration](#verifying-layerkit-configuration) section below.
 
 #### Framework Installation
 
@@ -43,7 +43,7 @@ If you wish to install LayerKit directly into your application via the binary fr
 2. Update your project settings to include the linker flags: `-ObjC -lz`
 3. Add the following Cocoa SDK frameworks to your project: `'CFNetwork', 'Security', 'MobileCoreServices', 'SystemConfiguration'`
 
-Build and run your project to verify installation was successful. Once you have completed a successful build, refer to the [Verifying LayerKit Configuration]() section below for details on how to test your setup.
+Build and run your project to verify installation was successful. Once you have completed a successful build, refer to the [Verifying LayerKit Configuration](#verifying-layerkit-configuration) section below for details on how to test your setup.
 
 ### Verifying LayerKit Configuration
 
