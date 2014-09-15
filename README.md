@@ -19,7 +19,6 @@ The recommended path for installation is [CocoaPods](http://cocoapods.org/). Coc
 ```sh
 $ sudo gem install cocoapods
 $ pod setup
-$ pod repo add layer-releases git@github.com:layerhq/releases-cocoapods.git
 ```
 
 Now create a `Podfile` in the root of your project directory and add the following:
