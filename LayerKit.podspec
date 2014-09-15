@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.libraries = 'z'
   s.requires_arc = true
   s.xcconfig = {"ENABLE_NS_ASSERTIONS"=>"YES"}
-  s.source = { git: 'git@github.com:layerhq/releases-ios.git', tag: "v#{s.version}" }
+  s.source = { git: 'https://github.com/layerhq/releases-ios.git', tag: "v#{s.version}" }
 
   s.platform = :ios, '7.0'
   s.ios.platform             = :ios, '7.0'
