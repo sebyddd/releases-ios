@@ -33,7 +33,7 @@ Complete the installation by executing:
 $ pod install
 ```
 
-These instructions will setup your local CocoaPods environment for access to the Layer releases repository and import LayerKit into your project. Once this has completed, test your installation by referring to the [Verifying LayerKit Configuration](#verifying-layerkit-configuration) section below.
+These instructions will setup your local CocoaPods environment and import LayerKit into your project. Once this has completed, test your installation by referring to the [Verifying LayerKit Configuration](#verifying-layerkit-configuration) section below.
 
 #### Framework Installation
 
@@ -47,7 +47,7 @@ Build and run your project to verify installation was successful. Once you have 
 
 ### Verifying LayerKit Configuration
 
-Once you have finished installing LayerKit via CocoaPods or framework, you can test your configuration by importing the headers and connecting a client to the Layer cloud. To do so, edit your application delegate to include the code below (note that you must substitute the app ID placeholder text with your actuall app identifier):
+Once you have finished installing LayerKit via CocoaPods or framework, you can test your configuration by importing the headers and connecting a client to the Layer cloud. To do so, edit your application delegate to include the code below (note that you must substitute the app ID placeholder text with your actual app identifier):
 
 ```objc
 #import <LayerKit/LayerKit.h>
