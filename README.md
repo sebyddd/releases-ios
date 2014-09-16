@@ -74,4 +74,4 @@ You can reach the Layer team at any time by emailing [support@layer.com](mailto:
 
 ## License
 
-LayerKit is licensed under the [Layer SDK License](https://github.com/layerhq/releases-ios/LICENSE.md)
+LayerKit is licensed under the [Layer SDK License](https://github.com/layerhq/releases-ios/LICENSE.md).
