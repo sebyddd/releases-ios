@@ -74,4 +74,4 @@ You can reach the Layer team at any time by emailing [support@layer.com](mailto:
 
 ## License
 
-This repository contains proprietary software that is copyright 2014, Layer. Access is restricted to authorized developers and is not to be redistributed.
+LayerKit is licensed under the [Layer SDK License](https://github.com/layerhq/releases-ios/LICENSE.md)
