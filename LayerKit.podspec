@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LayerKit'
-  s.version = '0.7.16'
+  s.version = '0.7.17'
   s.summary = 'LayerKit is the iOS client interface for the Layer communications cloud.'
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.libraries = 'z'
   s.requires_arc = true
   s.xcconfig = {"ENABLE_NS_ASSERTIONS"=>"YES"}
-  s.source = { git: 'https://github.com/layerhq/releases-ios.git', tag: "v#{s.version}" }
+  s.source = { git: 'git@github.com:layerhq/releases-ios.git', tag: "v#{s.version}" }
 
   s.platform = :ios, '7.0'
   s.ios.platform             = :ios, '7.0'

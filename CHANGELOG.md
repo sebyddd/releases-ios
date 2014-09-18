@@ -1,3 +1,13 @@
+## 0.7.17
+
+#### Enhancements
+
+* Synchronization process doesn't block fetching methods anymore.
+
+#### Bug Fixes
+
+* Fixed an issue where fetching objects during synchronization caused incomplete mutations.
+
 ## 0.7.16
 
 #### Bug Fixes
