@@ -1,3 +1,10 @@
+## 0.7.18
+
+#### Bug Fixes
+
+* Fixed an issue where `setMetadata:forObject` queued the message for sending.
+* Fixed an intermittent issue where a message got stuck at the end of the conversation forever.
+
 ## 0.7.17
 
 #### Enhancements
