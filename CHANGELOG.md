@@ -1,3 +1,11 @@
+## 0.7.19
+
+#### Enhancements
+
+* Reduced the number of reads in the synchronization process.
+* Synchronization work load more consistent across synchronization cycles.
+* Improved performance in internal pattern matching logic.
+
 ## 0.7.18
 
 #### Bug Fixes
