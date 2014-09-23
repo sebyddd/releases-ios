@@ -1,3 +1,16 @@
+## 0.7.21
+
+#### Bug Fixes
+
+* Improved handling of Layer platform push events while executing in the background.
+* Fixed an issue where user generated object identifiers with lowercase strings weren't recognized by `conversationForIdentifiers` or `messagesForIdentifiers`.
+
+## 0.7.21-rc1
+
+#### Bug Fixes
+
+* Fixed a potential crash when the client is asked to establish a connection while a connection attempt is already in progress.
+
 ## 0.7.19
 
 #### Enhancements
