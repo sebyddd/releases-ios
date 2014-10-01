@@ -1,3 +1,9 @@
+## 0.8.1
+
+#### Bug Fixes
+
+* Fixed a symbol collision with a third-party dependency.
+
 ## 0.8.0
 
 #### Enhancements
