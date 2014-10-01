@@ -143,6 +143,11 @@ extern NSString *const LYRClientObjectChangesUserInfoKey;
 - (void)disconnect;
 
 /**
+ @abstract Returns a Boolean value that indicates if the client is in the process of connecting to Layer.
+ */
+@property (nonatomic, readonly) BOOL isConnecting;
+
+/**
  @abstract Returns a Boolean value that indicates if the client is connected to Layer.
  */
 @property (nonatomic, readonly) BOOL isConnected;

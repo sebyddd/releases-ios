@@ -1,3 +1,19 @@
+## 0.8.0
+
+#### Enhancements
+
+* Updated LayerKit to communicate with the new developer.layer.com environment.
+* Added `isConnecting` to the `LYRClient` public API for introspecting connection status.
+
+#### Bug Fixes
+
+* Assertion on an intermittent bug that is very hard to reproduce. We encourage developers to send us the crash report (the traced error message, exception and the stack trace).
+* Improved handling of Push Notifications when transitioning between active, inactive, and backgroud states.
+* LYRClient now calls the `layerClient:didFinishSynchronizationWithChanges:` delegate method even if there weren't any changes.
+* LYRClient now validates for the maximum number of participants in `sendMessage:` and `addParticipants:` method.
+* Fixed an issue where the LYRClient would crash if it received a `nil` message part data.
+* LayerKit will now properly handle transport of zero length message parts.
+
 ## 0.7.21
 
 #### Bug Fixes

@@ -18,6 +18,7 @@ CREATE TABLE "conversations" (
   created_at DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
   deleted_at DATETIME,
   object_identifier TEXT UNIQUE NOT NULL,
+  version INT NOT NULL,
   FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
 
@@ -87,7 +88,7 @@ CREATE TABLE "message_recipient_status" (
     FOREIGN KEY(message_database_identifier) REFERENCES messages(database_identifier) ON DELETE CASCADE
 );
 
-CREATE TABLE messages (
+CREATE TABLE "messages" (
   database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   sent_at DATETIME,
@@ -97,7 +98,7 @@ CREATE TABLE messages (
   seq INTEGER,
   conversation_database_identifier INTEGER NOT NULL,
   event_database_identifier INTEGER UNIQUE,
-  version INT,
+  version INT NOT NULL,
   object_identifier TEXT UNIQUE NOT NULL,
   message_index INT,
   UNIQUE(conversation_database_identifier, seq),
@@ -264,3 +265,5 @@ INSERT INTO schema_migrations (version) VALUES (20140717021208447);
 INSERT INTO schema_migrations (version) VALUES (20140806143305965);
 
 INSERT INTO schema_migrations (version) VALUES (20140820112730372);
+
+INSERT INTO schema_migrations (version) VALUES (20140923112506902);
