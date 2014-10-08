@@ -1,3 +1,11 @@
+## 0.8.2
+
+#### Bug Fixes
+
+* Fixed the "Database in use" warnings.
+* Fixed an issue where frequent calls to markMessageAsRead on the same object caused an EXC_BAD_ACCESS error.
+* Added countermeasures to prevent synchronization of duplicate conversations and messages.
+
 ## 0.8.1
 
 #### Bug Fixes

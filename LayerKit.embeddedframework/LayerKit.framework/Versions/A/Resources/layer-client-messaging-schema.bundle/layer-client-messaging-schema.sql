@@ -52,7 +52,7 @@ CREATE TABLE events (
   member_id STRING,
   target_seq INTEGER,
   stream_database_identifier INTEGER NOT NULL,
-  version INT,
+  version INT, client_id STRING,
   UNIQUE(stream_database_identifier, seq),
   FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
@@ -123,7 +123,7 @@ CREATE TABLE streams (
   seq INTEGER NOT NULL DEFAULT 0,
   client_seq INTEGER NOT NULL DEFAULT 0,
   version INT
-);
+, client_id STRING);
 
 CREATE TABLE syncable_changes (
   change_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -145,6 +145,15 @@ CREATE TRIGGER queue_events_for_processing AFTER INSERT ON events
 WHEN NEW.seq IS NOT NULL
 BEGIN
   INSERT INTO unprocessed_events(event_database_identifier, created_at) VALUES(NEW.database_identifier, datetime('now'));
+END;
+
+CREATE TRIGGER tombstone_duplicate_events_by_client_id 
+AFTER INSERT ON events
+FOR EACH ROW WHEN NEW.client_id IS NOT NULL
+BEGIN
+	UPDATE events SET type = 10 
+	WHERE database_identifier = NEW.database_identifier
+	AND (SELECT count(*) FROM events WHERE client_id = NEW.client_id) > 1;
 END;
 
 CREATE TRIGGER track_deletes_of_conversation_participants AFTER UPDATE OF deleted_at ON conversation_participants
@@ -267,3 +276,7 @@ INSERT INTO schema_migrations (version) VALUES (20140806143305965);
 INSERT INTO schema_migrations (version) VALUES (20140820112730372);
 
 INSERT INTO schema_migrations (version) VALUES (20140923112506902);
+
+INSERT INTO schema_migrations (version) VALUES (20141006140917614);
+
+INSERT INTO schema_migrations (version) VALUES (20141006202908488);
