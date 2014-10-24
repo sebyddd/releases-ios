@@ -1,3 +1,26 @@
+## 0.8.3
+
+#### Public API changes
+
+* `layerClient:didFinishSynchronizationWithChanges` changed to `layerClient:objectsDidChange:`
+* `layerClient:didFailSynchronizationWithError` changed to `layerClient:didFailOperationWithError:`
+* `deleteConversation:error:` changed to `deleteConversation:mode:error:`
+* `deleteMessage:error:` changed to `deleteMessage:mode:error:`
+
+#### Enhancements
+
+* Improved stability and performance around the synchronization process.
+* Improved performance on public API methods.
+* Added support for local object deletion (see LYRClient.h for more info).
+* Performing conversation and message fetches from different threads doesn't cause them to lock anymore.
+* `LYRClient` now manages connection state.
+* `LYRClient` now reports more friendly network errors.
+
+#### Bug Fixes
+
+* Fixed an issue where the `lastMessage` property didn't get updated regularly.
+* Fixed an issue where it occasionally caused an DATABASE BUSY log warning.
+
 ## 0.8.2
 
 #### Bug Fixes
@@ -5,6 +28,7 @@
 * Fixed the "Database in use" warnings.
 * Fixed an issue where frequent calls to markMessageAsRead on the same object caused an EXC_BAD_ACCESS error.
 * Added countermeasures to prevent synchronization of duplicate conversations and messages.
+* LayerKit doesn't raise an exception if user de-authenticates during a synchronization process.
 
 ## 0.8.1
 
@@ -22,7 +46,7 @@
 #### Bug Fixes
 
 * Assertion on an intermittent bug that is very hard to reproduce. We encourage developers to send us the crash report (the traced error message, exception and the stack trace).
-* Improved handling of Push Notifications when transitioning between active, inactive, and backgroud states.
+* Improved handling of Push Notifications when transitioning between active, inactive, and background states.
 * LYRClient now calls the `layerClient:didFinishSynchronizationWithChanges:` delegate method even if there weren't any changes.
 * LYRClient now validates for the maximum number of participants in `sendMessage:` and `addParticipants:` method.
 * Fixed an issue where the LYRClient would crash if it received a `nil` message part data.
