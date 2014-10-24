@@ -1,3 +1,9 @@
+## 0.8.4
+
+#### Bug Fixes
+
+* Removed a faulty migration file from the resources bundle.
+
 ## 0.8.3
 
 #### Public API changes
