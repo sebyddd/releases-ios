@@ -1,3 +1,9 @@
+## 0.8.5
+
+#### Bug Fixes
+
+* Fixes an issue when querying against certain sets of participant user identifiers.
+
 ## 0.8.4
 
 #### Bug Fixes
