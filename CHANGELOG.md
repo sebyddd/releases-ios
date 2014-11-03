@@ -1,3 +1,9 @@
+## 0.8.6
+
+##### Bug Fixes
+
+* Ensure that Layer managed database files have the `NSURLIsExcludedFromBackupKey` resource value applied.
+
 ## 0.8.5
 
 #### Bug Fixes
