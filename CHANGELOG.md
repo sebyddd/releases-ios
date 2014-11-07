@@ -1,3 +1,18 @@
+## 0.8.7
+
+#### Enhancements
+
+* Added typing indicators, see LYRClient.h for more details.
+* Enhanced connection management to handle connectivity situations where the server is reachable but unresponsive.
+
+#### Bug Fixes
+
+* `LYRClient` now schedules a synchronization process as the `UIApplication` becomes active.
+* Message recipient status change notification behavior was updated to be more predictable and consistent.
+* Fixed an issue with the calculation of message part size limits.
+* Session state is now segregated by appID, facilitating graceful authentication handling when switching between appID's (i.e. between staging and production).
+* Fixed an issue in the storage of user identifiers that could result in incorrect querying by participants for applications that use very large numeric values for user ID's.
+
 ## 0.8.6
 
 ##### Bug Fixes
