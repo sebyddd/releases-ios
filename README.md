@@ -57,7 +57,7 @@ Once you have finished installing LayerKit via CocoaPods or framework, you can t
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	NSUUID *appID = [[NSUUID alloc] initWithUUIDString:@"INSERT-UUID-HERE"];
-	LYRClient *layerClient = [LYRClient clientWithAppID:LSLayerAppID()];
+	LYRClient *layerClient = [LYRClient clientWithAppID:appID];
 	[layerClient connectWithCompletion:^(BOOL success, NSError *error) {
 		if (success) {
 			NSLog(@"Sucessfully connected to Layer!");
