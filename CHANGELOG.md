@@ -1,3 +1,14 @@
+## 0.8.8
+
+#### Bug Fixes
+
+* Fixes an issue where a LYRClient might crash if a user had deleted a conversation locally and then received a global deletion of a conversation caused by other participant.
+* Fixes an issue where LYRClient might produce two different object instances when fetching objects.
+* Fixes an issue where LYRClient wasn't capable of receiving pushed events via transport after transitioning into an active application state. 
+* Fixes an issue where LYRClient crashed when dealing with outdated membership changes for deleted conversations.
+* Fixes an issue where LYRClient crashed when allocating the work load across synchronization cycles.
+* Fixes an issue where LYRClient tried to open push channel even when in unauthenticated state.
+
 ## 0.8.7
 
 #### Enhancements
