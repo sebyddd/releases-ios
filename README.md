@@ -68,7 +68,7 @@ Once you have finished installing LayerKit via CocoaPods or framework, you can t
 }
 ```
 
-Launch your application and verify that the connection is successful. You are now ready to begin authenticating clients and sending messages. Please refer to the [Layer Integration Guide](https://preview.layer.com/docs/integration) for details.
+Launch your application and verify that the connection is successful. You are now ready to begin authenticating clients and sending messages. Please refer to the [Layer Integration Guide](https://developer.layer.com/docs/guide) for details.
 
 ## Contact
 
