@@ -20,7 +20,7 @@ CREATE TABLE "conversations" (
   deleted_at DATETIME,
   object_identifier TEXT UNIQUE NOT NULL,
   version INT NOT NULL
-);
+, has_unread_messages INTEGER NOT NULL DEFAULT 0);
 
 CREATE TABLE event_content_parts (
   event_content_part_id INTEGER NOT NULL,
@@ -29,14 +29,6 @@ CREATE TABLE event_content_parts (
   value BLOB,
   FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE,
   PRIMARY KEY(event_content_part_id, event_database_identifier)
-);
-
-CREATE TABLE event_metadata (
-  event_database_identifier INTEGER NOT NULL,
-  key TEXT NOT NULL,
-  value BLOB NOT NULL,
-  FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE,
-  PRIMARY KEY(event_database_identifier, key)
 );
 
 CREATE TABLE "events" (
@@ -58,15 +50,15 @@ CREATE TABLE "events" (
   FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
 
-CREATE TABLE "keyed_values" (
+CREATE TABLE local_keyed_values (
   database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   object_type TEXT NOT NULL,
   object_id INTEGER NOT NULL,
   key_type INTEGER NOT NULL,
   key TEXT NOT NULL,
-  value BLOB NOT NULL,
+  value TEXT NOT NULL,
   deleted_at DATETIME,
-  seq INTEGER,
+  timestamp INTEGER,
   UNIQUE(object_type, object_id, key)
 );
 
@@ -101,10 +93,22 @@ CREATE TABLE "messages" (
   event_database_identifier INTEGER UNIQUE,
   version INTEGER NOT NULL,
   object_identifier TEXT UNIQUE NOT NULL,
-  message_index INTEGER,
+  message_index INTEGER, is_unread INTEGER NOT NULL DEFAULT 0,
   UNIQUE(conversation_database_identifier, seq),
   FOREIGN KEY(conversation_database_identifier) REFERENCES conversations(database_identifier) ON DELETE CASCADE,
   FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE
+);
+
+CREATE TABLE "remote_keyed_values" (
+  database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  object_type TEXT NOT NULL,
+  object_id INTEGER NOT NULL,
+  key_type INTEGER NOT NULL,
+  key TEXT NOT NULL,
+  value TEXT NOT NULL,
+  deleted_at DATETIME,
+  timestamp INTEGER,
+  UNIQUE(object_type, object_id, key)
 );
 
 CREATE TABLE schema_migrations (
@@ -130,7 +134,7 @@ CREATE TABLE "streams" (
   client_id TEXT, 
   deleted_at DATETIME, 
   min_synced_seq INTEGER, 
-  max_synced_seq INTEGER);
+  max_synced_seq INTEGER, metadata_timestamp INTEGER);
 
 CREATE TABLE syncable_changes (
   change_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -158,8 +162,6 @@ CREATE INDEX conversations_deleted_at_idx ON conversations(deleted_at);
 CREATE INDEX conversations_stream_database_identifier_idx ON conversations(stream_database_identifier);
 
 CREATE INDEX event_content_parts_event_database_identifier_idx ON event_content_parts(event_database_identifier);
-
-CREATE INDEX event_metadata_event_database_identifier_idx ON event_metadata(event_database_identifier);
 
 CREATE INDEX events_client_id_idx ON events(client_id);
 
@@ -211,16 +213,22 @@ BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('conversations', NEW.database_identifier, 2);
 END;
 
-CREATE TRIGGER track_deletes_of_keyed_values AFTER UPDATE OF deleted_at ON keyed_values
-WHEN (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
+CREATE TRIGGER track_deletes_of_local_keyed_values AFTER UPDATE OF deleted_at ON local_keyed_values
+WHEN NEW.timestamp IS NULL AND (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
 BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('keyed_values', NEW.database_identifier, 2);
+  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 2);
 END;
 
 CREATE TRIGGER track_deletes_of_messages AFTER UPDATE OF deleted_at ON messages
 WHEN (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
 BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 2);
+END;
+
+CREATE TRIGGER track_deletes_of_remote_keyed_values AFTER UPDATE OF deleted_at ON remote_keyed_values
+WHEN NEW.timestamp NOT NULL AND (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('remote_keyed_values', OLD.database_identifier, 2);
 END;
 
 CREATE TRIGGER track_deletes_of_stream_members AFTER UPDATE OF deleted_at ON stream_members
@@ -262,10 +270,16 @@ BEGIN
   INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('events', NEW.database_identifier, 0);
 END;
 
-CREATE TRIGGER track_inserts_of_keyed_values AFTER INSERT ON keyed_values
-WHEN NEW.seq IS NULL
+CREATE TRIGGER track_inserts_of_local_keyed_values AFTER INSERT ON local_keyed_values
+WHEN NEW.timestamp IS NULL
 BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('keyed_values', NEW.database_identifier, 0);
+  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 0);
+END;
+
+CREATE TRIGGER track_inserts_of_remote_keyed_values AFTER INSERT ON remote_keyed_values
+WHEN NEW.timestamp NOT NULL
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('remote_keyed_values', NEW.database_identifier, 0);
 END;
 
 CREATE TRIGGER track_inserts_of_stream_members AFTER INSERT ON stream_members
@@ -292,6 +306,18 @@ BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('conversation_participants', NEW.database_identifier, 0);
 END;
 
+CREATE TRIGGER track_re_inserts_of_local_keyed_values AFTER UPDATE OF deleted_at ON local_keyed_values
+WHEN NEW.timestamp IS NULL AND (NEW.deleted_at IS NULL AND OLD.deleted_at NOT NULL)
+BEGIN
+  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 0);
+END;
+
+CREATE TRIGGER track_re_inserts_of_remote_keyed_values AFTER UPDATE OF deleted_at ON remote_keyed_values
+WHEN NEW.timestamp NOT NULL AND (NEW.deleted_at IS NULL AND OLD.deleted_at NOT NULL)
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('remote_keyed_values', NEW.database_identifier, 0);
+END;
+
 CREATE TRIGGER track_syncable_changes_for_message_receipts AFTER INSERT ON message_recipient_status
 WHEN NEW.seq IS NULL
 BEGIN
@@ -308,13 +334,19 @@ CREATE TRIGGER track_updates_of_event_type_message_to_tombstone AFTER UPDATE OF 
 WHEN NEW.type = 10 AND OLD.type = 4
 BEGIN
   DELETE FROM event_content_parts WHERE event_database_identifier = NEW.database_identifier;
-  DELETE FROM event_metadata WHERE event_database_identifier = NEW.database_identifier;
+  DELETE FROM remote_keyed_values WHERE object_type = 'event' AND object_id = NEW.database_identifier;
 END;
 
-CREATE TRIGGER track_updates_of_keyed_values AFTER UPDATE OF value ON keyed_values
-WHEN ((NEW.value NOT NULL AND OLD.value IS NULL) OR (NEW.value IS NULL AND OLD.value NOT NULL) OR (NEW.value != OLD.value))
+CREATE TRIGGER track_updates_of_local_keyed_values AFTER UPDATE OF value ON local_keyed_values
+WHEN OLD.deleted_at IS NULL AND NEW.timestamp IS NULL AND (NEW.value != OLD.value)
 BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('keyed_values', NEW.database_identifier, 1);
+  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 1);
+END;
+
+CREATE TRIGGER track_updates_of_remote_keyed_values AFTER UPDATE OF timestamp ON remote_keyed_values
+WHEN NEW.timestamp NOT NULL AND OLD.deleted_at IS NULL AND (NEW.value != OLD.value)
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('remote_keyed_values', NEW.database_identifier, 1);
 END;
 
 CREATE TRIGGER track_updates_of_streams AFTER UPDATE OF stream_id ON streams
@@ -376,3 +408,7 @@ INSERT INTO schema_migrations (version) VALUES (20141009125004707);
 INSERT INTO schema_migrations (version) VALUES (20141009125010758);
 
 INSERT INTO schema_migrations (version) VALUES (20141027152445461);
+
+INSERT INTO schema_migrations (version) VALUES (20141105082802353);
+
+INSERT INTO schema_migrations (version) VALUES (20141110114425514);

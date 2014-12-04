@@ -19,7 +19,11 @@ typedef NS_ENUM(NSUInteger, LYRError) {
     LYRErrorTooManyParticipants                     = 1003,
     LYRErrorDataLengthExceedsMaximum                = 1004,
     LYRErrorMessageAlreadyMarkedAsRead              = 1005,
-    LYRErrorObjectNotSent                           = 1006
+    LYRErrorObjectNotSent                           = 1006,
+    
+    /* Validation Errors */
+    LYRErrorInvalidKey                              = 2000,
+    LYRErrorInvalidValue                            = 2001
 };
 
 typedef NS_ENUM(NSUInteger, LYRClientError) {

@@ -12,24 +12,38 @@
 #import "LYRConversation.h"
 #import "LYRMessage.h"
 #import "LYRMessagePart.h"
-#import "LYRObjectChangeConstants.h"
+#import "LYRConstants.h"
 
-@class LYRClient;
+@class LYRClient, LYRQuery, LYRQueryController;
 
-extern NSString *const LYRClientDidAuthenticateNotification;
-extern NSString *const LYRClientAuthenticatedUserIDUserInfoKey;
-extern NSString *const LYRClientDidDeauthenticateNotification;
-
-extern NSString *const LYRClientWillBeginSynchronizationNotification;
-extern NSString *const LYRClientDidFinishSynchronizationNotification;
+///-------------------------------------
+/// @name Client Lifecycle Notifications
+///-------------------------------------
 
 /**
- @abstract Content deletion modes
+ @abstract Posted when a client has authenticated successfully.
  */
-typedef NS_ENUM(NSUInteger, LYRDeletionMode) {
-    LYRDeletionModeLocal            = 0,    /* Content is deleted from the current device only. */
-    LYRDeletionModeAllParticipants  = 2     /* Content is deleted from all devices of all participants. */
-};
+extern NSString *const LYRClientDidAuthenticateNotification;
+
+/**
+ @abstract A key into the user info dictionary of a `LYRClientDidAuthenticateNotification` notification specifying the user ID of the authenticated user.
+ */
+extern NSString *const LYRClientAuthenticatedUserIDUserInfoKey;
+
+/**
+ @abstract Posted when a client has deauthenticated.
+ */
+extern NSString *const LYRClientDidDeauthenticateNotification;
+
+/**
+ @abstract Posted when a client is beginning a synchronization operation.
+ */
+extern NSString *const LYRClientWillBeginSynchronizationNotification;
+
+/**
+ @abstract Posted when a client has finished a synchronization operation.
+ */
+extern NSString *const LYRClientDidFinishSynchronizationNotification;
 
 ///---------------------------
 /// @name Change Notifications
@@ -41,7 +55,7 @@ typedef NS_ENUM(NSUInteger, LYRDeletionMode) {
  occured on domain objects in response to local mutation or synchronization activities. The system is designed to be general
  purpose and models changes as the creation, update, or deletion of an object. Changes are modeled as simple
  dictionaries with a fixed key space that is defined below.
- @see LYRObjectChangeConstants.h
+ @see LYRConstants.h
  */
 extern NSString *const LYRClientObjectsDidChangeNotification;
 
@@ -51,7 +65,7 @@ extern NSString *const LYRClientObjectsDidChangeNotification;
  single object change event for a Layer model object. The change dictionary contains information about the object that changed, what type of
  change occurred (create, update, or delete) and additional details for updates such as the property that changed and its value before and after mutation.
  Change notifications are emitted after synchronization has completed and represent the current state of the Layer client's database.
- @see LYRObjectChangeConstants.h
+ @see LYRConstants.h
  */
 extern NSString *const LYRClientObjectChangesUserInfoKey;
 
@@ -99,15 +113,6 @@ extern NSString *const LYRTypingIndicatorValueUserInfoKey;
  a `NSString` specifying the participant who changed typing state.
  */
 extern NSString *const LYRTypingIndicatorParticipantUserInfoKey;
-
-/**
- @abstract The `LYRTypingIndicator` enumeration describes the states of a typing status of a participant in a conversation.
- */
-typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
-    LYRTypingDidBegin   = 0,
-    LYRTypingDidPause   = 1,
-    LYRTypingDidFinish  = 2
-};
 
 ///----------------------
 /// @name Client Delegate
@@ -182,20 +187,20 @@ typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
  @param client The client that received the changes.
  @param changes An array of `NSDictionary` objects, each one describing a change.
  */
-- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes DEPRECATED_ATTRIBUTE;
+- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes __deprecated;
 
 /**
  @abstract Tells the delegate the client encountered an error during synchronization.
  @param client The client that failed synchronization.
  @param error An error describing the nature of the sync failure.
  */
-- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error DEPRECATED_ATTRIBUTE;
+- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error __deprecated;
 
 /**
  @abstract Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.
  @param client The client that received the changes.
  @param changes An array of `NSDictionary` objects, each one describing a change.
- @see LYRObjectChangeConstants.h
+ @see LYRConstants.h
  */
 - (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes;
 
@@ -304,6 +309,7 @@ typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
 
 /**
  @abstract Deauthenticates the client, disposing of any previously established user identity and disallowing access to the Layer communication services until a new identity is established. All existing messaging data is purged from the database.
+ @param completiuon A block to be executed when the deauthentication operation has completed. The block has no return value and has two arguments: a Boolean value indicating if deauthentication was successful and an error describing the failure if it was not.
  */
 - (void)deauthenticateWithCompletion:(void (^)(BOOL success, NSError *error))completion;
 
@@ -329,172 +335,110 @@ typedef NS_ENUM(NSUInteger, LYRTypingIndicator) {
  */
 - (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void(^)(UIBackgroundFetchResult fetchResult, NSError *error))completion;
 
-///----------------
-/// @name Messaging
-///----------------
+///----------------------------------------------
+/// @name Creating new Conversations and Messages
+///----------------------------------------------
 
 /**
- @abstract Returns an existing conversation with a given identifier or `nil` if none could be found.
- @param identifier The identifier for an existing conversation.
- @return The conversation with the given identifier or `nil` if none could be found.
- @note The receiver must be authenticated else a warning will be logged and `nil` will be returned.
+ @abstract Creates a new Conversation with the given set of participants.
+ @discussion This method will create a new `LYRConversation` instance, creating new message instances with a new `LYRConversation` object instance and sending them will also result in creation of a new conversation for other participants. If you wish to ensure that only one Conversation exists for a set of participants then query for an existing Conversation using `conversationsForParticipants:` first.
+ @param participants A set of participants with which to initialize the new Conversation.
+ @param options A dictionary of options to apply to the conversation.
+ @return The newly created Conversation.
  */
-- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier;
+- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error;
 
 /**
- @abstract Returns existing conversations with the given set of participants or `nil` if none could be found.
- @param participants A set of participants for which to query for a corresponding Conversation. Each element in the array is a string that corresponds to the user ID of the desired participant.
- @return A set of conversations with the given set of participants or `nil` if none could be found.
- @note The receiver must be authenticated else a warning will be logged and `nil` will be returned.
+ @abstract Creates and returns a new message with the given set of message parts.
+ @param messageParts An array of `LYRMessagePart` objects specifying the content of the message. Cannot be `nil` or empty.
+ @param options A dictionary of options to apply to the message.
+ @return A new message that is ready to be sent.
+ @raises NSInvalidArgumentException Raised if `conversation` is `nil` or `messageParts` is empty.
  */
-- (NSSet *)conversationsForParticipants:(NSSet *)participants;
+- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error;
+
+///---------------
+/// @name Querying
+///---------------
 
 /**
- @abstract Adds participants to a given conversation.
- @param participants A set of `providerUserID` in a form of `NSString` objects.
- @param conversation The conversation which to add the participants. Cannot be `nil`.
- @param error A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be added to the conversation.
- @return A Boolean value indicating if the operation of adding participants was successful.
+ @abstract Executes the given query and returns an ordered set of results.
+ @param query The query to execute. Cannot be `nil`.
+ @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
+ @return An ordered set of query results or `nil` if an error occurred.
  */
-- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error;
+- (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error;
 
 /**
- @abstract Removes participants from a given conversation.
- @param participants A set of `providerUserID` in a form of `NSString` objects.
- @param conversation The conversation from which to remove the participants. Cannot be `nil`.
- @param error A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be removed from the conversation.
- @return A Boolean value indicating if the operation of removing participants was successful.
+ @abstract Executes the given query and returns a count of the number of results.
+ @param query The query to execute. Cannot be `nil`.
+ @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
+ @return A count of the number of results or `NSUIntegerMax` if an error occurred.
  */
-- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error;
+- (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error;
 
 /**
- @abstract Sends the specified message.
- @discussion The message is enqueued for delivery during the next synchronization after basic local validation of the message state is performed. Validation
- that may be performed includes checking that the maximum number of participants has not been execeeded and that parts of the message do not have an aggregate
- size in excess of the maximum for a message.
- @param message The message to be sent. Cannot be `nil`.
- @param error A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent.
- @return A Boolean value indicating if the message passed validation and was enqueued for delivery.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
+ @abstract Creates and returns a new query controller with the given query.
+ @param query The query to create a controller with.
+ @return A newly created query controller.
  */
-- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error;
+- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query;
 
-/**
- @abstract Marks a message as being read by the current user.
- @param message The message to be marked as read.
- @param error A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent.
- @return `YES` if the message was marked as read or `NO` if the message was already marked as read.
- */
-- (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error;
+@end
 
-/**
- @abstract Sets the metadata associated with an object. The object must be of the type `LYRMessage` or `LYRConversation`.
- @param metadata The metadata to set on the object.
- @param object The object on which to set the metadata.
- @return `YES` if the metadata was set successfully.
- */
-- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object;
+///////////////////////////////////////////////////////////////////////////////////////
 
-///------------------------------------------
-/// @name Deleting Messages and Conversations
-///------------------------------------------
+@interface LYRClient (Deprecated)
 
-/**
- @abstract Deletes a message in the specified mode.
- @param message The message to be deleted.
- @param mode The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants).
- @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
- @return A Boolean value indicating if the request to delete the message was submitted for synchronization.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
- */
-- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error;
+// DEPRECATED: Use `LYRConversation`'s `addParticipants:error:` instead.
+- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
 
-/**
- @abstract Deletes a message.
- @param message The message to be deleted.
- @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
- @return A Boolean value indicating if the request to delete the message was submitted for synchronization.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
- @warning This method has been deprecated and will be removed in a future version. Use `deleteMessage:mode:error:` instead.
- */
-- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error DEPRECATED_ATTRIBUTE;
+// DEPRECATED: Use `LYRConversation`'s `removeParticipants:error:` instead.
+- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
 
-/**
- @abstract Deletes a conversation in the specified mode.
- @discussion This method deletes a conversation and all associated messages for all current participants.
- @param conversation The conversation to be deleted.
- @param mode The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants).
- @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
- @return A Boolean value indicating if the request to delete the conversation was submitted for synchronization.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
- */
-- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error;
+// DEPRECATED: Use `LYRConversation`'s `sendMessage:error:` instead.
+- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error __deprecated;
 
-/**
- @abstract Deletes a conversation.
- @discussion This method deletes a conversation and all associated messages for all current participants.
- @param conversation The conversation to be deleted.
- @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
- @return A Boolean value indicating if the request to delete the conversation was submitted for synchronization.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
- @warning This method has been deprecated and will be removed in a future version. Use `deleteConversation:mode:error:` instead.
- */
-- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error DEPRECATED_ATTRIBUTE;
+// DEPRECATED: Use `LYRMessage`'s `markAsRead:` instead.
+- (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error __deprecated;
 
-///------------------------
-/// @name Typing Indicators
-///------------------------
+// DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
+- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error __deprecated;
 
-/**
- @abstract Sends a typing indicator to the specified conversation.
- @param typingIndicator An `LYRTypingIndicator` value indicating the change in typing state to be sent.
- @param conversation The conversation that the typing indicator should be sent to.
- */
-- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation;
+// DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
+- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error __deprecated;
 
-///--------------------------------------------
-/// @name Retrieving Conversations & Messages
-///------------------------------------------
+// DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
+- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error __deprecated;
 
-/**
- @abstract Retrieves a collection of conversation objects from the persistent store for the given list of conversation identifiers.
- @param conversationIdentifiers The set of conversation identifiers for which to retrieve the corresponding set of conversation objects. Passing `nil` 
- will return all conversations.
- @return A set of conversations objects for the given array of identifiers.
- */
-- (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers;
+// DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
+- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
 
-/**
- @abstract Retrieves a collection of message objects from the persistent store for the given list of message identifiers.
- @param messageIdentifiers The set of message identifiers for which to retrieve the corresponding set of message objects. Passing `nil`
- will return all messages.
- @return An set of message objects for the given array of identifiers.
- */
-- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers;
+// DEPRECATED: Use `newMessageWithParts:options:error:` instead.
+- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object __deprecated;
 
-/**
- @abstract Returns the collection of messages in a given conversation.
- @discussion Messages are returned in chronological order in the Conversation.
- @param conversation The conversation to retrieve the set of messages for.
- @return An set of messages for the given conversation.
- */
-- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation;
+// DEPRECATED: Use `LYRConversation`'s `sendTypingIndicator:` instead.
+- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation __deprecated;
 
-///------------------------------
-/// @name Counting Unread Content
-///------------------------------
+// FIXME
+- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier __deprecated;
 
-/**
- @abstract Returns the number of conversations that have one or more unread messages.
- @return The number of conversations with unread messages.
- */
-- (NSUInteger)countOfConversationsWithUnreadMessages;
+// FIXME
+- (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers __deprecated;
 
-/**
- @abstract Returns the number of unread messages in the given conversation.
- @discussion A count of unread messages across all conversations can be obtained by passing `nil`.
- @param conversation The conversation to count the unread messages for or `nil` to count across all conversations.
- */
-- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation;
+// FIXME
+- (NSSet *)conversationsForParticipants:(NSSet *)participants __deprecated;
+
+// FIXME
+- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers __deprecated;
+
+// FIXME
+- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation __deprecated;
+
+// FIXME
+- (NSUInteger)countOfConversationsWithUnreadMessages __deprecated;
+
+// FIXME
+- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation __deprecated;
 
 @end

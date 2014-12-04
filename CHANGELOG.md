@@ -1,8 +1,50 @@
+## 0.9.0
+
+LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to 
+make LayerKit more intuitive and prepare for future platform enhancements. These changes are detailed in the [LayerKit v0.9.0 Transition Guide](https://developer.layer.com/docs/transition-guide/ios#v0.9.0).
+
+#### Public API changes
+
+* Layer object initializers were changed such that Conversations and Messages must now be initialized through the client instead of directly via the class. This change enables object identifiers to be populated earlier and is part of a larger migration of functionality from the client onto the model objects themselves.
+* `[LYRConversation conversationWithParticipants:]` has been deprecated in favor of `[LYRClient conversationWithParticipants:options:error:]`.
+* `[LYRMessage messageWithConversation:parts:]` has been deprecated in favor of `[LYRClient newConversationWithParticipants:options:error:]`.
+* `[LYRMessage messageWithConversation:parts:]` has been deprecated in favor of `[LYRClient newMessageWithConversation:parts:options:error:]`.
+* Push Notification alert text and sounds can now be assigned at Message initialization time via the `options:` argument.
+* `[LYRClient setMetadata:onObject:]` has been deprecated in favor of the `LYRMessage` options and `LYRConversation` mutable metadata API's.
+* `[LYRClient addParticipants:toConversation:error:]` has been deprecated in favor of `[LYRConversation addParticipants:error:]`.
+* `[LYRClient removeParticipants:fromConversation:error:]` has been deprecated in favor of `[LYRConversation removeParticipants:error:]`.
+* `[LYRClient sendMessage:error:]` has been deprecated in favor of `[LYRConversation sendMessage:error:]`.
+* `[LYRClient markMessageAsRead:error:]` has been deprecated in favor of `[LYRMessage markAsRead:]`.
+* `[LYRClient deleteMessage:mode:error:]` has been deprecated in favor of `[LYRMessage delete:error:]`.
+* `[LYRClient deleteConversation:mode:error:]` has been deprecated in favor of `[LYRConversation delete:error:]`.
+* `[LYRClient sendTypingIndicator:toConversation:]` has been deprecated in favor of `[LYRConversation sendTypingIndicator:]`;
+* `[LYRClient conversationForIdentifier:]` has been deprecated, use querying support to fetch conversations based on identifier.
+* `[LYRClient conversationsForIdentifiers:]` has been deprecated, use querying support to fetch conversations based on a set of identifiers.
+* `[LYRClient conversationsForParticipants:]` has been deprecated, use querying support to fetch conversations based on a set of participants.
+* `[LYRClient messagesForIdentifiers:]` has been deprecated, use querying support to fetch messages based on a given set of identifiers.
+* `[LYRClient messagesForConversation:]` has been deprecated, use querying support to fetch messages for specific conversation.
+* `[LYRClient countOfConversationsWithUnreadMessages:]` has been deprecated, use querying support to count all unread messages.
+* `[LYRClient countOfUnreadMessagesInConversation:]` has been deprecated, use querying support to count unread messages for given conversation.
+* `LYRMessage` and `LYRConversation` objects now use a consistent identifier scheme that won't change.
+* `LYRMessagePushNotificationAlertMessageKey` key constant has been deprecated in favor of `LYRMessageOptionsPushNotificationAlertKey`.
+* `LYRMessagePushNotificationSoundNameKey` key constant has been deprecated in favor of `LYRMessageOptionsPushNotificationSoundNameKey`.
+
+#### Enhancements
+
+* `LYRConversation` now supports synchronized, mutable developer assigned metadata. Metadata is synchronized across participants on a per-key basis using last writer wins semantics. See the header documentation on `LYRConversation` for details of the API.
+* Added querying for conversations and messages, see `LYRQuery` and `LYRPredicate`.
+* Added query controller that can be used to drive the UI, see `LYRQueryController`.
+
+#### Bug Fixes
+
+* Fixes an issue where the LYRClient might crash when detecting a remotely deleted conversation leaving the client with unsent changes that fail to get reconciled.
+* Fixed an issue where push device tokens would not be updated after a connection was established in some circumstances.
+
 ## 0.8.8
 
 #### Bug Fixes
 
-* Fixes an issue where a LYRClient might crash if a user had deleted a conversation locally and then received a global deletion of a conversation caused by other participant.
+* Fixes an issue where LYRClient might crash if a user had deleted a conversation locally and then received a global deletion of a conversation caused by other participant.
 * Fixes an issue where LYRClient might produce two different object instances when fetching objects.
 * Fixes an issue where LYRClient wasn't capable of receiving pushed events via transport after transitioning into an active application state. 
 * Fixes an issue where LYRClient crashed when dealing with outdated membership changes for deleted conversations.
