@@ -1,7 +1,7 @@
 ## 0.9.0
 
 LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to 
-make LayerKit more intuitive and prepare for future platform enhancements. These changes are detailed in the [LayerKit v0.9.0 Transition Guide](https://developer.layer.com/docs/transition-guide/ios#v0.9.0).
+make LayerKit more intuitive and prepare for future platform enhancements. These changes are detailed in the LayerKit [Transition Guide](https://developer.layer.com/docs/transition/ios).
 
 #### Public API changes
 
