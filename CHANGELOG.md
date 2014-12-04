@@ -1,3 +1,5 @@
+# LayerKit Change Log
+
 ## 0.9.0
 
 LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to 
@@ -68,7 +70,7 @@ make LayerKit more intuitive and prepare for future platform enhancements. These
 
 ## 0.8.6
 
-##### Bug Fixes
+#### Bug Fixes
 
 * Ensure that Layer managed database files have the `NSURLIsExcludedFromBackupKey` resource value applied.
 
