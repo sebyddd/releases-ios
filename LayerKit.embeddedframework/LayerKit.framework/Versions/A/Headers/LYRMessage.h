@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 
 /**
  @abstract A unique identifier for the message.
- @discussion The `identifier` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ @discussion The `identifier` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
 @property (nonatomic, readonly) NSURL *identifier LYR_QUERYABLE_PROPERTY;
 
@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 
 /**
  @abstract The conversation that the receiver is a part of.
- @discussion The `conversation` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ @discussion The `conversation` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
 @property (nonatomic, readonly) LYRConversation *conversation LYR_QUERYABLE_PROPERTY;
 
@@ -84,14 +84,14 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 @property (nonatomic, readonly) NSDate *sentAt LYR_QUERYABLE_PROPERTY;
 
 /**
- @abstract The date and time that the message was received by the authenticated user or `nil` if the current user sent the message.
- @discussion The `sentAt` property is queryable using all predicate operators.
+ @abstract The date and time that the message was received by the authenticated user.
+ @discussion For messages sent by the current user the `receivedAt` value will be equal to `sentAt`. The `receivedAt` property is queryable using all predicate operators.
  */
-@property (nonatomic, readonly) NSDate *receivedAt LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly) NSDate *receivedAt LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM(LYRConversation);
 
 /**
  @abstract The user ID of the user who sent the message.
- @discussion The `sentByUserID` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ @discussion The `sentByUserID` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
 @property (nonatomic, readonly) NSString *sentByUserID LYR_QUERYABLE_PROPERTY;
 

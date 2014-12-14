@@ -1,5 +1,28 @@
 # LayerKit Change Log
 
+## 0.9.1
+
+#### Enhancements
+
+* The synchronization engine integration with transport has been simplified and enhanced for more reliable behavior under poor network conditions.
+* Added querying support on `lastMessage.receivedAt` from `LYRConversation`
+* Performance was improved by offloading processing from the network thread.
+* The `receivedAt` property for `LYRMessage` objects sent by the current user is no longer `nil`. It is now set to the same timestamp as `sentAt`.
+* Querying against `LYRConversation` participants now implicitly includes the authenticated user.
+
+#### Bug Fixes
+
+* `LYRClient` objects will now attempt to reconnect immediately upon losing a connection even if reachability state has not changed.
+* An issue where synchronization could become stalled when the app returned from the background has been fixed.
+* Fixed an issue where metadata values were not validated properly, blocking the use of nested structures.
+* Fixed an issue where `isUnread` and `hasUnreadMessages` did not always update appropriately during synchronization.
+* Fixed an issue where `LYRConversation` objects returned via querying had a `lastMessage` value of `nil`.
+* Fixed an issue that could result in database busy errors and crashes during concurrent database transactions.
+* Fixed an issue where typing indicator received before a conversation was synchronized would result in a crash.
+* Fixed a regression in querying for participants with certain structures of user identifiers.
+
+#### Public API changes
+
 ## 0.9.0
 
 LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to 

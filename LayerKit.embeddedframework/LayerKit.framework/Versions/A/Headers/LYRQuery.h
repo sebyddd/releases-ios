@@ -15,6 +15,11 @@
 #define LYR_QUERYABLE_PROPERTY __attribute__((annotate("lyr_queryable_property")))
 
 /**
+ @abstract Properties that are queryable from an associated class declare the support via the `LYR_QUERYABLE_FROM` annotation.
+ */
+#define LYR_QUERYABLE_FROM(klass) __attribute__((annotate("lyr_queryable_property_from_#klass")))
+
+/**
  @abstract The `LYRQueryable` protocol is adopted by classes that are queryable via `LYRQuery`.
  */
 @protocol LYRQueryable <NSObject>

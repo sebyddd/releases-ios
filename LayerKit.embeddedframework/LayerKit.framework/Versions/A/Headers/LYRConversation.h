@@ -20,7 +20,7 @@
 
 /**
  @abstract A unique identifier assigned to every conversation by Layer.
- @discussion The `identifier` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ @discussion The `identifier` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
 @property (nonatomic, readonly) NSURL *identifier LYR_QUERYABLE_PROPERTY;
 
@@ -30,7 +30,8 @@
  Layer as part of the Identity Token during authentication. User ID's are commonly modeled as the primary key, email address, or username
  of a given user withinin the backend application acting as the identity provider for the Layer-enabled mobile application.
  
- The `participants` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ The `participants` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators. For convenience, 
+ queries against the `participants` set will always implicitly include the authenticated user.
  */
 @property (nonatomic, readonly) NSSet *participants LYR_QUERYABLE_PROPERTY;
 
@@ -46,7 +47,7 @@
  @abstract Returns the last Message recevied or sent in this Conversation.
  @discussion May be `nil`, if no messages exist in the conversation.
  
- The `lastMessage` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotEqualTo` operators.
+ The `lastMessage` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
 @property (nonatomic, readonly) LYRMessage *lastMessage LYR_QUERYABLE_PROPERTY;
 
@@ -109,10 +110,10 @@
 
 /**
  @abstract Sets the value for the specified key path in the metadata dictionary.
- @param value The string value to set for the given key path in the metadata.
+ @param value The string or dictionary value to set for the given key path in the metadata.
  @param keyPath A key path into the metadata dictionary specifying where the value is to be set.
  */
-- (void)setValue:(NSString *)value forMetadataAtKeyPath:(NSString *)keyPath;
+- (void)setValue:(id)value forMetadataAtKeyPath:(NSString *)keyPath;
 
 /**
  @abstract Sets multiple values on the metadata using an input dictionary, optionally merging with any existing values.
