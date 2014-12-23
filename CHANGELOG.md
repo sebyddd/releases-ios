@@ -1,5 +1,19 @@
 # LayerKit Change Log
 
+## 0.9.2
+
+#### Enhancements
+
+* Improved concurrency and error handling in the persistence layer.
+* Added `canonicalObjectIdentifierForIdentifier:` to `LYRClient` to help with migrating externally stored object identifier references to the new schema.
+* Synchronization in response to remote notification via `synchronizeWithRemoteNotification:completion:` now guarantees delivery of the completion callback on the main thread.
+
+#### Bug Fixes
+
+* Fixed a SQLite build issue that increased exposure to database busy / locked errors.
+* SQLite busy / locked errors are now immediately propagated back from any query that encounters them, ensuring queries and result sets completely succeed or fail.
+* Attempts to set metadata on key-paths where the nested parents did not yet exist would fail silently. These intermediate nesting dictionaries are now created.
+
 ## 0.9.1
 
 #### Enhancements

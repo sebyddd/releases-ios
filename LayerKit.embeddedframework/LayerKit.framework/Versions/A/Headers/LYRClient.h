@@ -420,25 +420,105 @@ extern NSString *const LYRTypingIndicatorParticipantUserInfoKey;
 // DEPRECATED: Use `LYRConversation`'s `sendTypingIndicator:` instead.
 - (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
+    query.limit = 1;
+    LYRConversation *conversation = [[client executeQuery:query error:&error] firstObject];
+ */
 - (LYRConversation *)conversationForIdentifier:(NSURL *)identifier __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+    if (conversationIdentifiers != nil) {
+       query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:conversationIdentifiers];
+    }
+    NSSet *conversations = [[client executeQuery:query error:&error] set];
+ */
 - (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+    NSSet *participantsIncludingAuthenticatedUser = [participants setByAddingObject:self.authenticatedUserID];
+    query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participantsIncludingAuthenticatedUser];
+    NSSet *conversations = [[client executeQuery:query error:&error] set];
+ */
 - (NSSet *)conversationsForParticipants:(NSSet *)participants __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+    if (messageIdentifiers != nil) {
+    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:messageIdentifiers];
+    }
+    return [[client executeQuery:query error:&error] set];
+ */
 - (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+    if (conversation) {
+        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
+    }
+    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES]];
+    return [client executeQuery:query error:&error];
+ */
 - (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
+    query.predicate = [LYRPredicate predicateWithProperty:@"hasUnreadMessages" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+    return [client countForQuery:query error:&error];
+ */
 - (NSUInteger)countOfConversationsWithUnreadMessages __deprecated;
 
-// FIXME
+/*
+ DEPRECATED: Use the following query code instead:
+ 
+    NSError *error = nil;
+    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
+    if (conversation) {
+        LYRPredicate *conversationIsEqualPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
+        LYRPredicate *unreadIsEqualPredicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+        query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[conversationIsEqualPredicate, unreadIsEqualPredicate]];
+    } else {
+        query.predicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
+    }
+    return [client countForQuery:query error:&error];
+ */
 - (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation __deprecated;
+
+@end
+
+@interface LYRClient (ObjectIdentifierMigration)
+
+/**
+ @abstract Returns the canonical object identifier for a given identifier.
+ @discussion This method enables the migration of object identifiers created by LayerKit < v0.9.0 to the canonical
+ format emitted by v0.9.0 and higher clients. If the given identifier already is a new style identifier, then it is returned. If
+ the input identifier is a legacy identifier, then the canonical identifier is computed and returned. If no conversation or message can
+ be found by treating the identifier as a legacy or canonical identifier then `nil` is returned (typically indicating that the content has
+ not yet been synchronized).
+ @param identifier The object identifier for which to return the canonical identifier.
+ @return The canonical object identifier for the given input identifier or `nil` if none could be computed.
+ */
+- (NSURL *)canonicalObjectIdentifierForIdentifier:(NSURL *)identifier;
 
 @end

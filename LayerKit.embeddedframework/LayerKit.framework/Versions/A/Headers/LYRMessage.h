@@ -147,7 +147,7 @@ extern NSString *const LYRMessagePushNotificationSoundNameKey __deprecated;
 
 @interface LYRMessage (Deprecated_Nonfunctional)
 
-// Deprecated. Use `LYRClient newMessageWithConversation:parts:options:error:` instead.
+// Deprecated. Use `LYRClient newMessageWithParts:options:error:` with `LYRConversation sendMessage:error:` instead.
 + (instancetype)messageWithConversation:(LYRConversation *)conversation parts:(NSArray *)messageParts __deprecated;
 
 @end
