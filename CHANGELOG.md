@@ -1,5 +1,23 @@
 # LayerKit Change Log
 
+## 0.9.3
+
+#### Enhancements
+
+* The `sentByUserID` property of `LYRMessage` objects is now populated immediately upon send.
+* The `LYRQuery` class now includes a detailed `description` implementation that describes the query.
+* Added support for importing LayerKit into Swift based projects using CocoaPods v0.36.0+ by including umbrella module header.
+
+#### Bug Fixes
+
+* The `receivedAt` time is now set immediately upon message delivery.
+* The query controller now dispatches move events for queries against `lastMessage.receivedAt`.
+* Fixed a crash when an attempt is made to mark all messages read on a conversation that has been concurrently deleted.
+* Fixed an issue that could result in changes failing to be merged onto in memory objects.
+* All methods on `LYRClient` that cannot be used when unauthenticated now return appropriate errors.
+* Fixed an issue where previously deleted metadata keys would fail to synchronize when subsequently restored by setting a new value.
+* Updated several `LYRClient` authentication delegate callbacks to guarantee invocation on the main thread.
+
 ## 0.9.2
 
 #### Enhancements
