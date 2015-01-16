@@ -322,18 +322,18 @@ extern NSString *const LYRTypingIndicatorParticipantUserInfoKey;
  @param deviceToken An `NSData` object containing the device token.
  @param error A reference to an `NSError` object that will contain error information in case the action was not successful.
  @return A Boolean value that determines whether the action was successful.
- @discussion The device token is expected to be an `NSData` object returned by the method application:didRegisterForRemoteNotificationsWithDeviceToken:. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.
+ @discussion The device token is expected to be an `NSData` object returned by the method `application:didRegisterForRemoteNotificationsWithDeviceToken:`. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.
  */
 - (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error;
 
 /**
  @abstract Inspects an incoming push notification and synchronizes the client if it was sent by Layer.
  @param userInfo The user info dictionary received from the UIApplicaton delegate method application:didReceiveRemoteNotification:fetchCompletionHandler:'s `userInfo` parameter.
- @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with the given `fetchResult`. Note that this block is only called if the method returns `YES`.
+ @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given `changes`. Note that this block is only called if the method returns `YES`.
  @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer and the completion block will not be called.
  @note The receiver must be authenticated else a warning will be logged and `NO` will be returned. The completion is only invoked if the return value is `YES`.
  */
-- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void(^)(UIBackgroundFetchResult fetchResult, NSError *error))completion;
+- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void(^)(NSArray *changes, NSError *error))completion;
 
 ///----------------------------------------------
 /// @name Creating new Conversations and Messages

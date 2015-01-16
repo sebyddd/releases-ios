@@ -1,5 +1,27 @@
 # LayerKit Change Log
 
+## 0.9.4
+
+#### Public API changes
+
+* The completion block of `LYRClient synchronizeWithRemoteNotification:completion:` has been changed. Instead of invoking the completion handler with a `UIBackgroundFetchResult` and an `NSError`, an `NSArray` of object changes and an `NSError` are now given. The `NSArray` contains `NSDictionary` instances that detail the exact changes made to the object model.
+
+#### Enhancements
+
+* The `LYRClient` class now includes a watchdog timer that ensures that connection and synchronization in response to push notifications does not exceed 15 seconds of wall clock time. This ensures that ample time is available for processing synchronized changes and prevents the application from being penalized by iOS for exceeding the 30 seconds allotted for processing the push.
+* LayerKit now keeps its transport active on transition to the background for as long as permitted by iOS. This enables for the faster synchronization of incoming messages from push notifications.
+* Object changes are now delivered directly to the push notification synchronization callback to facilitate easier processing.
+* Enhanced the query controller by introducing the `paginationWindow` property, which enables simple pagination of the complete result set. This feature can be used to implement pull to refresh, "Load More" buttons, or automatic loading of additional objects during scrolling. See the comments on the `LYRQueryController` class for more details.
+* Enhanced the query controller by introducing the `updatableProperties` property, which provides control over which properties should generate update notifications. This can be used to enhance UI performance through the elision of uninteresting updates. See the comments on the `LYRQueryController` class for more details.
+* Added new `diagnosticDescription` method to `LYRClient` that dumps a report of the client's internal state for debugging. This method is not in the public header, but can be invoked via `valueForKeyPath:`.
+
+#### Bug Fixes
+
+* Fixed an issue where LayerKit would not shut down transport after succesfully connecting and sychronizing in response to a push notification.
+* Fixed an issue where authentication challenges encountered by transport were not handled properly.
+* Fixed an issue where LayerKit would not emit a callback from `synchronizeWithRemoteNotification:completion:` if a connection could not be established.
+* Fixes an issue where the query controller would emit unnecessary update notifications for objects that were created or deleted.
+
 ## 0.9.3
 
 #### Enhancements

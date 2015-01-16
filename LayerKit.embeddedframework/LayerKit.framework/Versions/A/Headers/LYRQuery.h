@@ -109,7 +109,7 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
 
 /**
  @abstract The offset configures the number of rows that are to be skipped in the result set before results are returned.
- @discussion The default value is zero. When used in conjunction with `limit` the `offset` property can be used to implement pagination.
+ @discussion The default value is zero. The `offset` isn't used if the `limit` is not defined.
  */
 @property (nonatomic) NSUInteger offset;
 
