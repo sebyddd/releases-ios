@@ -1,5 +1,17 @@
 # LayerKit Change Log
 
+## 0.9.5
+
+#### Enhancements
+
+* Introduced a new option for `LYRConversation` to allow developers to configure whether or not delivery receipts are generated on a per-conversation basis. This provides improved synchronization performance for conversations that do not utilize delivery receipts.
+
+#### Bug Fixes
+
+* Fixed an issue where locally deleted messages were not properly excluded from unread calculations.
+* Fixed an issue where metadata changes would not trigger local change notifications or dispatch synchronization immediately upon change.
+* Fixed an issue where metadata would attempt to synchronize for conversations that you are no longer a member of.
+
 ## 0.9.4
 
 #### Public API changes

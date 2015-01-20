@@ -12,6 +12,26 @@
 
 @class LYRMessage;
 
+///---------------------------
+/// @name Conversation Options
+///---------------------------
+
+/**
+ @abstract The option key used in the conversation to specify the metadata content that is synchronized across participants.
+ The value associated to this key must be passed in the `options` dictionary argument when creating the conversation.
+ */
+extern NSString *const LYRConversationOptionsMetadataKey;
+
+/**
+ @abstract The option key for configuring whether or not clients should write delivery receipts for messages in the conversation.
+ @discussion When `YES`, clients will write delivery receipts and a delineation will be made between `LYRRecipientStatusSent` and `LYRRecipientStatusDelivered`. When `NO`,
+ messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read. Disabling delivery receipts improves performance for conversations that
+ do not benefit from them.
+ */
+extern NSString *const LYRConversationOptionsDeliveryReceiptsEnabledKey;
+
+//------------------------------------------------------------
+
 /**
  @abstract The `LYRConversation` class models a conversations between two or more participants within Layer. A conversation is an
  on-going stream of messages (modeled by the `LYRMessage` class) synchronized among all participants.
@@ -61,6 +81,14 @@
  @abstract Returns a Boolean value that indicates if the receiver has been deleted.
  */
 @property (nonatomic, readonly) BOOL isDeleted;
+
+/**
+ @abstract Returns a Boolean value that indicates if delivery receipts are enabled. When `YES`, clients will write delivery receipts and a delineation will be made between `LYRRecipientStatusSent`
+ and `LYRRecipientStatusDelivered`. When `NO`, messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read.
+ @discussion When delivery receipts are enabled, client devices will acknowledge delivery of messages by writing a synchronized delivery receipt. This provides more granular message
+ status, but results in more synchronization activity. Developers are encouraged to disabled delivery receipts if the delivery status is unimportant or unused.
+ */
+@property (nonatomic, readonly) BOOL deliveryReceiptsEnabled;
 
 ///-----------------------
 /// @name Sending Messages

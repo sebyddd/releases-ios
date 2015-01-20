@@ -29,6 +29,24 @@ typedef NS_ENUM(NSInteger, LYRRecipientStatus) {
 	LYRRecipientStatusRead      = 2
 };
 
+///------------------
+/// @name Option Keys
+///------------------
+
+/**
+ @abstract The option key used in the message to specify the APNS alert message the server should include in the push delivered to the receiver of the message.
+ The value associated to this key must be passed in the `options` dictionary argument when creating the message.
+ */
+extern NSString *const LYRMessageOptionsPushNotificationAlertKey;
+
+/**
+ @abstract The option key used in the message to specify the APNS sound name the server should include in the push delivered to the receiver of the message.
+ The value associated to this key must be passed in the `options` dictionary argument when creating the message.
+ */
+extern NSString *const LYRMessageOptionsPushNotificationSoundNameKey;
+
+//------------------------------------------------------------
+
 /**
  @abstract The `LYRMessage` class represents a message within a conversation (modeled by the `LYRConversation` class) between two or
  more participants within Layer.
