@@ -1,5 +1,19 @@
 # LayerKit Change Log
 
+
+## 0.9.6
+
+#### Bug Fixes
+
+* The authenticated user is no longer implicitly included in the queried value for queries with the `LYRPredicateOperatorIsIn` or `LYRPredicateOperatorIsNotIn` operator on the `participants` property of the `LYRConversation` class. This prevents the query from erroneously matching or excluding all Conversations because the authenticated user is always a participant.
+* Fixed `LYRQueryController` notifying its delegate that the query controller's content will/did change even when the changes do not affect the query controller's content.
+* Fixed an issue where metadata change notifications would be published before the conversation had been created.
+* Fixed an issue where transport state could get out of sync and result in messaging services being unavailable.
+* Objects inserted outside the bounds of the pagination window of an `LYRQueryController` will no longer cause the pagination window to expand.
+* Fixed an issue where removing a participant and adding them to a conversation back would fail.
+* Fixed an issue where object changes would not be cleared after publication through certain codepaths. This could lead to duplicated changes or failure to notify of changes for properties that reverted to a previous value. This was most noticable on changes to `hasUnreadMessages` for Conversations, but could affect any changable property.
+* Fixed an issue where querying for conversations with specific set of participants produced unpredictable results if some participants were removed from conversations.
+
 ## 0.9.5
 
 #### Enhancements
