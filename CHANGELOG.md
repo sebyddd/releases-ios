@@ -1,5 +1,10 @@
 # LayerKit Change Log
 
+## 0.9.7
+
+#### Enhancements
+
+* Introduced new `LYRPolicy` object for configuring communication policies. The first policy available is blocking, which enables users to block message delivery from other abusive users.
 
 ## 0.9.6
 
