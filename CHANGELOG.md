@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.9.8
+
+#### Bug Fixes
+
+* The value of `receivedAt` is now set immediately upon send for `LYRMessage` objects. This improves sorting behaviors using the attribute.
+
 ## 0.9.7
 
 #### Enhancements
