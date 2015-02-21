@@ -1,10 +1,43 @@
 # LayerKit Change Log
 
+## 0.10.0
+
+This is a major new release of LayerKit that includes support for Rich Content. Rich Content is a large file or media asset
+transported and synchronized by a new agent designed specifically to handle large payloads. Rich Content assets can be up to 2GB in size 
+and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. Rich Content is discussed in detail in the 
+[v0.10.0 Transition Guide](http://developer.layer.com/docs/guides#richcontent).
+
+#### Enhancements
+
+* Added support for transporting messages with parts of up to 2GB in size.
+* Added support for querying for `LYRMessagePart` objects.
+* Added support for managing the disk space utilization of message parts.
+* Added support for transfering the content of message parts while the app is in background via integration with the iOS Background Transfer Service.
+
+#### Public API changes
+
+* New property `autodownloadMIMETypes` on `LYRClient` which enables the client to automatically start the content downloads for message parts with specific MIME Types.
+* New property `autodownloadMaximumContentSize` on `LYRClient` which enables the client to automatically start the content downloads for message parts that match the size criteria.
+* New method `[LYRMessagePart downloadContent:]` which requests the client to manually download a message part.
+* New method `[LYRMessagePart purgeContent:]` which requests the client to purge content from disk to save disk space (note: content is retrievable via downloadContent: method).
+* New property `backgroundContentTransferEnabled` on `LYRClient` that enables support for background transfers.
+* New method `[LYRClient handleBackgroundContentTransfersForSession:completion:]` used for background transfer handling.
+* New property `diskCapacity` on `LYRClient` which provides support for disk utilization control.
+* New property `currentDiskUtilization` on `LYRClient` which provides information on how much disk space is in use by message part content.
+* New properties `transferStatus` and `progress` on `LYRMessagePart` that indicate the transfer state and its progress and `fileURL` that can be used to open the message part's content as file.
+* New interface `LYRProgress` that tracks and reports progress of upload and download transfers.
+* New interface `LYRAggregateProgress` meant for `LYRProgress` aggregation.
+
+#### Bug Fixes
+
+* The client will now suppress "Connection reset by peer" transport errors that occur when a connection is lost and reconnection is triggered.
+
 ## 0.9.8
 
 #### Bug Fixes
 
 * The value of `receivedAt` is now set immediately upon send for `LYRMessage` objects. This improves sorting behaviors using the attribute.
+* Locally deleted conversation weren't brought back, if client received new incoming messages.
 
 ## 0.9.7
 
