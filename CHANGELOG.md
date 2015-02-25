@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.10.1
+
+#### Bug Fixes
+
+* Fixed an issue where some objects didn't had their properties changed, even though the changes coming from `layerClient:objectsDidChange:` in the dictionary dictated so. 
+* Fixed an issue where transitioning from foreground to background made `LYRProgress` instances stale (stopped tracking upload and download transfers).
+
 ## 0.10.0
 
 This is a major new release of LayerKit that includes support for Rich Content. Rich Content is a large file or media asset
