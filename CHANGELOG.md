@@ -1,5 +1,15 @@
 # LayerKit Change Log
 
+## 0.10.2
+
+#### Enhancements
+
+* Limited the number of Rich Content transfers that can be in flight at once to 5 uploads and 15 downloads.
+
+#### Bug Fixes
+
+* Fixed an issue where processing of pushed events could block the network thread, slowing down transport unnecessarily.
+
 ## 0.10.1
 
 #### Bug Fixes
