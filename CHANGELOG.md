@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.10.3
+
+#### Enhancements
+
+* Changed distribution packaging to Dynamic iOS Framework.
+* Compatibility with CocoaPods v0.36.0.
+
 ## 0.10.2
 
 #### Enhancements

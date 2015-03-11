@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LayerKit'
-  s.version = '0.10.2'
+  s.version = '0.10.3'
   s.summary = 'LayerKit is the iOS client interface for the Layer communications cloud.'
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
@@ -12,9 +12,9 @@ Pod::Spec.new do |s|
 
   s.platform = :ios, '7.0'
   s.ios.platform             = :ios, '7.0'
-  s.ios.preserve_paths       = 'LayerKit.embeddedframework/LayerKit.framework'
-  s.ios.public_header_files  = 'LayerKit.embeddedframework/LayerKit.framework/Versions/A/Headers/*.h'
-  s.ios.resource             = 'LayerKit.embeddedframework/LayerKit.framework/Versions/A/Resources/**/*'
-  s.ios.vendored_frameworks  = 'LayerKit.embeddedframework/LayerKit.framework'
+  s.ios.preserve_paths       = 'LayerKit.framework'
+  s.ios.public_header_files  = 'LayerKit.framework/Versions/A/Headers/*.h'
+  s.ios.resource             = 'LayerKit.framework/Versions/A/Resources/**/*'
+  s.ios.vendored_frameworks  = 'LayerKit.framework'
   s.ios.frameworks = ["CFNetwork", "Security", "MobileCoreServices", "SystemConfiguration"]
 end
