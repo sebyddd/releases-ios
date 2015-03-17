@@ -1,5 +1,21 @@
 # LayerKit Change Log
 
+## 0.11.0
+
+This version of LayerKit includes a substantial change to Message ordering in order to enhance performance. Previous version of LayerKit utilized
+a property named `index`, which was a monotonically increasing integer equal to the number of Messages that had been synchronized. From v0.11.0 on,
+LayerKit maintains a new property named `position`. The `position` of a Message is a value that is calculated immediately when the Message is
+synchronized and never changes. This greatly improves performance by reducing the change notification overhead associated with syncing large amounts 
+of Message content.
+
+#### Public API changes
+
+* Dropped the `index` property on the `LYRMessage` object in favor of `position` which orders the messages in a conversation more efficiently.
+
+#### Bug Fixes
+
+* Fixes an issue where background transfers weren't handled in time, which caused the SDK to loose the downloaded file and retry the transfer.
+
 ## 0.10.3
 
 #### Enhancements

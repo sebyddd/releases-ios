@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LayerKit'
-  s.version = '0.10.3'
+  s.version = '0.11.0'
   s.summary = 'LayerKit is the iOS client interface for the Layer communications cloud.'
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
@@ -17,4 +17,5 @@ Pod::Spec.new do |s|
   s.ios.resource             = 'LayerKit.framework/Versions/A/Resources/**/*'
   s.ios.vendored_frameworks  = 'LayerKit.framework'
   s.ios.frameworks = ["CFNetwork", "Security", "MobileCoreServices", "SystemConfiguration"]
+  s.source_files = 'LayerKit.m'
 end
