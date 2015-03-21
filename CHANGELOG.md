@@ -1,5 +1,14 @@
 # LayerKit Change Log
 
+## 0.11.1
+
+#### Bug Fixes
+
+* Removes a Podfile change that was allowing LayerKit to be referenced as a transitive dependency in Swift projects when it would fail at build time.
+* Fixed an issue where failed operations would fail to revert objects to their pre-error state.
+* Fixed an issue where a deleted Conversation that received new Messages would fail to return to an active state.
+* Reverted packaging changes that caused installation issues under non-CocoaPods installations.
+
 ## 0.11.0
 
 This version of LayerKit includes a substantial change to Message ordering in order to enhance performance. Previous version of LayerKit utilized
