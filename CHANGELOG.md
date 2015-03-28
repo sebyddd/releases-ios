@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.11.2
+
+#### Enhancements
+
+* Added new helper method to the query controller for looking up the index paths of objects given a set of identifiers.
+* Integrated new logging and debugging facilities.
+
 ## 0.11.1
 
 #### Bug Fixes
