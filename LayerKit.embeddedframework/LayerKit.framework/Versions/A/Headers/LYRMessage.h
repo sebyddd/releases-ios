@@ -118,6 +118,7 @@ extern NSString *const LYRMessageOptionsPushNotificationSoundNameKey;
 
 /**
  @abstract Marks the message as being read by the current user.
+ @discussion If multiple messages must be marked as read, use `markMessagesAsRead:error:` on `LYRClient` or `markAllMessagesAsRead:error` on `LYRConversation` instead.
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent.
  @return `YES` if the message was marked as read or `NO` if the message was already marked as read.
  */

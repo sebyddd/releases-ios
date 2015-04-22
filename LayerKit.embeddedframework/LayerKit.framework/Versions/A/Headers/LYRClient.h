@@ -278,6 +278,9 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 
 /**
  @abstract Creates and returns a new Layer client instance.
+ @return Returns a newly created Layer client object.
+ @warning Throws `NSInternalInconsistencyException` when creating another Layer Client instance with the same `appID` value under the same process (application).
+ However multiple instances of Layer Client with the same `appID` are allowed if running the code under Unit Tests.
  */
 + (instancetype)clientWithAppID:(NSUUID *)appID;
 
@@ -370,10 +373,10 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 
 /**
  @abstract Tells the receiver to update the device token used to deliver Push Notifications to the current device via the Apple Push Notification Service.
- @param deviceToken An `NSData` object containing the device token.
+ @param deviceToken An `NSData` object containing the device token or `nil`.
  @param error A reference to an `NSError` object that will contain error information in case the action was not successful.
  @return A Boolean value that determines whether the action was successful.
- @discussion The device token is expected to be an `NSData` object returned by the method `application:didRegisterForRemoteNotificationsWithDeviceToken:`. The device token is cached locally and is sent to Layer cloud automatically when the connection is established.
+ @discussion The device token is expected to be either an `NSData` object returned by the method `application:didRegisterForRemoteNotificationsWithDeviceToken:` or `nil`. If an `NSData` object is provided, the device token is cached locally and is sent to Layer cloud automatically when the connection is established. If `nil`, all device tokens that are associated with the currently authenticated and the current device will be deleted. Device tokens associated with other devices will not be deleted.
  */
 - (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error;
 
@@ -434,6 +437,19 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @return A newly created query controller.
  */
 - (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query;
+
+///-------------------------------
+/// @name Marking Messages as Read
+///-------------------------------
+
+/**
+ @abstract Marks a set of messages as being read by the current user. If `nil` the operation will mark all unread messsages as being read by the current user.
+ @discussion The operation will ignore messages that have previously been marked as read.
+ @param messages A set of messages to be marked as read or `nil`.
+ @param error A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent.
+ @return `YES` if the messages were marked as read or `NO` if the operation failed.
+ */
+- (BOOL)markMessagesAsRead:(NSSet *)messages error:(NSError **)error;
 
 ///---------------
 /// @name Policies

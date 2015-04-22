@@ -64,6 +64,11 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorSnapshotCaptureFailure            = 10004,
     LYRClientErrorNoFileLoggerPath                  = 10005,
     LYRClientErrorDatabaseBackupFailure             = 10006,
+    
+    // Marking Messages as Read
+    LYRClientErrorMessageDeleted                    = 11001,
+    LYRClientErrorConversationDeleted               = 11002,
+    LYRClientErrorInvalidClassType                  = 11003,
 };
 
 extern NSString *const LYRErrorAuthenticatedUserIDUserInfoKey;

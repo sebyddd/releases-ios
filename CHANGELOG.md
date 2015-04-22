@@ -1,5 +1,33 @@
 # LayerKit Change Log
 
+## 0.12.0
+
+#### Enhancements
+
+* Changed several APIs to improve interoperability with Swift.
+* Improved synchronization performance, if client has a lot of messages with rich content to sync.
+* Improved message send times while performing sync. 
+
+#### Public API changes
+
+* The `LYQuery` initializer has been changed from `queryWithClass:` to `queryWithQueryableClass:`. This avoids the need to wrap `class` in backticks
+when initializing a query object in Swift.
+* The `LYRPredicate` initializer has been changed from `predicateWithProperty:operator:value:` to `predicateWithProperty:predicateOperator:value:`. 
+This avoids the need to wrap `operator` in backticks when initializing a predicate object in Swift.
+* `updateRemoteNotificationDeviceToken:error:` now accepts a `nil` value as the `deviceToken` parameter. This un-registers devices from receiving push notifications. 
+* Multiple `LYRClient` instances created with the same appID are not allowed anymore, doing so will cause an assertion. 
+* Added `markMessagesAsRead:error:` to `LYRClient` to facilitate batch operations.
+* Update `LYRMessagePart` initializers to enforce MIME Type format using the regular expression "/^[^\\s/]+/[^\\s/]+$/". This ensures that Rich Content message parts 
+do not get stuck during upload due to having an invalid MIME Type.
+
+#### Bug Fixes
+
+* Fixes an issue where background transfers only worked when device had sufficient power and a WiFi connection.
+* Fixes a crash that occurs if `LYRClient` is instantiated under `XCTestCase` unit tests.
+* Fixes an issue where a revived locally deleted conversation isn't operating correctly (previously it didn't include messages it had previously and didn't process public API requests correctly).
+* Fixes an issue where `providerUserIDs` with slashes made the client crash, if in use with rich-content (content that is >2kb).
+* Fixed an issue where metadata would synchronize incorrectly in certain cases. (Merged fix from maintenance release v0.9.10)
+
 ## 0.11.2
 
 #### Enhancements
@@ -87,6 +115,19 @@ and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. R
 #### Bug Fixes
 
 * The client will now suppress "Connection reset by peer" transport errors that occur when a connection is lost and reconnection is triggered.
+
+## 0.9.10
+
+#### Bug Fixes
+
+* Fixed an issue where metadata would synchronize incorrectly in certain cases.
+
+## 0.9.9
+
+#### Bug Fixes
+
+* Added countermeasures to ensure that multiple synchronization requests from rapidly delivered push notifications do not get lost.
+* Backported a fix from 0.10.0 [110bdaa] that fixes the issue where an exception might be raised because of an internal race condition. 
 
 ## 0.9.8
 
