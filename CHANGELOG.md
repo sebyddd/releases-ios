@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.12.1-pre1
+
+#### Bug Fixes
+
+* Cleaned up numerous memory leaks across the sync engine and Rich Content manager.
+
 ## 0.12.0
 
 #### Enhancements
