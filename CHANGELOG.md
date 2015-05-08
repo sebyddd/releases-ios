@@ -1,10 +1,28 @@
 # LayerKit Change Log
 
-## 0.12.1-pre1
+## 0.13.0
+
+#### Enhancements
+
+* Added the ability to receive messages from non-human actors via the Layer Platform API.
+* Implemented partial object faulting to lower memory footprint.
+* Added `LYRRecipientStatusPending` to the `LYRRecipientStatus` enumeration to align more closely with Layer Android SDK.
+
+#### Bug Fixes
+
+* Changed the behavior of `recipientStatusByUserID` such that the status for each recipient is `LYRRecipientStatusPending` rather than `LYRRecipientStatusSent` when a message is awaiting transport.
+
+#### Public API Changes
+
+* The `LYRMessage` property `sentByUserID` has been deprecated.
+* The `LYRActor` object `sender` is a new property on `LYRMessage` to support non-human actors.  The `sender` has two mutually exclusive properties, `userID` and `name`.  `userID` is the user ID of a participant that sends a message, and `name` is the name specified from a platform non-human message sent in a conversation.
+
+## 0.12.1
 
 #### Bug Fixes
 
 * Cleaned up numerous memory leaks across the sync engine and Rich Content manager.
+* Fixed issues in the database access layer to avoid busy and lock errors under high concurrency.
 
 ## 0.12.0
 
@@ -14,7 +32,7 @@
 * Improved synchronization performance, if client has a lot of messages with rich content to sync.
 * Improved message send times while performing sync. 
 
-#### Public API changes
+#### Public API Changes
 
 * The `LYQuery` initializer has been changed from `queryWithClass:` to `queryWithQueryableClass:`. This avoids the need to wrap `class` in backticks
 when initializing a query object in Swift.
@@ -58,7 +76,7 @@ LayerKit maintains a new property named `position`. The `position` of a Message 
 synchronized and never changes. This greatly improves performance by reducing the change notification overhead associated with syncing large amounts 
 of Message content.
 
-#### Public API changes
+#### Public API Changes
 
 * Dropped the `index` property on the `LYRMessage` object in favor of `position` which orders the messages in a conversation more efficiently.
 
