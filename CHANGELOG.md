@@ -1,5 +1,14 @@
 # LayerKit Change Log
 
+## 0.13.1
+
+#### Bug Fixes
+ 
+* Fixed crash during synchronization caused by improperly set error pointers. 
+* Fixed crash during synchronization caused by fetching thousands of conversations at a time. 
+* Fixed crash caused by a Layer Client being deauthenticated while trying to mark messages as read.
+* Fixed bug that could cause message recipient status to not update properly. 
+
 ## 0.13.0
 
 #### Enhancements
