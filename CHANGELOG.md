@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.13.2
+
+#### Bug Fixes
+
+* Fixed bug that would cause messages to not be marked as read when calling `markAllMessagesAsRead:` on `LYRConversation`.
+* Fixed bug with object faulting causing message parts to be released. 
+
 ## 0.13.1
 
 #### Bug Fixes
