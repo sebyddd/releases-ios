@@ -1,5 +1,30 @@
 # LayerKit Change Log
 
+## 0.13.3
+
+#### Public API Changes
+
+* Introduced `LYRObjectChange`, which models a change that has occured upon a Layer model object. This object replaces the change dictionaries that `LYRClient` posted with change notifications.
+* Deprecated the following object change dictionary keys: `LYRObjectChangeTypeKey`, `LYRObjectChangeObjectKey`, `LYRObjectChangePropertyKey`, `LYRObjectChangeOldValueKey`, `LYRObjectChangeNewValueKey`. Use the public properties on `LYRObjectChange` instead. 
+  
+### Enhancements
+
+* Improved the performance of the Rich Content management (smaller memory footprint and CPU usage).
+* Prioritized auto-download scheduling of message parts with Rich Content.
+
+#### Bug Fixes
+
+* Fixed crash caused by attempting to add a participant to a conversation they are already in.   
+* Fixed crash caused by attempting to remove a participant from a conversation they are not in. 
+* Fixed crash when dealing with huge numbers of Rich Content parts.
+* Fixed an issue where sent messages' recipient statuses seemed to be stuck on `LYRRecipientStatusPending`, even though messages were successfully sent.
+
+## 0.13.2
+
+#### Bug Fixes 
+
+* Fixed bug that prevented `LYRClient` objects from being properly deallocated. 
+
 ## 0.13.2
 
 #### Bug Fixes

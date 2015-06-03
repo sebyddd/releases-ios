@@ -55,16 +55,15 @@ extern NSString *const LYRClientDidFinishSynchronizationNotification;
  @abstract Posted when the objects associated with a client have changed due to local mutation or synchronization activities.
  @discussion The Layer client provides a flexible notification system for informing applications when changes have
  occured on domain objects in response to local mutation or synchronization activities. The system is designed to be general
- purpose and models changes as the creation, update, or deletion of an object. Changes are modeled as simple
- dictionaries with a fixed key space that is defined below.
+ purpose and models changes as the creation, update, or deletion of an object. Changes are modeled as `LYRObjectChange` objects.
  @see LYRConstants.h
  */
 extern NSString *const LYRClientObjectsDidChangeNotification;
 
 /**
  @abstract The key into the `userInfo` of a `LYRClientObjectsDidChangeNotification` notification for an array of changes.
- @discussion Each element in array retrieved from the user info for the `LYRClientObjectChangesUserInfoKey` key is a dictionary whose value models a 
- single object change event for a Layer model object. The change dictionary contains information about the object that changed, what type of
+ @discussion Each element in array retrieved from the user info for the `LYRClientObjectChangesUserInfoKey` key is an `LYRObjectChange` object which models a
+ single object change event for a Layer model object. The `LYRObjectChange` contains information about the object that changed, what type of
  change occurred (create, update, or delete) and additional details for updates such as the property that changed and its value before and after mutation.
  Change notifications are emitted after synchronization has completed and represent the current state of the Layer client's database.
  @see LYRConstants.h
@@ -233,7 +232,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 /**
  @abstract Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.
  @param client The client that received the changes.
- @param changes An array of `NSDictionary` objects, each one describing a change.
+ @param changes An array of `LYRObjectChange` objects, each one describing a change.
  @see LYRConstants.h
  */
 - (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes;
@@ -531,7 +530,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 
 /**
  @abstract Configures the set of MIME Types for `LYRMessagePart` objects that will be automatically downloaded upon synchronization.
- @discussion A value of `nil` indicates that all content is to be downloaded automatically and an empty `NSSet` indicates that no content should be. The default value is a set containing the MIME Type @"text/plain".
+ @discussion A value of `nil` indicates that all content is to be downloaded automatically and an empty `NSSet` indicates that no content should be. The default value is a set containing the MIME Type @"text/plain". Message parts belonging to latest messages will be auto-downloaded first.
  */
 @property (nonatomic) NSSet *autodownloadMIMETypes;
 

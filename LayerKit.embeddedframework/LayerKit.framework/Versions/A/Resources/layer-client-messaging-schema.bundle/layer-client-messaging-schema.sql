@@ -32,13 +32,21 @@ CREATE TABLE "deleted_message_parts" (
   file_path TEXT
 );
 
-CREATE TABLE event_content_parts (
-  event_content_part_id INTEGER NOT NULL,
-  event_database_identifier INTEGER NOT NULL,
-  type TEXT NOT NULL,
-  value BLOB, access_expiration INTEGER, url TEXT, size INTEGER,
-  FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE,
-  PRIMARY KEY(event_content_part_id, event_database_identifier)
+CREATE TABLE "event_content_parts" (
+    database_identifier INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_content_part_id INTEGER NOT NULL,
+    event_database_identifier INTEGER NOT NULL,
+    type TEXT NOT NULL,
+    value BLOB,
+    access_expiration INTEGER,
+    url TEXT,
+    size INTEGER,
+    transfer_status INTEGER,
+    file_path TEXT,
+    last_accessed DATETIME,
+    purged BOOLEAN,
+    FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE,
+    UNIQUE(event_content_part_id, event_database_identifier)
 );
 
 CREATE TABLE "events" (
@@ -181,8 +189,6 @@ CREATE INDEX conversations_has_unread_messages_idx ON conversations(has_unread_m
 
 CREATE INDEX conversations_stream_database_identifier_idx ON conversations(stream_database_identifier);
 
-CREATE INDEX event_content_parts_event_database_identifier_idx ON event_content_parts(event_database_identifier);
-
 CREATE INDEX events_client_id_idx ON events(client_id);
 
 CREATE INDEX events_seq_idx ON events(seq);
@@ -261,6 +267,18 @@ CREATE TRIGGER track_deletes_of_streams AFTER UPDATE OF deleted_at ON streams
 WHEN NEW.deleted_at IS NOT NULL AND OLD.deleted_at IS NULL
 BEGIN
   INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('streams', OLD.database_identifier, 2);
+END;
+
+CREATE TRIGGER track_event_content_part_purges AFTER UPDATE OF transfer_status ON event_content_parts
+WHEN NEW.transfer_status = 2 AND NEW.purged <> OLD.purged AND NEW.purged = 1 AND NEW.last_accessed IS NULL
+BEGIN
+    INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('event_content_parts', OLD._ROWID_, 2);
+END;
+
+CREATE TRIGGER track_event_content_part_transfer_status_changes AFTER UPDATE OF transfer_status ON event_content_parts
+WHEN NEW.transfer_status <> OLD.transfer_status AND NEW.purged = 0
+BEGIN
+    INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('event_content_parts', OLD._ROWID_, 1);
 END;
 
 CREATE TRIGGER track_inserts_of_conversation_participants AFTER INSERT ON conversation_participants
@@ -454,3 +472,5 @@ INSERT INTO schema_migrations (version) VALUES (20150316180034638);
 INSERT INTO schema_migrations (version) VALUES (20150319131356212);
 
 INSERT INTO schema_migrations (version) VALUES (20150330135300206);
+
+INSERT INTO schema_migrations (version) VALUES (20150504150912979);
