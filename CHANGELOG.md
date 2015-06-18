@@ -1,5 +1,13 @@
 # LayerKit Change Log
 
+## 0.14.0 
+
+#### Public API Changes
+
+* Introduced `LYRAnnouncement`, which models a platform message sent externally from any conversation.  `LYRAnnouncement` subclasses `LYRMessage` and is queryable by itself.  This works in conjunction with the Platform API.
+* Added `LYRConversationOptionsDistinctByParticipantsKey` to `LYRConversation` as a key for the conversation `options` initilization parameter. Setting the value for this key to `YES` during initialization will gurantee that Layer only ever creates a single conversation for the specified participants.
+* Added `isDistinct` property to `LYRConversation` to indicate whether or not the conversation is distinct by its participant list.
+
 ## 0.13.3
 
 #### Public API Changes
@@ -7,7 +15,7 @@
 * Introduced `LYRObjectChange`, which models a change that has occured upon a Layer model object. This object replaces the change dictionaries that `LYRClient` posted with change notifications.
 * Deprecated the following object change dictionary keys: `LYRObjectChangeTypeKey`, `LYRObjectChangeObjectKey`, `LYRObjectChangePropertyKey`, `LYRObjectChangeOldValueKey`, `LYRObjectChangeNewValueKey`. Use the public properties on `LYRObjectChange` instead. 
   
-### Enhancements
+#### Enhancements
 
 * Improved the performance of the Rich Content management (smaller memory footprint and CPU usage).
 * Prioritized auto-download scheduling of message parts with Rich Content.
