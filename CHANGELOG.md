@@ -2,10 +2,15 @@
 
 ## 0.14.0 
 
+#### Enhancements
+
+* Introduced Announcements, special Messages sent to all users of the application or to a list of users that will arrive outside of the context of a conversation. Announcements can only be sent through the Platform API.
+* Introduced the ability to create a single distinct conversations between participants. This will prevent duplicate conversations if multiple users try to create conversations with each other at the same time. See Public API Changes for more details. Distinct conversations are now the default when creating new conversations. All conversations created before v0.14 are set to be non-distinct.
+
 #### Public API Changes
 
-* Introduced `LYRAnnouncement`, which models a platform message sent externally from any conversation.  `LYRAnnouncement` subclasses `LYRMessage` and is queryable by itself.  This works in conjunction with the Platform API.
-* Added `LYRConversationOptionsDistinctByParticipantsKey` to `LYRConversation` as a key for the conversation `options` initilization parameter. Setting the value for this key to `YES` during initialization will gurantee that Layer only ever creates a single conversation for the specified participants.
+* Added `LYRAnnouncement`, which models a platform message sent externally from any conversation.  `LYRAnnouncement` subclasses `LYRMessage` and is queryable by itself.  This works in conjunction with the Platform API.
+* Added `LYRConversationOptionsDistinctByParticipantsKey` to `LYRConversation` as a key for the conversation `options` initilization parameter. Setting the value for this key to `YES` during initialization will guarantee that Layer only ever creates a single conversation for the specified participants. `YES` is also default if no options are specified. 
 * Added `isDistinct` property to `LYRConversation` to indicate whether or not the conversation is distinct by its participant list.
 
 ## 0.13.3
