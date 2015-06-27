@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.14.2
+
+#### Bug Fixes
+
+* Fixes an issue where creating a query controller mutates a collection the client is enumerating.
+
 ## 0.14.1
 
 #### Public API Changes
