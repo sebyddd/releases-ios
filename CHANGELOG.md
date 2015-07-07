@@ -1,5 +1,18 @@
 # LayerKit Change Log
 
+## 0.14.3
+
+#### Enhancements
+
+* When transitioning to background `LYRClient` now keeps the messaging services running for as long as iOS allows the app to run in the background.
+
+#### Bug Fixes
+
+* Fixes an issue where `LYRMessagePart`s hold outdated objects in memory, where updating it can throw exceptions due to mismatched version number.
+* Fixes an issue where deleting conversation metadata at key path didn't work.
+* Fixes an issue which caused LayerKit to indefinitely retry conversation creation after receiving an unrecoverable error from server.
+* Fixes an issue where the `LYRClient` would auto-purge most of the downloaded content when setting the `client.diskCapacity` property. 
+
 ## 0.14.2
 
 #### Bug Fixes
