@@ -1,5 +1,20 @@
 # LayerKit Change Log
 
+## 0.15.0
+
+#### Public API Changes
+
+* Changed `LYRClient` initializer to accept an `NSURL` object for the `appID` parameter.
+* Changed `appID` property type from `NSUUID` to `NSURL` on `LYRClient`.
+
+#### Enhancements
+
+* Introduced file protection with `NSFileProtectionCompleteUntilFirstUserAuthentication` for all `LayerKit` files.
+
+#### Bug Fixes
+
+* Fixed an issue which caused a crash when calling `objectAtIndexPath:` on an empty `LYRQueryController`. 
+
 ## 0.14.3
 
 #### Enhancements
