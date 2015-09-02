@@ -1,5 +1,25 @@
 # LayerKit Change Log
 
+## 0.15.1
+
+#### Public API Changes
+
+* `LYRQueryController` initialization on the `LYRClient` now takes an error pointer that is filled in the case the client isn't authenticated and a controller can't be created.
+* `LYRQuery` now supports `LYRConversation` querying on property `metadata` in dictionary and key path forms.
+* LayerKit client now tries to resolve message parts' MIMEType and uses an appropriate filename extension for the rich content `(LYRMessagePart *)part.fileURL`.
+
+#### Bugfix
+
+* Ensure `LYRMessagePart` `fileURL` property is updated when `LYRProgress` `fractionCompleted` is 1.
+* Fixed `LayerKit` connection issue when XCode Product Name contained a unicode character.
+* Fixed a minor memory leak when interacting with the Keychain APIs.
+
+#### Enhancements
+
+* Updated exception language when an invalid parameter is supplied to an `LYRQuery`.
+* Updated error language when attempting to authenticate with an invalid nonce.
+* Adding metadata querying support.
+
 ## 0.15.0
 
 #### Public API Changes
