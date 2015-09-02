@@ -679,6 +679,9 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  */
 - (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation __deprecated;
 
+// DEPRECATED: Use `LYRClient`'s `queryControllerWithQuery:error:` instead.
+- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query __deprecated;
+
 @end
 
 @interface LYRClient (ObjectIdentifierMigration)

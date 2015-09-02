@@ -1,10 +1,10 @@
 # LayerKit Change Log
 
-## 0.15.1
+## 0.16.0
 
 #### Public API Changes
 
-* `LYRQueryController` initialization on the `LYRClient` now takes an error pointer that is filled in the case the client isn't authenticated and a controller can't be created.
+* `LYRQueryController` initialization on the `LYRClient` changes from `queryControllerWithQuery:` to `queryControllerWithQuery:error:` to return an error when the client isn't authenticated and a controller can't be created.
 * `LYRQuery` now supports `LYRConversation` querying on property `metadata` in dictionary and key path forms.
 * LayerKit client now tries to resolve message parts' MIMEType and uses an appropriate filename extension for the rich content `(LYRMessagePart *)part.fileURL`.
 
