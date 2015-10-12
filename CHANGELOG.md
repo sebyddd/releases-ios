@@ -1,5 +1,31 @@
 # LayerKit Change Log
 
+## 0.17.0
+
+#### Dynamic Framework Support 
+
+`LayerKit 0.17.0` introduces support for distributing LayerKit as a [dynamic framework](http://blog.cocoapods.org/CocoaPods-0.36/). To prepare your project for dynamic framework support, please ensure you perform the following:
+
+* Upgrade your local version of `CocoaPods` to `0.39.0` or greater. 
+* Add [`use_frameworks!`](https://guides.cocoapods.org/syntax/podfile.html#use_frameworks_bang) to the top of your `Podfile`. 
+* Ensure that your project's iOS deployment target is iOS 8.0 or greater. Dynamic frameworks are not supported prior to iOS 8.0.
+* Change any `LayerKit` header import statements to following format: `<LayerKit/LayerKit.h>`. When building dynamic frameworks with `CocoaPods`, you may no longer use quoted imports. 
+
+#### Public API changes
+
+* LayerKit client now uses message parts' MIMEType to resolve its filename extension for the rich content which is accessible through `(LYRMessagePart *)part.fileURL`.
+* `LYRClientWillBeginSynchronizationNotification` now includes a progress object instance in the `userInfo` as the value to the `LYRClientSynchronizationProgressUserInfoKey`.
+* Introduced `LYRPushNotificationConfiguration` for default and per recipient push notification configuration.
+* The `LYRMessageOptionsPushNotificationAlertKey` and `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` keys have been deprecated for the `LYRMessageOptionsPushNotificationConfigurationKey` key, which takes an instance of `LYRPushNotificationConfiguration` to allow extended push customization. 
+* `LYRClientWillBeginSynchronizationNotification` now comes with a `userInfo` dictionary that contains an `LYRProgress` instance (under the `LYRClientContentTransferProgressUserInfoKey`) that tracks the progress of the cold-synchronization process.
+
+#### Enhancements
+
+* Rewritten the synchronization queuing logic that parallelizes processing per conversation.
+* More reliable push notification handling when using the `synchronizeWithRemoteNotification:completion:` method
+* Added support for building LayerKit as a dynamic framework.  
+* Added support for bitcode. 
+
 ## 0.16.0
 
 #### Public API Changes
@@ -33,7 +59,7 @@
 
 #### Bug Fixes
 
-* Fixed an issue which caused a crash when calling `objectAtIndexPath:` on an empty `LYRQueryController`. 
+* Fixed an issue which caused a crash when calling `objectAtIndexPath:` on an empty `LYRQueryController`.
 
 ## 0.14.3
 
