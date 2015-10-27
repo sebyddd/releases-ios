@@ -1,5 +1,13 @@
 # LayerKit Change Log
 
+## 0.17.1
+
+#### Bug Fixes
+
+* Fixed the observer crash when initializing the LYRClient and protected data is unavailable.
+* `synchronizeWithRemoteNotification:completion:` now passes an error via completion block, in case the method is invoked while the app is in the foreground.
+* Fixed an issue where announcements appeared as messages in its own conversation or weren't received at all.
+
 ## 0.17.0
 
 #### Dynamic Framework Support 
