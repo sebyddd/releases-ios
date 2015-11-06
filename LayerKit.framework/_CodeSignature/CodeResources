@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/LYRErrors.h</key>
 		<data>
-		o4hXaPsctpejyHIC5JcG9vC4Iys=
+		KQ1dR+vziAlRZFr47um/vzyFXAI=
 		</data>
 		<key>Headers/LYRMessage.h</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ZL8GuUrlK12u8KpFaZIEMXM4OsY=
+		HdYMsZrwcnmPAecxAiuz8L95XvM=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -162,7 +162,7 @@
 		</data>
 		<key>PrivateHeaders/LYRConversationRepository.h</key>
 		<data>
-		5nV7SEW5z/E5nNY/q4Y51RmijnI=
+		6ukrXk07sTsz2XUeF+Mdx+t/DbU=
 		</data>
 		<key>PrivateHeaders/LYRCreateExternalContentURLOperation.h</key>
 		<data>
@@ -374,7 +374,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessageRepository.h</key>
 		<data>
-		mEBqWnRB29k09vsQ1DUW2hovyFw=
+		TCu1K1nyUcNhLhji9mxKtO1RvTk=
 		</data>
 		<key>PrivateHeaders/LYRMultiKeyCache.h</key>
 		<data>
@@ -646,7 +646,7 @@
 		</data>
 		<key>PrivateHeaders/LYRUnreadService.h</key>
 		<data>
-		I0KGO9kNBQSKUyvkRCAEIbteJ/0=
+		cH4cROXUve2y4a4KHhUI4lSNV54=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -673,7 +673,7 @@
 		</data>
 		<key>Headers/LYRErrors.h</key>
 		<data>
-		o4hXaPsctpejyHIC5JcG9vC4Iys=
+		KQ1dR+vziAlRZFr47um/vzyFXAI=
 		</data>
 		<key>Headers/LYRMessage.h</key>
 		<data>
@@ -805,7 +805,7 @@
 		</data>
 		<key>PrivateHeaders/LYRConversationRepository.h</key>
 		<data>
-		5nV7SEW5z/E5nNY/q4Y51RmijnI=
+		6ukrXk07sTsz2XUeF+Mdx+t/DbU=
 		</data>
 		<key>PrivateHeaders/LYRCreateExternalContentURLOperation.h</key>
 		<data>
@@ -1017,7 +1017,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessageRepository.h</key>
 		<data>
-		mEBqWnRB29k09vsQ1DUW2hovyFw=
+		TCu1K1nyUcNhLhji9mxKtO1RvTk=
 		</data>
 		<key>PrivateHeaders/LYRMultiKeyCache.h</key>
 		<data>
@@ -1289,7 +1289,7 @@
 		</data>
 		<key>PrivateHeaders/LYRUnreadService.h</key>
 		<data>
-		I0KGO9kNBQSKUyvkRCAEIbteJ/0=
+		cH4cROXUve2y4a4KHhUI4lSNV54=
 		</data>
 	</dict>
 	<key>rules</key>
