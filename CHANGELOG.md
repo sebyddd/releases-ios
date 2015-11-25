@@ -1,5 +1,16 @@
 # LayerKit Change Log
 
+## 0.17.3
+
+#### Bug Fixes
+
+* Improved stability of the SDK.
+* Fixes the assertion issue related to receiving distinct conversations with the same set of participants after a conversation with the same set of participants was deleted.
+* Fixes the issue that would cause the `Failed to persist a stream with client_id = nil` assertion.
+* Fixes the intermittent conversation metadata update failures.
+* Fixes a potential crash related with participant removal.
+* Fixes the issue where deleting an active (chatty) conversation might raise an exception.
+
 ## 0.17.2
 
 #### Enhancements
@@ -29,21 +40,21 @@
 
 ## 0.17.0
 
-#### Dynamic Framework Support
+#### Dynamic Framework Support 
 
 `LayerKit 0.17.0` introduces support for distributing LayerKit as a [dynamic framework](http://blog.cocoapods.org/CocoaPods-0.36/). To prepare your project for dynamic framework support, please ensure you perform the following:
 
-* Upgrade your local version of `CocoaPods` to `0.39.0` or greater.
-* Add [`use_frameworks!`](https://guides.cocoapods.org/syntax/podfile.html#use_frameworks_bang) to the top of your `Podfile`.
+* Upgrade your local version of `CocoaPods` to `0.39.0` or greater. 
+* Add [`use_frameworks!`](https://guides.cocoapods.org/syntax/podfile.html#use_frameworks_bang) to the top of your `Podfile`. 
 * Ensure that your project's iOS deployment target is iOS 8.0 or greater. Dynamic frameworks are not supported prior to iOS 8.0.
-* Change any `LayerKit` header import statements to following format: `<LayerKit/LayerKit.h>`. When building dynamic frameworks with `CocoaPods`, you may no longer use quoted imports.
+* Change any `LayerKit` header import statements to following format: `<LayerKit/LayerKit.h>`. When building dynamic frameworks with `CocoaPods`, you may no longer use quoted imports. 
 
 #### Public API changes
 
 * LayerKit client now uses message parts' MIMEType to resolve its filename extension for the rich content which is accessible through `(LYRMessagePart *)part.fileURL`.
 * `LYRClientWillBeginSynchronizationNotification` now includes a progress object instance in the `userInfo` as the value to the `LYRClientSynchronizationProgressUserInfoKey`.
 * Introduced `LYRPushNotificationConfiguration` for default and per recipient push notification configuration.
-* The `LYRMessageOptionsPushNotificationAlertKey` and `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` keys have been deprecated for the `LYRMessageOptionsPushNotificationConfigurationKey` key, which takes an instance of `LYRPushNotificationConfiguration` to allow extended push customization.
+* The `LYRMessageOptionsPushNotificationAlertKey` and `LYRMessageOptionsPushNotificationPerRecipientConfigurationKey` keys have been deprecated for the `LYRMessageOptionsPushNotificationConfigurationKey` key, which takes an instance of `LYRPushNotificationConfiguration` to allow extended push customization. 
 * `LYRClientWillBeginSynchronizationNotification` now comes with a `userInfo` dictionary that contains an `LYRProgress` instance (under the `LYRClientContentTransferProgressUserInfoKey`) that tracks the progress of the cold-synchronization process.
 
 #### Enhancements
@@ -51,7 +62,7 @@
 * Rewritten the synchronization queuing logic that parallelizes processing per conversation.
 * More reliable push notification handling when using the `synchronizeWithRemoteNotification:completion:` method
 * Added support for building LayerKit as a dynamic framework.  
-* Added support for bitcode.
+* Added support for bitcode. 
 
 ## 0.16.0
 
@@ -99,7 +110,7 @@
 * Fixes an issue where `LYRMessagePart`s hold outdated objects in memory, where updating it can throw exceptions due to mismatched version number.
 * Fixes an issue where deleting conversation metadata at key path didn't work.
 * Fixes an issue which caused LayerKit to indefinitely retry conversation creation after receiving an unrecoverable error from server.
-* Fixes an issue where the `LYRClient` would auto-purge most of the downloaded content when setting the `client.diskCapacity` property.
+* Fixes an issue where the `LYRClient` would auto-purge most of the downloaded content when setting the `client.diskCapacity` property. 
 
 ## 0.14.2
 
@@ -115,15 +126,15 @@
 
 #### Enhancements
 
-* Added logic to speed up synchronization of conversation deletions and metadata updates.
+* Added logic to speed up synchronization of conversation deletions and metadata updates. 
 
 #### Bug Fixes
 
 * Fixes an issue where deleted conversations with pending changes caused the sync to completely stop.
-* Fixes an issue where mutlitple local deletions and distinct conversation creations could create object cache inconsistencies and crash.
-* Fixes an issue which caused `LayerKit` to return `nil` instead of `NSUIntegerMax` if an error occurred during a count query.
+* Fixes an issue where mutlitple local deletions and distinct conversation creations could create object cache inconsistencies and crash. 
+* Fixes an issue which caused `LayerKit` to return `nil` instead of `NSUIntegerMax` if an error occurred during a count query. 
 
-## 0.14.0
+## 0.14.0 
 
 #### Enhancements
 
@@ -133,7 +144,7 @@
 #### Public API Changes
 
 * Added `LYRAnnouncement`, which models a platform message sent externally from any conversation.  `LYRAnnouncement` subclasses `LYRMessage` and is queryable by itself.  This works in conjunction with the Platform API.
-* Added `LYRConversationOptionsDistinctByParticipantsKey` to `LYRConversation` as a key for the conversation `options` initilization parameter. Setting the value for this key to `YES` during initialization will guarantee that Layer only ever creates a single conversation for the specified participants. `YES` is also default if no options are specified.
+* Added `LYRConversationOptionsDistinctByParticipantsKey` to `LYRConversation` as a key for the conversation `options` initilization parameter. Setting the value for this key to `YES` during initialization will guarantee that Layer only ever creates a single conversation for the specified participants. `YES` is also default if no options are specified. 
 * Added `isDistinct` property to `LYRConversation` to indicate whether or not the conversation is distinct by its participant list.
 
 ## 0.13.3
@@ -141,8 +152,8 @@
 #### Public API Changes
 
 * Introduced `LYRObjectChange`, which models a change that has occured upon a Layer model object. This object replaces the change dictionaries that `LYRClient` posted with change notifications.
-* Deprecated the following object change dictionary keys: `LYRObjectChangeTypeKey`, `LYRObjectChangeObjectKey`, `LYRObjectChangePropertyKey`, `LYRObjectChangeOldValueKey`, `LYRObjectChangeNewValueKey`. Use the public properties on `LYRObjectChange` instead.
-
+* Deprecated the following object change dictionary keys: `LYRObjectChangeTypeKey`, `LYRObjectChangeObjectKey`, `LYRObjectChangePropertyKey`, `LYRObjectChangeOldValueKey`, `LYRObjectChangeNewValueKey`. Use the public properties on `LYRObjectChange` instead. 
+  
 #### Enhancements
 
 * Improved the performance of the Rich Content management (smaller memory footprint and CPU usage).
@@ -151,31 +162,31 @@
 #### Bug Fixes
 
 * Fixed crash caused by attempting to add a participant to a conversation they are already in.   
-* Fixed crash caused by attempting to remove a participant from a conversation they are not in.
+* Fixed crash caused by attempting to remove a participant from a conversation they are not in. 
 * Fixed crash when dealing with huge numbers of Rich Content parts.
 * Fixed an issue where sent messages' recipient statuses seemed to be stuck on `LYRRecipientStatusPending`, even though messages were successfully sent.
 
 ## 0.13.2
 
-#### Bug Fixes
+#### Bug Fixes 
 
-* Fixed bug that prevented `LYRClient` objects from being properly deallocated.
+* Fixed bug that prevented `LYRClient` objects from being properly deallocated. 
 
 ## 0.13.2
 
 #### Bug Fixes
 
 * Fixed bug that would cause messages to not be marked as read when calling `markAllMessagesAsRead:` on `LYRConversation`.
-* Fixed bug with object faulting causing message parts to be released.
+* Fixed bug with object faulting causing message parts to be released. 
 
 ## 0.13.1
 
 #### Bug Fixes
-
-* Fixed crash during synchronization caused by improperly set error pointers.
-* Fixed crash during synchronization caused by fetching thousands of conversations at a time.
+ 
+* Fixed crash during synchronization caused by improperly set error pointers. 
+* Fixed crash during synchronization caused by fetching thousands of conversations at a time. 
 * Fixed crash caused by a Layer Client being deauthenticated while trying to mark messages as read.
-* Fixed bug that could cause message recipient status to not update properly.
+* Fixed bug that could cause message recipient status to not update properly. 
 
 ## 0.13.0
 
@@ -207,18 +218,18 @@
 
 * Changed several APIs to improve interoperability with Swift.
 * Improved synchronization performance, if client has a lot of messages with rich content to sync.
-* Improved message send times while performing sync.
+* Improved message send times while performing sync. 
 
 #### Public API Changes
 
 * The `LYQuery` initializer has been changed from `queryWithClass:` to `queryWithQueryableClass:`. This avoids the need to wrap `class` in backticks
 when initializing a query object in Swift.
-* The `LYRPredicate` initializer has been changed from `predicateWithProperty:operator:value:` to `predicateWithProperty:predicateOperator:value:`.
+* The `LYRPredicate` initializer has been changed from `predicateWithProperty:operator:value:` to `predicateWithProperty:predicateOperator:value:`. 
 This avoids the need to wrap `operator` in backticks when initializing a predicate object in Swift.
-* `updateRemoteNotificationDeviceToken:error:` now accepts a `nil` value as the `deviceToken` parameter. This un-registers devices from receiving push notifications.
-* Multiple `LYRClient` instances created with the same appID are not allowed anymore, doing so will cause an assertion.
+* `updateRemoteNotificationDeviceToken:error:` now accepts a `nil` value as the `deviceToken` parameter. This un-registers devices from receiving push notifications. 
+* Multiple `LYRClient` instances created with the same appID are not allowed anymore, doing so will cause an assertion. 
 * Added `markMessagesAsRead:error:` to `LYRClient` to facilitate batch operations.
-* Update `LYRMessagePart` initializers to enforce MIME Type format using the regular expression "/^[^\\s/]+/[^\\s/]+$/". This ensures that Rich Content message parts
+* Update `LYRMessagePart` initializers to enforce MIME Type format using the regular expression "/^[^\\s/]+/[^\\s/]+$/". This ensures that Rich Content message parts 
 do not get stuck during upload due to having an invalid MIME Type.
 
 #### Bug Fixes
@@ -250,7 +261,7 @@ do not get stuck during upload due to having an invalid MIME Type.
 This version of LayerKit includes a substantial change to Message ordering in order to enhance performance. Previous version of LayerKit utilized
 a property named `index`, which was a monotonically increasing integer equal to the number of Messages that had been synchronized. From v0.11.0 on,
 LayerKit maintains a new property named `position`. The `position` of a Message is a value that is calculated immediately when the Message is
-synchronized and never changes. This greatly improves performance by reducing the change notification overhead associated with syncing large amounts
+synchronized and never changes. This greatly improves performance by reducing the change notification overhead associated with syncing large amounts 
 of Message content.
 
 #### Public API Changes
@@ -282,14 +293,14 @@ of Message content.
 
 #### Bug Fixes
 
-* Fixed an issue where some objects didn't had their properties changed, even though the changes coming from `layerClient:objectsDidChange:` in the dictionary dictated so.
+* Fixed an issue where some objects didn't had their properties changed, even though the changes coming from `layerClient:objectsDidChange:` in the dictionary dictated so. 
 * Fixed an issue where transitioning from foreground to background made `LYRProgress` instances stale (stopped tracking upload and download transfers).
 
 ## 0.10.0
 
 This is a major new release of LayerKit that includes support for Rich Content. Rich Content is a large file or media asset
-transported and synchronized by a new agent designed specifically to handle large payloads. Rich Content assets can be up to 2GB in size
-and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. Rich Content is discussed in detail in the
+transported and synchronized by a new agent designed specifically to handle large payloads. Rich Content assets can be up to 2GB in size 
+and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. Rich Content is discussed in detail in the 
 [v0.10.0 Transition Guide](http://developer.layer.com/docs/guides#richcontent).
 
 #### Enhancements
@@ -328,7 +339,7 @@ and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. R
 #### Bug Fixes
 
 * Added countermeasures to ensure that multiple synchronization requests from rapidly delivered push notifications do not get lost.
-* Backported a fix from 0.10.0 [110bdaa] that fixes the issue where an exception might be raised because of an internal race condition.
+* Backported a fix from 0.10.0 [110bdaa] that fixes the issue where an exception might be raised because of an internal race condition. 
 
 ## 0.9.8
 
@@ -447,7 +458,7 @@ and are handled transparently by the `LYRMessage` and `LYRMessagePart` models. R
 
 ## 0.9.0
 
-LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to
+LayerKit v0.9.0 includes numerous feature enhancements and API changes in preparation for the upcoming 1.0 release. The API changes were made to 
 make LayerKit more intuitive and prepare for future platform enhancements. These changes are detailed in the LayerKit [Transition Guide](https://developer.layer.com/docs/transition/ios).
 
 #### Public API changes
@@ -493,7 +504,7 @@ make LayerKit more intuitive and prepare for future platform enhancements. These
 
 * Fixes an issue where LYRClient might crash if a user had deleted a conversation locally and then received a global deletion of a conversation caused by other participant.
 * Fixes an issue where LYRClient might produce two different object instances when fetching objects.
-* Fixes an issue where LYRClient wasn't capable of receiving pushed events via transport after transitioning into an active application state.
+* Fixes an issue where LYRClient wasn't capable of receiving pushed events via transport after transitioning into an active application state. 
 * Fixes an issue where LYRClient crashed when dealing with outdated membership changes for deleted conversations.
 * Fixes an issue where LYRClient crashed when allocating the work load across synchronization cycles.
 * Fixes an issue where LYRClient tried to open push channel even when in unauthenticated state.
