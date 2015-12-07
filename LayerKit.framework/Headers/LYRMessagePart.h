@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
  @return A new message part with the given MIME Type and data.
  @raises NSInvalidArgumentException Raised if MIME Type or data is nil.
  */
-+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType data:(NSData *)data;
++ (nonnull instancetype)messagePartWithMIMEType:(nonnull NSString *)MIMEType data:(nonnull NSData *)data;
 
 /**
  @abstract Creates a message part with the given MIME Type and stream of data.
@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
  @return A new message part with the given MIME Type and stream of data.
  @raises NSInvalidArgumentException Raised if MIME Type or stream is nil.
  */
-+ (instancetype)messagePartWithMIMEType:(NSString *)MIMEType stream:(NSInputStream *)stream;
++ (nonnull instancetype)messagePartWithMIMEType:(nonnull NSString *)MIMEType stream:(nonnull NSInputStream *)stream;
 
 /**
  @abstract Create a message part with a string of text.
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
  @return A new message part with the MIME Type text/plain and a UTF-8 encoded representation of the given input text.
  @raises NSInvalidArgumentException Raised if text is nil.
  */
-+ (instancetype)messagePartWithText:(NSString *)text;
++ (nonnull instancetype)messagePartWithText:(nonnull NSString *)text;
 
 ///---------------
 /// @name Identity
@@ -96,7 +96,7 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
 /**
  @abstract A unique identifier for the message part.
  */
-@property (nonatomic, readonly) NSURL *identifier LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nonnull) NSURL *identifier LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Object index dictating message part order in a collection of LYRMessage.
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
 /**
  @abstract The message that the receiver is a part of.
  */
-@property (nonatomic, readonly) LYRMessage *message LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nullable) LYRMessage *message LYR_QUERYABLE_PROPERTY;
 
 ///------------------------
 /// @name Accessing Content
@@ -115,19 +115,19 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
 /**
  @abstract The MIME Type of the content represented by the receiver.
  */
-@property (nonatomic, readonly) NSString *MIMEType LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM(LYRMessage);
+@property (nonatomic, readonly, nonnull) NSString *MIMEType LYR_QUERYABLE_PROPERTY LYR_QUERYABLE_FROM(LYRMessage);
 
 /**
  @abstract The content of the receiver as a data object.
  @discussion Property will be `nil` if content is not availble. Note that this operation might be expensive if trying to read large data.
  */
-@property (nonatomic, readonly) NSData *data;
+@property (nonatomic, readonly, nullable) NSData *data;
 
 /**
  @abstract Returns a `NSURL` object to the filesystem location of the receiver’s content or `nil` if the content is not available locally or was transmitted inline.
  @discussion Property will be `nil` if content is not availble.
  */
-@property (nonatomic, readonly) NSURL *fileURL;
+@property (nonatomic, readonly, nullable) NSURL *fileURL;
 
 /**
  @abstract The size of the content in bytes.
@@ -143,26 +143,26 @@ typedef NS_ENUM(NSUInteger, LYRContentTransferStatus) {
  @abstract Progress of the current transfer state.
  @discussion Property will return a new instance, if previous one has been released from the memory.
  */
-@property (nonatomic, readonly) LYRProgress *progress;
+@property (nonatomic, readonly, nonnull) LYRProgress *progress;
 
 /**
  @abstract Returns a new input stream object for reading the content of the receiver as a stream.
  @return A new, unopened input stream object configured for reading the content of the part represented by the receiver, if the content is available, otherwise `nil`.
  */
-- (NSInputStream *)inputStream;
+- (nullable NSInputStream *)inputStream;
 
 /**
  @abstract Tells the receiver to schedule a download of the content, optionally reporting progress.
  @param error A pointer to an error object that upon failure will be set to an object that indicates why the download could not be started.
  @return An `LYRProgress` object that reports the progress of the download operation or `nil` if the content cannot be downloaded. 
  */
-- (LYRProgress *)downloadContent:(NSError **)error;
+- (nullable LYRProgress *)downloadContent:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Tells the receiver to schedule a purge of the content, optionally reporting progress.
  @param error A pointer to an error object that upon failure will be set to an object that indicates why the content could not be purged.
  @return An `LYRProgress` object that reports the progress of the content purging operation or `nil` if the content cannot be purged. 
  */
-- (LYRProgress *)purgeContent:(NSError **)error;
+- (nullable LYRProgress *)purgeContent:(NSError * _Nullable * _Nullable)error;
 
 @end

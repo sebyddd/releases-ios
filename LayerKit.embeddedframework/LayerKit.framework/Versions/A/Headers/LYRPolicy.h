@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, LYRPolicyType) {
  @param type The type of policy to create and return.
  @return A newly created policy object with the given type.
  */
-+ (instancetype)policyWithType:(LYRPolicyType)type;
++ (nonnull instancetype)policyWithType:(LYRPolicyType)type;
 
 ///----------------------------
 /// @name Accessing Policy Type
@@ -53,6 +53,6 @@ typedef NS_ENUM(NSInteger, LYRPolicyType) {
 /**
  @abstract Specifies the sender of the content that the policy applies to. If `nil`, the policy applies to all senders.
  */
-@property (nonatomic, copy) NSString *sentByUserID;
+@property (nonatomic, copy, nullable) NSString *sentByUserID;
 
 @end

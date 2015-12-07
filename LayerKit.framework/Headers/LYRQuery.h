@@ -27,14 +27,14 @@
 /**
  @abstract Returns the unique identifier for the receiver as a URL.
  */
-@property (nonatomic, readonly) NSURL *identifier;
+@property (nonatomic, readonly, nonnull) NSURL *identifier;
 
 @end
 
 /**
  @abstract The domain for errors emitted by the querying system.
  */
-extern NSString *const LYRQueryingErrorDomain;
+extern NSString * _Nonnull const LYRQueryingErrorDomain;
 
 /**
  @abstract Codes for errors in the `LYRQueryingErrorDomain` error domain.
@@ -85,12 +85,12 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
  @param queryableClass A class that conforms to the `LYRQueryable` protocol that is to be queried.
  @return A newly created query object.
  */
-+ (instancetype)queryWithQueryableClass:(Class<LYRQueryable>)queryableClass;
++ (nonnull instancetype)queryWithQueryableClass:(nonnull Class<LYRQueryable>)queryableClass;
 
 /**
  @abstract Returns the queryable class that the receiver is bound to.
  */
-@property (nonatomic, readonly) Class<LYRQueryable> queryableClass;
+@property (nonatomic, readonly, nonnull) Class<LYRQueryable> queryableClass;
 
 ///------------------------
 /// @name Query Constraints
@@ -99,7 +99,7 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
 /**
  @abstract The predicate of the receiver.
  */
-@property (nonatomic) LYRPredicate *predicate;
+@property (nonatomic, nullable) LYRPredicate *predicate;
 
 /**
  @abstract The limit configures the maximum number of objects to be returned when the query is executed.
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
  @discussion The sort descriptors specify how the objects returned when the query is executed should be ordered (for example by creation date or index). The sort descriptors are 
  applied in the order in which they appear in the `sortDescriptors` array. A value of nil (the default) means that no explicit sorting is applied and the results are returned in database row order.
  */
-@property (nonatomic) NSArray *sortDescriptors;
+@property (nonatomic, nullable) NSArray<NSSortDescriptor *> *sortDescriptors;
 
 ///----------------------------------------
 /// @name Managing How Results Are Returned
@@ -139,6 +139,6 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
 @interface LYRQuery (Deprecated)
 
 // DEPRECATED: Use `LYQuery`'s `queryWithQueryableClass:` instead.
-+ (instancetype)queryWithClass:(Class<LYRQueryable>)queryableClass __deprecated;
++ (nonnull instancetype)queryWithClass:(nonnull Class<LYRQueryable>)queryableClass __deprecated;
 
 @end

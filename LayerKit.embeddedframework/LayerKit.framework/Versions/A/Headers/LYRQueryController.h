@@ -23,7 +23,7 @@
 /**
  @abstract Returns the query of the receiver.
  */
-@property (nonatomic, readonly) LYRQuery *query;
+@property (nonatomic, readonly, nonnull) LYRQuery *query;
 
 ///---------------------------------
 /// @name Configuring Update Elision
@@ -33,7 +33,7 @@
  @abstract Configures the set of properties on the queried model class for which `LYRQueryControllerChangeTypeUpdate` changes will be emitted. The default value is `nil`, which means that all property changes will generate update notifications to the delegate.
  @discussion The set of updatable properties is used to enhance performance by suppressing the delivery of uninteresting update notifications to the delegate and the subsequent reloading of table or collection view cells. For example, given a collection view that is rendering `LYRMessage` objects but does not include read or delivery receipt status on the cell, the developer may wish to limit the updatable properties to `isSent` and `isUnread` so that the UI does not refresh as delivery and read receipts are synchronized from other participants of the conversation. A value of `nil` indicates that no filtering is to be applied and any update to an object in the collection will generate an update callback. An empty set disables all update notifications.
  */
-@property (nonatomic) NSSet *updatableProperties;
+@property (nonatomic, nullable) NSSet<NSString *> *updatableProperties;
 
 ///-------------------------
 /// @name Pagination Support
@@ -68,7 +68,7 @@
 /**
  @abstract Accesses the receiver's delegate.
  */
-@property (nonatomic, weak) id<LYRQueryControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<LYRQueryControllerDelegate> delegate;
 
 ///-----------------------------------------
 /// @name Counting Objects in the Result Set
@@ -102,14 +102,14 @@
  @param indexPath The index path for the object to retrieve.
  @return The object at the specified index or `nil` if none could be found.
  */
-- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable id)objectAtIndexPath:(nonnull NSIndexPath *)indexPath;
 
 /**
  @abstract Returns the index path for the given object in the result set.
  @param object The object to retrieve the index path for.
  @return The index path for the given object or `nil` if it does not exist in the result set.
  */
-- (NSIndexPath *)indexPathForObject:(id<LYRQueryable>)object;
+- (nullable NSIndexPath *)indexPathForObject:(nonnull id<LYRQueryable>)object;
 
 /**
  @abstract Returns a dictionary mapping the given set of object identifiers to the `NSIndexPath` values that indicate 
@@ -118,7 +118,7 @@
  @param objectIdentifiers The set of object identifiers to look up within the query controller.
  @return A dictionary mapping the object identifiers that are part of the query controller results to the index path that appear at.
  */
-- (NSDictionary *)indexPathsForObjectsWithIdentifiers:(NSSet *)objectIdentifiers;
+- (nonnull NSDictionary *)indexPathsForObjectsWithIdentifiers:(nonnull NSSet *)objectIdentifiers;
 
 ///--------------------------
 /// @name Executing the Query
@@ -130,14 +130,14 @@
  the nature of the failure.
  @return A Boolean value that indicates if execution of the query was successful.
  */
-- (BOOL)execute:(NSError **)error;
+- (BOOL)execute:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Executes the query asynchronously and loads a result and error in a completion block.
  @param completion A block that passes back a BOOL if the execution of the query was successful, and an associated error object if there
  was an error during execution.
  */
-- (void)executeWithCompletion:(void (^)(BOOL success, NSError *error))completion;
+- (void)executeWithCompletion:(nonnull void (^)(BOOL success, NSError * _Nonnull error))completion;
 
 @end
 
@@ -178,13 +178,13 @@ typedef NS_ENUM(NSUInteger, LYRQueryControllerChangeType) {
  @abstract Tells the delegate that the result set of query controller is about to change.
  @param The query controller that is changing.
  */
-- (void)queryControllerWillChangeContent:(LYRQueryController *)queryController;
+- (void)queryControllerWillChangeContent:(nonnull LYRQueryController *)queryController;
 
 /**
  @abstract Tells the delegate that the result set of query controller has changed.
  @param The query controller that has changed.
  */
-- (void)queryControllerDidChangeContent:(LYRQueryController *)queryController;
+- (void)queryControllerDidChangeContent:(nonnull LYRQueryController *)queryController;
 
 /**
  @abstract Tells the delegate that a particular object in the result set of query controller has changed.
@@ -194,6 +194,6 @@ typedef NS_ENUM(NSUInteger, LYRQueryControllerChangeType) {
  @param type An enumerated value that specifies the type of change that is occurring.
  @param newIndexPath The new index path for the object or `nil` if the change is an update or delete.
  */
-- (void)queryController:(LYRQueryController *)controller didChangeObject:(id)object atIndexPath:(NSIndexPath *)indexPath forChangeType:(LYRQueryControllerChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
+- (void)queryController:(nonnull LYRQueryController *)controller didChangeObject:(nonnull id)object atIndexPath:(nullable NSIndexPath *)indexPath forChangeType:(LYRQueryControllerChangeType)type newIndexPath:(nullable NSIndexPath *)newIndexPath;
 
 @end

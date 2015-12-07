@@ -17,7 +17,7 @@
 #import "LYRPolicy.h"
 #import "LYRProgress.h"
 
-@class LYRClient, LYRQuery, LYRQueryController;
+@class LYRClient, LYRQuery, LYRQueryController, LYRObjectChange;
 
 ///-------------------------------------
 /// @name Client Lifecycle Notifications
@@ -26,27 +26,27 @@
 /**
  @abstract Posted when a client has authenticated successfully.
  */
-extern NSString *const LYRClientDidAuthenticateNotification;
+extern NSString * _Nonnull const LYRClientDidAuthenticateNotification;
 
 /**
  @abstract A key into the user info dictionary of a `LYRClientDidAuthenticateNotification` notification specifying the user ID of the authenticated user.
  */
-extern NSString *const LYRClientAuthenticatedUserIDUserInfoKey;
+extern NSString * _Nonnull const LYRClientAuthenticatedUserIDUserInfoKey;
 
 /**
  @abstract Posted when a client has deauthenticated.
  */
-extern NSString *const LYRClientDidDeauthenticateNotification;
+extern NSString * _Nonnull const LYRClientDidDeauthenticateNotification;
 
 /**
  @abstract Posted when a client is beginning a synchronization operation.
  */
-extern NSString *const LYRClientWillBeginSynchronizationNotification;
+extern NSString * _Nonnull const LYRClientWillBeginSynchronizationNotification;
 
 /**
  @abstract Posted when a client has finished a synchronization operation.
  */
-extern NSString *const LYRClientDidFinishSynchronizationNotification;
+extern NSString * _Nonnull const LYRClientDidFinishSynchronizationNotification;
 
 ///---------------------------
 /// @name Change Notifications
@@ -59,7 +59,7 @@ extern NSString *const LYRClientDidFinishSynchronizationNotification;
  purpose and models changes as the creation, update, or deletion of an object. Changes are modeled as `LYRObjectChange` objects.
  @see LYRConstants.h
  */
-extern NSString *const LYRClientObjectsDidChangeNotification;
+extern NSString * _Nonnull const LYRClientObjectsDidChangeNotification;
 
 /**
  @abstract The key into the `userInfo` of a `LYRClientObjectsDidChangeNotification` notification for an array of changes.
@@ -69,76 +69,76 @@ extern NSString *const LYRClientObjectsDidChangeNotification;
  Change notifications are emitted after synchronization has completed and represent the current state of the Layer client's database.
  @see LYRConstants.h
  */
-extern NSString *const LYRClientObjectChangesUserInfoKey;
+extern NSString * _Nonnull const LYRClientObjectChangesUserInfoKey;
 
 /**
  @abstract Posted when the client has scheduled an attempt to connect to Layer.
  */
-extern NSString *const LYRClientWillAttemptToConnectNotification;
+extern NSString * _Nonnull const LYRClientWillAttemptToConnectNotification;
 
 /**
  @abstract Posted when the client has successfully connected to Layer.
  */
-extern NSString *const LYRClientDidConnectNotification;
+extern NSString * _Nonnull const LYRClientDidConnectNotification;
 
 /**
  @abstract Posted when the client has lost an established connection to Layer.
  */
-extern NSString *const LYRClientDidLoseConnectionNotification;
+extern NSString * _Nonnull const LYRClientDidLoseConnectionNotification;
 
 /**
  @abstract Posted when the client has lost the connection to Layer.
  */
-extern NSString *const LYRClientDidDisconnectNotification;
+extern NSString * _Nonnull const LYRClientDidDisconnectNotification;
 
 /**
  @abstract The key into the `userInfo` of the `LYRClientWillBeginSynchronizationNotification` whose value is the `LYRProgress` instance
  of the synchronization process in progress.
  @see LYRClientWillBeginSynchronizationNotification
  */
-extern NSString *const LYRClientSynchronizationProgressUserInfoKey;
+extern NSString * _Nonnull const LYRClientSynchronizationProgressUserInfoKey;
 
 /**
  @abstract The key into the `userInfo` of the error object passed by the delegate method `layerClient:didFailOperationWithError:` describing
  which public API method encountered the failure.
  @see layerClient:didFailOperationWithError:
  */
-extern NSString *const LYRClientOperationErrorUserInfoKey;
+extern NSString * _Nonnull const LYRClientOperationErrorUserInfoKey;
 
 /**
  @abstract Posted when a conversation object receives a change in typing indicator state.
  @discussion The `object` of the `NSNotification` is the `LYRConversation` that received the typing indicator.
  */
-extern NSString *const LYRConversationDidReceiveTypingIndicatorNotification;
+extern NSString * _Nonnull const LYRConversationDidReceiveTypingIndicatorNotification;
 
 /**
  @abstract A key into the user info of a `LYRConversationDidReceiveTypingIndicatorNotification` notification whose value is
  a `NSNumber` containing a unsigned integer whose value corresponds to a `LYRTypingIndicator`.
  */
-extern NSString *const LYRTypingIndicatorValueUserInfoKey;
+extern NSString * _Nonnull const LYRTypingIndicatorValueUserInfoKey;
 
 /**
  @abstract A key into the user info of a `LYRConversationDidReceiveTypingIndicatorNotification` notification whose value is
  a `NSString` specifying the participant who changed typing state.
  */
-extern NSString *const LYRTypingIndicatorParticipantUserInfoKey;
+extern NSString * _Nonnull const LYRTypingIndicatorParticipantUserInfoKey;
 
 /**
  @abstract Posted when the client will begin transfering content.
  */
-extern NSString *const LYRClientWillBeginContentTransferNotification;
+extern NSString * _Nonnull const LYRClientWillBeginContentTransferNotification;
 
 /**
  @abstract Posted when the client finishes the content transfer.
  */
-extern NSString *const LYRClientDidFinishContentTransferNotification;
+extern NSString * _Nonnull const LYRClientDidFinishContentTransferNotification;
 
 /**
  @abstract A key into the `userInfo` of either `LYRClientWillBeginContentTransferNotification`, or
  `LYRClientDidFinishContentTransferNotification` whose value is the `LYRContentTransferType`
  enum indicating either an upload or a download transfer type.
  */
-extern NSString *const LYRClientContentTransferTypeUserInfoKey;
+extern NSString * _Nonnull const LYRClientContentTransferTypeUserInfoKey;
 
 /**
  @abstract A key into the `userInfo` of either `LYRClientWillBeginContentTransferNotification`, or
@@ -146,14 +146,14 @@ extern NSString *const LYRClientContentTransferTypeUserInfoKey;
  of which the client did begin or finish the uploading or downloading process (depending
  on the transfer type).
  */
-extern NSString *const LYRClientContentTransferObjectUserInfoKey;
+extern NSString * _Nonnull const LYRClientContentTransferObjectUserInfoKey;
 
 /**
  @abstract A key into the `userInfo` of either `LYRClientWillBeginContentTransferNotification`, or
  `LYRClientDidFinishContentTransferNotification` whose value is an `LYRProgress` instance
  that tracks the transfer progress of object's content.
  */
-extern NSString *const LYRClientContentTransferProgressUserInfoKey;
+extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 
 ///----------------------
 /// @name Client Delegate
@@ -176,7 +176,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param client The client that received the authentication challenge.
  @param nonce The nonce value associated with the challenge.
  */
-- (void)layerClient:(LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(NSString *)nonce;
+- (void)layerClient:(nonnull LYRClient *)client didReceiveAuthenticationChallengeWithNonce:(nonnull NSString *)nonce;
 
 @optional
 
@@ -187,26 +187,26 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param delayInterval The delay, if any, before the attempt will actually be made.
  @param attemptLimit The total number of attempts that will be made before the client gives up.
  */
-- (void)layerClient:(LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit;
+- (void)layerClient:(nonnull LYRClient *)client willAttemptToConnect:(NSUInteger)attemptNumber afterDelay:(NSTimeInterval)delayInterval maximumNumberOfAttempts:(NSUInteger)attemptLimit;
 
 /**
  @abstract Informs the delegate that the client has successfully connected to Layer.
  @param client The client that made the connection.
  */
-- (void)layerClientDidConnect:(LYRClient *)client;
+- (void)layerClientDidConnect:(nonnull LYRClient *)client;
 
 /**
  @abstract Informs the delegate that the client has lost an established connection with Layer due to an error.
  @param client The client that lost the connection.
  @param error The error that occurred.
  */
-- (void)layerClient:(LYRClient *)client didLoseConnectionWithError:(NSError *)error;
+- (void)layerClient:(nonnull LYRClient *)client didLoseConnectionWithError:(nonnull NSError *)error;
 
 /**
  @abstract Informs the delegate that the client has disconnected from Layer.
  @param client The client that has disconnected.
  */
-- (void)layerClientDidDisconnect:(LYRClient *)client;
+- (void)layerClientDidDisconnect:(nonnull LYRClient *)client;
 
 /**
  @abstract Tells the delegate that a client has successfully authenticated with Layer.
@@ -214,28 +214,28 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param userID The user identifier in Identity Provider from which the Identity Token was obtained. Typically the primary key, username, or email
     of the user that was authenticated.
  */
-- (void)layerClient:(LYRClient *)client didAuthenticateAsUserID:(NSString *)userID;
+- (void)layerClient:(nonnull LYRClient *)client didAuthenticateAsUserID:(nonnull NSString *)userID;
 
 /**
  @abstract Tells the delegate that a client has been deauthenticated.
  @discussion The client may become deauthenticated either by an explicit call to `deauthenticateWithCompletion:` or by encountering an authentication challenge.
  @param client The client that was deauthenticated.
  */
-- (void)layerClientDidDeauthenticate:(LYRClient *)client;
+- (void)layerClientDidDeauthenticate:(nonnull LYRClient *)client;
 
 /**
  @abstract Tells the delegate that a client has finished synchronization and applied a set of changes.
  @param client The client that received the changes.
  @param changes An array of `NSDictionary` objects, each one describing a change.
  */
-- (void)layerClient:(LYRClient *)client didFinishSynchronizationWithChanges:(NSArray *)changes __deprecated;
+- (void)layerClient:(nonnull LYRClient *)client didFinishSynchronizationWithChanges:(nonnull NSArray<LYRObjectChange *> *)changes __deprecated;
 
 /**
  @abstract Tells the delegate the client encountered an error during synchronization.
  @param client The client that failed synchronization.
  @param error An error describing the nature of the sync failure.
  */
-- (void)layerClient:(LYRClient *)client didFailSynchronizationWithError:(NSError *)error __deprecated;
+- (void)layerClient:(nonnull LYRClient *)client didFailSynchronizationWithError:(nonnull NSError *)error __deprecated;
 
 /**
  @abstract Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.
@@ -243,14 +243,14 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param changes An array of `LYRObjectChange` objects, each one describing a change.
  @see LYRConstants.h
  */
-- (void)layerClient:(LYRClient *)client objectsDidChange:(NSArray *)changes;
+- (void)layerClient:(nonnull LYRClient *)client objectsDidChange:(nonnull NSArray<LYRObjectChange *> *)changes;
 
 /**
  @abstract Tells the delegate that an operation encountered an error during a local mutation or synchronization activity.
  @param client The client that failed the operation.
  @param error An error describing the nature of the operation failure.
  */
-- (void)layerClient:(LYRClient *)client didFailOperationWithError:(NSError *)error;
+- (void)layerClient:(nonnull LYRClient *)client didFailOperationWithError:(nonnull NSError *)error;
 
 /**
  @abstract Tells the delegate that a content transfer will begin.
@@ -259,7 +259,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param object Object whose content will begin transfering.
  @param progress The `LYRProgress` instance that tracks the progress of the object.
  */
-- (void)layerClient:(LYRClient *)client willBeginContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object withProgress:(LYRProgress *)progress;
+- (void)layerClient:(nonnull LYRClient *)client willBeginContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(nonnull id)object withProgress:(nonnull LYRProgress *)progress;
 
 /**
  @abstract Tells the delegate that a content transfer has finished.
@@ -267,7 +267,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param contentTransferType Type enum representing the content transfer type.
  @param object Object whose content did finish transfering.
  */
-- (void)layerClient:(LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(id)object;
+- (void)layerClient:(nonnull LYRClient *)client didFinishContentTransfer:(LYRContentTransferType)contentTransferType ofObject:(nonnull id)object;
 
 @end
 
@@ -291,17 +291,17 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  However multiple instances of Layer Client with the same `appID` are allowed if running the code under Unit Tests.  Make sure to initialize the client when the 
  file access is available if the app uses NSFileProtection.
  */
-+ (instancetype)clientWithAppID:(NSURL *)appID;
++ (nonnull instancetype)clientWithAppID:(nonnull NSURL *)appID;
 
 /**
  @abstract The object that acts as the delegate of the receiving client.
  */
-@property (nonatomic, weak) id<LYRClientDelegate> delegate;
+@property (nonatomic, weak, nullable) id<LYRClientDelegate> delegate;
 
 /**
  @abstract The app key.
  */
-@property (nonatomic, copy, readonly) NSURL *appID;
+@property (nonatomic, copy, readonly, nonnull) NSURL *appID;
 
 ///--------------------------------
 /// @name Managing Connection State
@@ -313,7 +313,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param completion An optional block to be executed once connection state is determined. The block has no return value and accepts two arguments: a Boolean value indicating if the connection was made 
  successfully and an error object that, upon failure, indicates the reason that connection was unsuccessful.
 */
-- (void)connectWithCompletion:(void (^)(BOOL success, NSError *error))completion;
+- (void)connectWithCompletion:(nullable void (^)(BOOL success, NSError * _Nullable error))completion;
 
 /**
  @abstract Signals the receiver to end the established network connection.
@@ -339,7 +339,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @discussion A client is considered authenticated if it has previously established identity via the submission of an identity token
  and the token has not yet expired. The Layer server may at any time issue an authentication challenge and deauthenticate the client.
 */
-@property (nonatomic, readonly) NSString *authenticatedUserID;
+@property (nonatomic, readonly, nullable) NSString *authenticatedUserID;
 
 /**
  @abstract Requests an authentication nonce from Layer.
@@ -352,7 +352,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  in the case of failure) and an error object that upon failure describes the nature of the failure.
  @see LYRClientDelegate#layerClient:didReceiveAuthenticationChallengeWithNonce:
  */
-- (void)requestAuthenticationNonceWithCompletion:(void (^)(NSString *nonce, NSError *error))completion;
+- (void)requestAuthenticationNonceWithCompletion:(nonnull void (^)(NSString * _Nullable nonce, NSError * _Nullable error))completion;
 
 /**
  @abstract Authenticates the client by submitting an Identity Token to Layer for evaluation.
@@ -368,13 +368,13 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  was authenticated (or `nil` if authentication was unsuccessful) and an error object that upon failure describes the nature of the failure.
  @see http://tools.ietf.org/html/draft-ietf-jose-json-web-signature-25
  */
-- (void)authenticateWithIdentityToken:(NSString *)identityToken completion:(void (^)(NSString *authenticatedUserID, NSError *error))completion;
+- (void)authenticateWithIdentityToken:(nonnull NSString *)identityToken completion:(nonnull void (^)(NSString * _Nullable authenticatedUserID, NSError * _Nullable error))completion;
 
 /**
  @abstract Deauthenticates the client, disposing of any previously established user identity and disallowing access to the Layer communication services until a new identity is established. All existing messaging data is purged from the database.
  @param completion A block to be executed when the deauthentication operation has completed. The block has no return value and has two arguments: a Boolean value indicating if deauthentication was successful and an error describing the failure if it was not.
  */
-- (void)deauthenticateWithCompletion:(void (^)(BOOL success, NSError *error))completion;
+- (void)deauthenticateWithCompletion:(nullable void (^)(BOOL success, NSError * _Nullable error))completion;
 
 ///-------------------------------------------------------
 /// @name Registering For and Receiving Push Notifications
@@ -387,7 +387,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @return A Boolean value that determines whether the action was successful.
  @discussion The device token is expected to be either an `NSData` object returned by the method `application:didRegisterForRemoteNotificationsWithDeviceToken:` or `nil`. If an `NSData` object is provided, the device token is cached locally and is sent to Layer cloud automatically when the connection is established. If `nil`, all device tokens that are associated with the currently authenticated and the current device will be deleted. Device tokens associated with other devices will not be deleted.
  */
-- (BOOL)updateRemoteNotificationDeviceToken:(NSData *)deviceToken error:(NSError **)error;
+- (BOOL)updateRemoteNotificationDeviceToken:(nullable NSData *)deviceToken error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Inspects an incoming push notification and synchronizes the client if it was sent by Layer.
@@ -396,7 +396,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer and the completion block will not be called.
  @note The receiver must be authenticated else a warning will be logged and `NO` will be returned. The completion is only invoked if the return value is `YES`.
  */
-- (BOOL)synchronizeWithRemoteNotification:(NSDictionary *)userInfo completion:(void(^)(NSArray *changes, NSError *error))completion;
+- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void(^)(NSArray<LYRObjectChange *> * _Nullable changes, NSError * _Nullable error))completion;
 
 ///----------------------------------------------
 /// @name Creating new Conversations and Messages
@@ -410,7 +410,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
  @return The newly created Conversation or `nil` if an attempt is made to create a conversation with a distinct participants list, but one already exists. The existing conversation will be set as the value for the `LYRExistingDistinctConversationKey` in the `userInfo` dictionary of the error parameter.
  */
-- (LYRConversation *)newConversationWithParticipants:(NSSet *)participants options:(NSDictionary *)options error:(NSError **)error;
+- (nullable LYRConversation *)newConversationWithParticipants:(nonnull NSSet<NSString *> *)participants options:(nullable NSDictionary<NSString *, id> *)options error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Creates and returns a new message with the given set of message parts.
@@ -420,7 +420,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @return A new message that is ready to be sent.
  @raises NSInvalidArgumentException Raised if `conversation` is `nil` or `messageParts` is empty.
  */
-- (LYRMessage *)newMessageWithParts:(NSArray *)messageParts options:(NSDictionary *)options error:(NSError **)error;
+- (nullable LYRMessage *)newMessageWithParts:(nonnull NSArray<LYRMessagePart *> *)messageParts options:(nullable NSDictionary<NSString *, id> *)options error:(NSError * _Nullable * _Nullable)error;
 
 ///---------------
 /// @name Querying
@@ -432,14 +432,14 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
  @return An ordered set of query results or `nil` if an error occurred.
  */
-- (NSOrderedSet *)executeQuery:(LYRQuery *)query error:(NSError **)error;
+- (nullable NSOrderedSet<id<LYRQueryable>> *)executeQuery:(nonnull LYRQuery *)query error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Executes the given query asynchronously and passes the results back in a completion block.
  @param query The query to execute. Cannot be `nil`.
  @param completion The block that will be passed once Layer has executed the query.  If successful the `resultSet` will have the results, and if unsuccessful `error` will contain the specific query error.
  */
-- (void)executeQuery:(LYRQuery *)query completion:(void (^)(NSOrderedSet *resultSet, NSError *error))completion;
+- (void)executeQuery:(nonnull LYRQuery *)query completion:(nonnull void (^)(NSOrderedSet<id<LYRQueryable>> * _Nullable resultSet, NSError * _Nullable error))completion;
 
 /**
  @abstract Executes the given query and returns a count of the number of results.
@@ -447,14 +447,14 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to an error object describing why execution failed.
  @return A count of the number of results or `NSUIntegerMax` if an error occurred.
  */
-- (NSUInteger)countForQuery:(LYRQuery *)query error:(NSError **)error;
+- (NSUInteger)countForQuery:(nonnull LYRQuery *)query error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Executes the given query asynchronously and ppasses the result count and error back in a completion block.
  @param query The query to execute. Cannot be `nil`.
  @param completion The block that will be passed once Layer has executed the query.  If successful the `count` will have the count requested in the query, and if unsuccessful `error` will contain the specific query error.
  */
-- (void)countForQuery:(LYRQuery *)query completion:(void (^)(NSUInteger count, NSError *error))completion;
+- (void)countForQuery:(nonnull LYRQuery *)query completion:(nonnull void (^)(NSUInteger count, NSError * _Nullable error))completion;
 
 /**
  @abstract Creates and returns a new query controller with the given query.
@@ -462,7 +462,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to a `NSError` object describing why query controller creation failed.
  @return A newly created query controller.
  */
-- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query error:(NSError **)error;
+- (nullable LYRQueryController *)queryControllerWithQuery:(nonnull LYRQuery *)query error:(NSError * _Nullable * _Nullable)error;
 
 ///-------------------------------
 /// @name Marking Messages as Read
@@ -475,7 +475,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the message could not be sent.
  @return `YES` if the messages were marked as read or `NO` if the operation failed.
  */
-- (BOOL)markMessagesAsRead:(NSSet *)messages error:(NSError **)error;
+- (BOOL)markMessagesAsRead:(nonnull NSSet<LYRMessage *> *)messages error:(NSError * _Nullable * _Nullable)error;
 
 ///---------------
 /// @name Policies
@@ -485,7 +485,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @abstract Returns the ordered set of `LYRPolicy` objects governing the behavior of the client.
  @discussion
  */
-@property (nonatomic, readonly) NSOrderedSet *policies;
+@property (nonatomic, readonly, nullable) NSOrderedSet<LYRPolicy *> *policies;
 
 /**
  @abstract Validates the given policy to determine if it represents a valid configuration that can be added to the receiver.
@@ -493,14 +493,14 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to an error object describing why validation was unsuccessful.
  @return A Boolean value that indicates if the given policy is valid or not.
  */
-- (BOOL)validatePolicy:(LYRPolicy *)policy error:(NSError **)error;
+- (BOOL)validatePolicy:(nonnull LYRPolicy *)policy error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Adds the given policy to the receiver.
  @param policy The policy to be added to the client.
  @param error A pointer to an error that upon failure is set to an error object describing the policy could not be added.
  */
-- (BOOL)addPolicy:(LYRPolicy *)policy error:(NSError **)error;
+- (BOOL)addPolicy:(nonnull LYRPolicy *)policy error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Inserts the given policy in the receiver's policy set at the specified index.
@@ -508,7 +508,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param index The index at which to insert the policy.
  @param error A pointer to an error that upon failure is set to an error object describing the policy could not be added.
  */
-- (BOOL)insertPolicy:(LYRPolicy *)policy atIndex:(NSUInteger)index error:(NSError **)error;
+- (BOOL)insertPolicy:(nonnull LYRPolicy *)policy atIndex:(NSUInteger)index error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Removes the specified policy from the receiver.
@@ -516,7 +516,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param error A pointer to an error that upon failure is set to an error object describing the policy could not be added.
  @return A Boolean value that indicates if the given policy was removed.
  */
-- (BOOL)removePolicy:(LYRPolicy *)policy error:(NSError **)error;
+- (BOOL)removePolicy:(nonnull LYRPolicy *)policy error:(NSError * _Nullable * _Nullable)error;
 
 ///---------------------------------
 /// @name Managing Content Transfers
@@ -552,13 +552,13 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @return A Boolean value that indicates whether or not the client handled the content transfers for the given background session identifier. `YES` will be returned if the session identifier refers to a background session that was created by the Layer client, else `NO`.
  @note The receiver must be authenticated else a warning will be logged and `NO` will be returned. The completion is only invoked if the return value is `YES`.
  */
-- (BOOL)handleBackgroundContentTransfersForSession:(NSString *)sessionIdentifier completion:(void(^)(NSArray *changes, NSError *error))completion;
+- (BOOL)handleBackgroundContentTransfersForSession:(nonnull NSString *)sessionIdentifier completion:(nonnull void(^)(NSArray<LYRObjectChange *> * _Nullable changes, NSError * _Nullable error))completion;
 
 /**
  @abstract Configures the set of MIME Types for `LYRMessagePart` objects that will be automatically downloaded upon synchronization.
  @discussion A value of `nil` indicates that all content is to be downloaded automatically and an empty `NSSet` indicates that no content should be. The default value is a set containing the MIME Type @"text/plain". Message parts belonging to latest messages will be auto-downloaded first.
  */
-@property (nonatomic) NSSet *autodownloadMIMETypes;
+@property (nonatomic, nullable) NSSet<NSString *> *autodownloadMIMETypes;
 
 /**
  @abstract Configures the maximum size (in bytes) for `LYRMessagePart` objects that will be automatically downloaded upon synchronization.
@@ -575,7 +575,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param completion A block to be called upon completion of the asynchronous request for a debug snapshot. The block takes one parameter: an `NSURL` location of the snapshot on the file system.
  @discussion The debug snapshot is a zip file containing the following: 1. A JSON dump of diagnostic information about the `LYRClient` 2. A copy of the local database, 3. A copy of any accumulated log files.
  */
-- (void)captureDebugSnapshotWithCompletion:(void(^)(NSURL *snapshotPath, NSError *error))completion;
+- (void)captureDebugSnapshotWithCompletion:(nonnull void(^)(NSURL * _Nullable snapshotPath, NSError * _Nullable error))completion;
 
 /**
  @abstract When `YES`, `LayerKit` will log detailed debugging information to both the XCode debugger and the file system.
@@ -597,34 +597,34 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
 @interface LYRClient (Deprecated)
 
 // DEPRECATED: Use `LYRConversation`'s `addParticipants:error:` instead.
-- (BOOL)addParticipants:(NSSet *)participants toConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
+- (BOOL)addParticipants:(nonnull NSSet<NSString *> *)participants toConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRConversation`'s `removeParticipants:error:` instead.
-- (BOOL)removeParticipants:(NSSet *)participants fromConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
+- (BOOL)removeParticipants:(nonnull NSSet<NSString *> *)participants fromConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRConversation`'s `sendMessage:error:` instead.
-- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error __deprecated;
+- (BOOL)sendMessage:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRMessage`'s `markAsRead:` instead.
-- (BOOL)markMessageAsRead:(LYRMessage *)message error:(NSError **)error __deprecated;
+- (BOOL)markMessageAsRead:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
-- (BOOL)deleteMessage:(LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError **)error __deprecated;
+- (BOOL)deleteMessage:(nonnull LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
-- (BOOL)deleteMessage:(LYRMessage *)message error:(NSError **)error __deprecated;
+- (BOOL)deleteMessage:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
-- (BOOL)deleteConversation:(LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError **)error __deprecated;
+- (BOOL)deleteConversation:(nonnull LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
-- (BOOL)deleteConversation:(LYRConversation *)conversation error:(NSError **)error __deprecated;
+- (BOOL)deleteConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
 
 // DEPRECATED: Use `newMessageWithParts:options:error:` instead.
-- (BOOL)setMetadata:(NSDictionary *)metadata onObject:(id)object __deprecated;
+- (BOOL)setMetadata:(nonnull NSDictionary<NSString *, NSString *> *)metadata onObject:(nonnull id)object __deprecated;
 
 // DEPRECATED: Use `LYRConversation`'s `sendTypingIndicator:` instead.
-- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(LYRConversation *)conversation __deprecated;
+- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(nonnull LYRConversation *)conversation __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -635,7 +635,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     query.limit = 1;
     LYRConversation *conversation = [[client executeQuery:query error:&error] firstObject];
  */
-- (LYRConversation *)conversationForIdentifier:(NSURL *)identifier __deprecated;
+- (nullable LYRConversation *)conversationForIdentifier:(nonnull NSURL *)identifier __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -647,7 +647,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     }
     NSSet *conversations = [[client executeQuery:query error:&error] set];
  */
-- (NSSet *)conversationsForIdentifiers:(NSSet *)conversationIdentifiers __deprecated;
+- (nonnull NSSet<LYRConversation *> *)conversationsForIdentifiers:(nonnull NSSet<NSString *> *)conversationIdentifiers __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -658,7 +658,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participantsIncludingAuthenticatedUser];
     NSSet *conversations = [[client executeQuery:query error:&error] set];
  */
-- (NSSet *)conversationsForParticipants:(NSSet *)participants __deprecated;
+- (nonnull NSSet<LYRConversation *> *)conversationsForParticipants:(nonnull NSSet<NSString *> *)participants __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -670,7 +670,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     }
     return [[client executeQuery:query error:&error] set];
  */
-- (NSSet *)messagesForIdentifiers:(NSSet *)messageIdentifiers __deprecated;
+- (nonnull NSSet<LYRMessage *> *)messagesForIdentifiers:(nonnull NSSet<NSURL *> *)messageIdentifiers __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -683,7 +683,7 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
     return [client executeQuery:query error:&error];
  */
-- (NSOrderedSet *)messagesForConversation:(LYRConversation *)conversation __deprecated;
+- (nonnull NSOrderedSet<LYRMessage *> *)messagesForConversation:(nonnull LYRConversation *)conversation __deprecated;
 
 /*
  DEPRECATED: Use the following query code instead:
@@ -709,10 +709,10 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
     }
     return [client countForQuery:query error:&error];
  */
-- (NSUInteger)countOfUnreadMessagesInConversation:(LYRConversation *)conversation __deprecated;
+- (NSUInteger)countOfUnreadMessagesInConversation:(nonnull LYRConversation *)conversation __deprecated;
 
 // DEPRECATED: Use `LYRClient`'s `queryControllerWithQuery:error:` instead.
-- (LYRQueryController *)queryControllerWithQuery:(LYRQuery *)query __deprecated;
+- (nullable LYRQueryController *)queryControllerWithQuery:(nonnull LYRQuery *)query __deprecated;
 
 @end
 
@@ -728,6 +728,6 @@ extern NSString *const LYRClientContentTransferProgressUserInfoKey;
  @param identifier The object identifier for which to return the canonical identifier.
  @return The canonical object identifier for the given input identifier or `nil` if none could be computed.
  */
-- (NSURL *)canonicalObjectIdentifierForIdentifier:(NSURL *)identifier;
+- (nullable NSURL *)canonicalObjectIdentifierForIdentifier:(nonnull NSURL *)identifier;
 
 @end

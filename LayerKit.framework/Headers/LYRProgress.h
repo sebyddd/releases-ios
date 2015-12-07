@@ -35,13 +35,13 @@
 /**
  @name User assigned userInfo dictionary.
  */
-@property (nonatomic, copy) NSDictionary *userInfo;
+@property (nonatomic, copy, nullable) NSDictionary *userInfo;
 
 /**
  @name The `LYRProgressDelegate` protocol provides a method for notifying the
  receiver about the progress changes.
  */
-@property (nonatomic, weak) id<LYRProgressDelegate> delegate;
+@property (nonatomic, weak, nullable) id<LYRProgressDelegate> delegate;
 
 /**
  @name Returns YES if operation the progress is being tracked for is cancellable.
@@ -83,18 +83,18 @@
 /**
  @name Returns an array of children objects, if any, otherwise `nil`.
  */
-@property (nonatomic, readonly) NSArray *children;
+@property (nonatomic, readonly, nullable) NSArray<__kindof LYRProgress *> *children;
 
 /**
  @abstract Returns a new instance of aggregate progress object.
  @param progresses An array of `LYRProgress` instances.
  */
-+ (instancetype)aggregateProgressWithProgresses:(NSArray *)progresses;
++ (nonnull instancetype)aggregateProgressWithProgresses:(nullable NSArray *)progresses;
 
 /**
  @abstract progress An instance of LYRProgress to add to the aggregate.
  */
-- (void)addProgress:(LYRProgress *)progress;
+- (void)addProgress:(nonnull LYRProgress *)progress;
 
 @end
 
@@ -108,6 +108,6 @@
  @abstract Tells the delegate that the progress instance has changed.
  @discussion Progress is observed via instance's `fractionCompleted` or `completedUnitCount` properties.
  */
-- (void)progressDidChange:(LYRProgress *)progress;
+- (void)progressDidChange:(nonnull LYRProgress *)progress;
 
 @end

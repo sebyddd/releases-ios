@@ -22,7 +22,7 @@
  metadata will be available on the conversation when the change notification is published. The value given must be an `NSDictionary` of `NSString` key-value pairs. The 
  functionality provided is identical to calling `setValuesForMetadataKeyPathsWithDictionary:merge:` with a `merge` argument of `NO` on the conversation after initialization.
  */
-extern NSString *const LYRConversationOptionsMetadataKey;
+extern NSString * _Nonnull const LYRConversationOptionsMetadataKey;
 
 /**
  @abstract The option key for configuring whether or not clients should write delivery receipts for messages in the conversation.
@@ -30,7 +30,7 @@ extern NSString *const LYRConversationOptionsMetadataKey;
  messages will remain in the `LYRRecipientStatusSent` state until explicitly marked as read. Disabling delivery receipts improves performance for conversations that
  do not benefit from them.
  */
-extern NSString *const LYRConversationOptionsDeliveryReceiptsEnabledKey;
+extern NSString * _Nonnull const LYRConversationOptionsDeliveryReceiptsEnabledKey;
 
 /**
  @abstract The option key for configuring whether or not Conversations are created such that they are guaranteed to be a single distinctive Conversation among the set of participants.
@@ -41,7 +41,7 @@ extern NSString *const LYRConversationOptionsDeliveryReceiptsEnabledKey;
  and a new Conversation will be created among the set of participants without regard for any existing Conversations
  (distinct or otherwise).
  */
-extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
+extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey;
 
 //------------------------------------------------------------
 
@@ -55,7 +55,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @abstract A unique identifier assigned to every conversation by Layer.
  @discussion The `identifier` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
-@property (nonatomic, readonly) NSURL *identifier LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nonnull) NSURL *identifier LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract The set of user identifiers's specifying who is participating in the conversation modeled by the receiver.
@@ -66,7 +66,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  The `participants` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators. For convenience, 
  queries with an equality predicate (`LYRPredicateOperatorIsEqualTo` and `LYRPredicateOperatorIsNotEqualTo`) for the `participants` property will implicitly include the authenticated user.
  */
-@property (nonatomic, readonly) NSSet *participants LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nonnull) NSSet<NSString *> *participants LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract The date and time that the conversation was created.
@@ -74,7 +74,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  
  The `createdAt` property is queryable using all predicate operators.
  */
-@property (nonatomic, readonly) NSDate *createdAt LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nonnull) NSDate *createdAt LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Returns the last Message recevied or sent in this Conversation.
@@ -82,7 +82,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  
  The `lastMessage` property is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.
  */
-@property (nonatomic, readonly) LYRMessage *lastMessage LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nullable) LYRMessage *lastMessage LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Returns a Boolean value that indicates if the receiver contains unread messages.
@@ -124,7 +124,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @return A Boolean value indicating if the message passed validation and was enqueued for delivery.
  @raises NSInvalidArgumentException Raised if `message` is `nil`.
  */
-- (BOOL)sendMessage:(LYRMessage *)message error:(NSError **)error;
+- (BOOL)sendMessage:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error;
 
 ///----------------------------
 /// @name Managing Participants
@@ -136,7 +136,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be added to the conversation.
  @return A Boolean value indicating if the operation of adding participants was successful.
  */
-- (BOOL)addParticipants:(NSSet *)participants error:(NSError **)error;
+- (BOOL)addParticipants:(nonnull NSSet<NSString *> *)participants error:(NSError * _Nullable * _Nullable)error;
 
 /**
  @abstract Removes participants from a given conversation.
@@ -144,7 +144,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the participants could not be removed from the conversation.
  @return A Boolean value indicating if the operation of removing participants was successful.
  */
-- (BOOL)removeParticipants:(NSSet *)participants error:(NSError **)error;
+- (BOOL)removeParticipants:(nonnull NSSet<NSString *> *)participants error:(NSError * _Nullable * _Nullable)error;
 
 ///------------------------
 /// @name Managing Metadata
@@ -157,27 +157,27 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  The `metadata` property is queryable in 2 forms.  The first is key path form eg:`metadata.first.second`, and is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, 
  `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.  The second is querying against `metadata` and passing in a dictionary object value, and is only queryable via the `LYRPredicateOperatorIsEqualTo` operator.
  */
-@property (nonatomic, readonly) NSDictionary *metadata LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *metadata LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Sets the value for the specified key path in the metadata dictionary.
  @param value The string or dictionary value to set for the given key path in the metadata.
  @param keyPath A key path into the metadata dictionary specifying where the value is to be set.
  */
-- (void)setValue:(id)value forMetadataAtKeyPath:(NSString *)keyPath;
+- (void)setValue:(nullable id)value forMetadataAtKeyPath:(nonnull NSString *)keyPath;
 
 /**
  @abstract Sets multiple values on the metadata using an input dictionary, optionally merging with any existing values.
  @param metadata A dictionary of metadata to assign or merge with the existing metadata.
  @param merge A Boolean flag that specifies whether the metadata is to be assigned directly or merged with any existing values.
  */
-- (void)setValuesForMetadataKeyPathsWithDictionary:(NSDictionary *)metadata merge:(BOOL)merge;
+- (void)setValuesForMetadataKeyPathsWithDictionary:(nonnull NSDictionary<NSString *, NSString *> *)metadata merge:(BOOL)merge;
 
 /**
  @abstract Deletes a specific value by key path from the metadata dictionary.
  @param keyPath A key path into the metadata dictionary specifying the value to be deleted.
  */
-- (void)deleteValueForMetadataAtKeyPath:(NSString *)keyPath;
+- (void)deleteValueForMetadataAtKeyPath:(nonnull NSString *)keyPath;
 
 ///------------------------
 /// @name Typing Indicators
@@ -201,7 +201,7 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @return A Boolean value indicating if the request to delete the conversation was submitted for synchronization.
  @raises NSInvalidArgumentException Raised if `message` is `nil`.
  */
-- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError **)error;
+- (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __attribute__((swift_error(none)));
 
 ///-----------------------------------
 /// @name Marking All Messages as Read
@@ -212,13 +212,13 @@ extern NSString *const LYRConversationOptionsDistinctByParticipantsKey;
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the messages could not be marked as read.
  @return `YES` if all unread messages were marked as read or `NO` if an error occurred.
  */
-- (BOOL)markAllMessagesAsRead:(NSError **)error;
+- (BOOL)markAllMessagesAsRead:(NSError * _Nullable * _Nullable)error;
 
 @end
 
 @interface LYRConversation (Deprecated_Nonfunctional)
 
 // Deprecated. Use `LYRClient newConversationWithParticipants:options:error:` instead.
-+ (instancetype)conversationWithParticipants:(NSSet *)participants __deprecated;
++ (nonnull instancetype)conversationWithParticipants:(nonnull NSSet<NSString *> *)participants __deprecated;
 
 @end

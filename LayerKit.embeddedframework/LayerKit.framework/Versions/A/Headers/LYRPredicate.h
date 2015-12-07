@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, LYRPredicateOperator) {
  @property value The reference value to use in the comparison.
  @returns A newly created predicate object.
  */
-+ (instancetype)predicateWithProperty:(NSString *)property predicateOperator:(LYRPredicateOperator)predicateOperator value:(id)value;
++ (nonnull instancetype)predicateWithProperty:(nonnull NSString *)property predicateOperator:(LYRPredicateOperator)predicateOperator value:(nullable id)value;
 
 ///-------------------------------------
 /// @name Accessing Predicate Attributes
@@ -92,7 +92,7 @@ typedef NS_ENUM(NSUInteger, LYRPredicateOperator) {
 /**
  @abstract Returns the property whose value the receiver will compare against the reference value.
  */
-@property (nonatomic, copy, readonly) NSString *property;
+@property (nonatomic, copy, readonly, nonnull) NSString *property;
 
 /**
  @abstract Returns the predicate operator that specifies how the property's value will be compared against the reference value.
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSUInteger, LYRPredicateOperator) {
 /**
  @abstract Returns the reference value used for comparison.
  */
-@property (nonatomic, readonly) id value;
+@property (nonatomic, readonly, nullable) id value;
 
 @end
 
@@ -139,7 +139,7 @@ typedef NS_ENUM(NSUInteger, LYRCompoundPredicateType) {
  @property subpredicates An array of `LYRPredicate` instances.
  @returns A newly created compound predicate object.
  */
-+ (instancetype)compoundPredicateWithType:(LYRCompoundPredicateType)compoundPredicateType subpredicates:(NSArray *)subpredicates;
++ (nonnull instancetype)compoundPredicateWithType:(LYRCompoundPredicateType)compoundPredicateType subpredicates:(nonnull NSArray<__kindof LYRPredicate *> *)subpredicates;
 
 ///---------------------------------------
 /// @name Accessing Type and Subpredicates
@@ -153,13 +153,13 @@ typedef NS_ENUM(NSUInteger, LYRCompoundPredicateType) {
 /**
  @abstract The receiver's subpredicates;
  */
-@property (nonatomic, readonly) NSArray *subpredicates;
+@property (nonatomic, readonly, nonnull) NSArray *subpredicates;
 
 @end
 
 @interface LYRPredicate (Deprecated)
 
 // DEPRECATED: Use `LYRPredicate`'s `predicateWithProperty:predicateOperator:value:` instead.
-+ (instancetype)predicateWithProperty:(NSString *)property operator:(LYRPredicateOperator)predicateOperator value:(id)value __deprecated;
++ (nonnull instancetype)predicateWithProperty:(nonnull NSString *)property operator:(LYRPredicateOperator)predicateOperator value:(nullable id)value __deprecated;
 
 @end

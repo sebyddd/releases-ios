@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const LYRErrorDomain;
+extern NSString * _Nonnull const LYRErrorDomain;
 
 typedef NS_ENUM(NSUInteger, LYRError) {
     LYRErrorUnknownError                            = 1000,
@@ -76,10 +76,10 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorInvalidClassType                  = 11003,
 };
 
-extern NSString *const LYRErrorAuthenticatedUserIDUserInfoKey;
-extern NSString *const LYRErrorUnderlyingErrorsKey;
+extern NSString * _Nonnull const LYRErrorAuthenticatedUserIDUserInfoKey;
+extern NSString * _Nonnull const LYRErrorUnderlyingErrorsKey;
 
 /**
  @abstract A key into the `userInfo` dictionary of an error returned when attempting to create a new distinct conversation. That key's value represents an existing distinct conversation object.
  */
-extern NSString *const LYRExistingDistinctConversationKey;
+extern NSString * _Nonnull const LYRExistingDistinctConversationKey;

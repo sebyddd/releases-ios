@@ -17,7 +17,7 @@
 /**
  * @abstract The object upon which the change has occured.
  */
-@property (nonatomic, readonly) id object;
+@property (nonatomic, readonly, nonnull) id object;
 
 /**
  * @abstract The type of the change that has occured.
@@ -27,16 +27,16 @@
 /**
  @abstract The name of the property that was updated or `nil` if the receiver has a change type of `LYRObjectChangeTypeCreate` or `LYRObjectChangeTypeDelete`.
  */
-@property (nonatomic, readonly) NSString *property;
+@property (nonatomic, readonly, nullable) NSString *property;
 
 /**
  @abstract The value of `property` before the update or `nil` if the receiver has a change type of `LYRObjectChangeTypeCreate` or `LYRObjectChangeTypeDelete`.
  */
-@property (nonatomic, readonly) id beforeValue;
+@property (nonatomic, readonly, nullable) id beforeValue;
 
 /**
  @abstract The value of `property` after the update or `nil` if the receiver has a change type of `LYRObjectChangeTypeCreate` or `LYRObjectChangeTypeDelete`.
  */
-@property (nonatomic, readonly) id afterValue;
+@property (nonatomic, readonly, nullable) id afterValue;
 
 @end
