@@ -157,7 +157,7 @@ extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey
  The `metadata` property is queryable in 2 forms.  The first is key path form eg:`metadata.first.second`, and is queryable via the `LYRPredicateOperatorIsEqualTo`, `LYRPredicateOperatorIsNotEqualTo`, 
  `LYRPredicateOperatorIsIn`, and `LYRPredicateOperatorIsNotIn` operators.  The second is querying against `metadata` and passing in a dictionary object value, and is only queryable via the `LYRPredicateOperatorIsEqualTo` operator.
  */
-@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *metadata LYR_QUERYABLE_PROPERTY;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, id> *metadata LYR_QUERYABLE_PROPERTY;
 
 /**
  @abstract Sets the value for the specified key path in the metadata dictionary.
@@ -171,7 +171,7 @@ extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey
  @param metadata A dictionary of metadata to assign or merge with the existing metadata.
  @param merge A Boolean flag that specifies whether the metadata is to be assigned directly or merged with any existing values.
  */
-- (void)setValuesForMetadataKeyPathsWithDictionary:(nonnull NSDictionary<NSString *, NSString *> *)metadata merge:(BOOL)merge;
+- (void)setValuesForMetadataKeyPathsWithDictionary:(nonnull NSDictionary<NSString *, id> *)metadata merge:(BOOL)merge;
 
 /**
  @abstract Deletes a specific value by key path from the metadata dictionary.

@@ -291,7 +291,7 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
  However multiple instances of Layer Client with the same `appID` are allowed if running the code under Unit Tests.  Make sure to initialize the client when the 
  file access is available if the app uses NSFileProtection.
  */
-+ (nonnull instancetype)clientWithAppID:(nonnull NSURL *)appID;
++ (nullable instancetype)clientWithAppID:(nonnull NSURL *)appID;
 
 /**
  @abstract The object that acts as the delegate of the receiving client.

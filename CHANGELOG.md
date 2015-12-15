@@ -1,5 +1,17 @@
 # LayerKit Change Log
 
+## 0.17.5
+
+#### Public API changes
+
+* Loosened the type constraint on `+clientWithAppID:` method to allow null returns.
+* Fixed the conversation metadata generics (which was broken with the previous release of LayerKit).
+
+#### Bug Fixes
+
+* Fixes an issue where transitioning the app to background could cause a deadlock on the main thread.
+* Fixes an issue where de-authenticating a client during a high activity of rich content transfers would crash the client.
+
 ## 0.17.4
 
 #### Public API changes
