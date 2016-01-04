@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.17.6
+
+#### Bug Fixes
+
+* Fixes an issue where iOS would kill the app when kept in the background state for long enough.
+* Fixes an issue where the SDK loses the accessibility of the database files in background when phone is locked and passcode protected, due to iOS data protection. A private build of "sqlite3" built with the SDK was replaced by using the system-wide available "sqlite3lib" library.
+
 ## 0.17.5
 
 #### Public API changes
