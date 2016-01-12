@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.17.7
+
+#### Bug Fixes
+
+* Fixes an issue where the `LYRClient` initializer would return nil in certain scenarios when an application is in the background.
+
 ## 0.17.6
 
 #### Bug Fixes
