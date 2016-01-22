@@ -1,5 +1,17 @@
 # LayerKit Change Log
 
+## 0.18.0
+
+#### Public API Changes 
+
+* Introduced a new deletion mode `LYRDeletionModeMyDevices`, which provides for synchronizing a conversation or message deletion among all of a users devices. 
+* Deprecated `LYRDeletionModeLocal` in favor of `LYRDeletionModeMyDevices`.
+
+#### Bug Fixes
+
+* Fixes an issue where attempting to remove a participant would return `TRUE` when the participant was not a participant in the conversation.
+* Fixes an issue that caused the `isSent` property of received messages to not get updated immediately upon receipt. 
+
 ## 0.17.7
 
 #### Bug Fixes

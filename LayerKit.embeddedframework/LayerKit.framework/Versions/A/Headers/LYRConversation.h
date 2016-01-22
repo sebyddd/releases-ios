@@ -196,7 +196,7 @@ extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey
 /**
  @abstract Deletes a conversation in the specified mode.
  @discussion This method deletes a conversation and all associated messages for all current participants.
- @param mode The deletion mode, specifying how the message is to be deleted (i.e. locally or synchronized across participants).
+ @param mode The deletion mode, specifying how the message is to be deleted (i.e. for only the currently authenticated user' devices or synchronized across participants).
  @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
  @return A Boolean value indicating if the request to delete the conversation was submitted for synchronization.
  @raises NSInvalidArgumentException Raised if `message` is `nil`.

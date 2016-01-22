@@ -26,18 +26,19 @@ typedef uint64_t LYRSize;
  @abstract The `LYRDeletionMode` enumeration defines the available modes for deleting content.
  */
 typedef NS_ENUM(NSUInteger, LYRDeletionMode) {
+
     /**
-     @abstract Content is deleted from the current device only. This is an unsynchronized delete and content
-     will be synchronized to other devices and will be resynchronized if the client is deauthenticated.
+     @abstract Content is deleted for only the currently authenticated user. The deletion will also be synchronized 
+     among all other devices for the current user.
      */
-    LYRDeletionModeLocal            = 0,
+    LYRDeletionModeMyDevices                = 1,
     
     /**
      @abstract Content is deleted from all devices of all participants. This is a synchronized, permanent delete
      that results in content being deleted from the devices of existing users who have previously synchronized and
      makes the content unavailable for synchronization to new participants or devices.
      **/
-    LYRDeletionModeAllParticipants  = 2
+    LYRDeletionModeAllParticipants          = 2
 };
 
 ///---------------------

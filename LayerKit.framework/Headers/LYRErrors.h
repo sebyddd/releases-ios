@@ -27,6 +27,8 @@ typedef NS_ENUM(NSUInteger, LYRError) {
     LYRErrorUserNotAParticipantInConversation       = 1011, 
     LYRErrorImmutableParticipantsList               = 1012,
     LYRErrorDistinctConversationExists              = 1013,
+    LYRErrorParticipantNotAParticipantInConversation= 1014,
+    LYRErrorDistinctDeletedConversationExists       = 1015,
     
     // Validation Errors
     LYRErrorInvalidKey                              = 2000,

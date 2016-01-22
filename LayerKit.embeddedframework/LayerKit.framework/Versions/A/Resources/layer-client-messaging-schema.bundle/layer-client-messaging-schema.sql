@@ -25,7 +25,7 @@ CREATE TABLE "conversations" (
   deleted_at DATETIME,
   object_identifier TEXT UNIQUE NOT NULL,
   version INT NOT NULL
-, has_unread_messages INTEGER NOT NULL DEFAULT 0, is_distinct INTEGER NOT NULL DEFAULT 0, type INTEGER NOT NULL DEFAULT 1);
+, has_unread_messages INTEGER NOT NULL DEFAULT 0, is_distinct INTEGER NOT NULL DEFAULT 0, type INTEGER NOT NULL DEFAULT 1, deletion_mode INTEGER DEFAULT 0);
 
 CREATE TABLE "deleted_message_parts" (
   database_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -62,7 +62,7 @@ CREATE TABLE "events" (
   member_id TEXT,
   target_seq INTEGER,
   stream_database_identifier INTEGER NOT NULL,
-  client_id BLOB, creator_name TEXT,
+  client_id BLOB, creator_name TEXT, deletion_mode INTEGER DEFAULT 0,
   UNIQUE(stream_database_identifier, seq),
   FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
@@ -123,10 +123,24 @@ CREATE TABLE "messages" (
   event_database_identifier INTEGER UNIQUE,
   version INTEGER NOT NULL,
   object_identifier TEXT UNIQUE NOT NULL,
-  message_index INTEGER, is_unread INTEGER NOT NULL DEFAULT 0, user_name TEXT, type INTEGER NOT NULL DEFAULT 1,
+  message_index INTEGER, is_unread INTEGER NOT NULL DEFAULT 0, user_name TEXT, type INTEGER NOT NULL DEFAULT 1, deletion_mode INTEGER DEFAULT 0,
   UNIQUE(conversation_database_identifier, seq),
   FOREIGN KEY(conversation_database_identifier) REFERENCES conversations(database_identifier) ON DELETE CASCADE,
   FOREIGN KEY(event_database_identifier) REFERENCES events(database_identifier) ON DELETE CASCADE
+);
+
+CREATE TABLE "mutations" (
+    database_identifier INTEGER PRIMARY KEY AUTOINCREMENT,
+    seq INTEGER,
+    type INTEGER NOT NULL,
+    target INTEGER NOT NULL,
+    stream_id BLOB NOT NULL,
+    target_seq INTEGER NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    stream_database_identifier,
+    event_database_identifier,
+    is_synchronized BOOL,
+    FOREIGN KEY(stream_database_identifier) REFERENCES streams(database_identifier) ON DELETE CASCADE
 );
 
 CREATE TABLE "remote_keyed_values" (
@@ -164,7 +178,7 @@ CREATE TABLE "streams" (
   deleted_at DATETIME, 
   min_synced_seq INTEGER, 
   max_synced_seq INTEGER, metadata_timestamp INTEGER, is_distinct INTEGER NOT NULL DEFAULT 0
-, type INTEGER NOT NULL DEFAULT 1, total_message_event_count INTEGER NOT NULL DEFAULT 0, unread_message_event_count INTEGER NOT NULL DEFAULT 0, least_recent_unread_message_event_seq INTEGER, last_message_event_received_at DATETIME, last_message_event_seq INTEGER);
+, type INTEGER NOT NULL DEFAULT 1, total_message_event_count INTEGER NOT NULL DEFAULT 0, unread_message_event_count INTEGER NOT NULL DEFAULT 0, least_recent_unread_message_event_seq INTEGER, last_message_event_received_at DATETIME, last_message_event_seq INTEGER, deletion_mode INTEGER DEFAULT 0);
 
 CREATE TABLE syncable_changes (
   change_identifier INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -191,6 +205,8 @@ CREATE INDEX conversation_participants_event_database_identifier_idx ON conversa
 
 CREATE INDEX conversations_deleted_at_idx ON conversations(deleted_at);
 
+CREATE INDEX conversations_deletion_mode_idx ON conversations(deletion_mode);
+
 CREATE INDEX conversations_has_unread_messages_idx ON conversations(has_unread_messages);
 
 CREATE INDEX conversations_object_identifier_idx ON conversations(object_identifier);
@@ -213,6 +229,8 @@ CREATE INDEX messages_conversationdbid_and_isunread_idx ON messages(conversation
 
 CREATE INDEX messages_deleted_at_idx ON messages(deleted_at);
 
+CREATE INDEX messages_deletion_mode_idx ON messages(deletion_mode);
+
 CREATE INDEX messages_event_database_identifier_idx ON messages(event_database_identifier);
 
 CREATE INDEX messages_is_unread_idx ON messages(is_unread);
@@ -230,6 +248,8 @@ CREATE INDEX stream_members_stream_database_identifier_idx ON stream_members(str
 CREATE INDEX streams_client_id_idx ON streams(client_id);
 
 CREATE INDEX streams_deleted_at_idx ON streams(deleted_at);
+
+CREATE INDEX streams_deletion_mode_idx ON streams(deletion_mode);
 
 CREATE INDEX streams_type_idx ON streams(type);
 
@@ -251,22 +271,10 @@ BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('conversation_participants', NEW.database_identifier, 2);
 END;
 
-CREATE TRIGGER track_deletes_of_conversations AFTER UPDATE OF deleted_at ON conversations
-WHEN (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
-BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('conversations', NEW.database_identifier, 2);
-END;
-
 CREATE TRIGGER track_deletes_of_local_keyed_values AFTER UPDATE OF deleted_at ON local_keyed_values
 WHEN NEW.timestamp IS NULL AND (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
 BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 2);
-END;
-
-CREATE TRIGGER track_deletes_of_messages AFTER UPDATE OF deleted_at ON messages
-WHEN (NEW.deleted_at NOT NULL AND OLD.deleted_at IS NULL)
-BEGIN
-  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 2);
 END;
 
 CREATE TRIGGER track_deletes_of_remote_keyed_values AFTER UPDATE OF deleted_at ON remote_keyed_values
@@ -281,10 +289,16 @@ BEGIN
   INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('stream_members', OLD._ROWID_, 2);
 END;
 
-CREATE TRIGGER track_deletes_of_streams AFTER UPDATE OF deleted_at ON streams
-WHEN NEW.deleted_at IS NOT NULL AND OLD.deleted_at IS NULL
+CREATE TRIGGER track_deletes_of_streams AFTER UPDATE OF deletion_mode ON streams
+WHEN NEW.deletion_mode = 2
 BEGIN
   INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('streams', OLD.database_identifier, 2);
+END;
+
+CREATE TRIGGER track_deletions_of_conversations AFTER UPDATE OF deletion_mode ON conversations
+WHEN NEW.deletion_mode != 0
+BEGIN
+  INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('conversations', NEW.database_identifier, 2);
 END;
 
 CREATE TRIGGER track_event_content_part_purges AFTER UPDATE OF transfer_status ON event_content_parts
@@ -297,6 +311,13 @@ CREATE TRIGGER track_event_content_part_transfer_status_changes AFTER UPDATE OF 
 WHEN NEW.transfer_status <> OLD.transfer_status AND NEW.purged = 0
 BEGIN
     INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('event_content_parts', OLD._ROWID_, 1);
+END;
+
+CREATE TRIGGER track_global_deletions_of_messages AFTER UPDATE OF deletion_mode ON messages
+WHEN NEW.deletion_mode == 2
+AND (SELECT deletion_mode FROM conversations WHERE database_identifier = NEW.conversation_database_identifier) = 0
+BEGIN
+INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 2);
 END;
 
 CREATE TRIGGER track_inserts_of_conversation_participants AFTER INSERT ON conversation_participants
@@ -330,6 +351,12 @@ CREATE TRIGGER track_inserts_of_local_keyed_values AFTER INSERT ON local_keyed_v
 WHEN NEW.timestamp IS NULL
 BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 0);
+END;
+
+CREATE TRIGGER track_inserts_of_mutations AFTER INSERT ON mutations
+WHEN NEW.is_synchronized = 1
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('mutations', NEW.database_identifier, 0);
 END;
 
 CREATE TRIGGER track_inserts_of_remote_keyed_values AFTER INSERT ON remote_keyed_values
@@ -380,6 +407,15 @@ BEGIN
 INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('streams', OLD.database_identifier, 1);
 END;
 
+CREATE TRIGGER track_sync_deletions_of_messages AFTER UPDATE OF deletion_mode ON messages
+WHEN NEW.deletion_mode == 1
+AND (SELECT deletion_mode FROM conversations WHERE database_identifier = NEW.conversation_database_identifier) = 0
+AND (NOT EXISTS (SELECT target_seq FROM mutations WHERE target = 2 AND stream_id = (SELECT stream_id FROM conversations WHERE database_identifier = NEW.conversation_database_identifier))
+OR (SELECT target_seq FROM mutations WHERE target = 2 AND stream_id = (SELECT stream_id FROM conversations WHERE database_identifier = NEW.conversation_database_identifier) ORDER BY seq DESC LIMIT 1) < NEW.seq)
+BEGIN
+INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('messages', NEW.database_identifier, 2);
+END;
+
 CREATE TRIGGER track_syncable_changes_for_message_receipts AFTER INSERT ON message_recipient_status
 WHEN NEW.seq IS NULL
 BEGIN
@@ -403,6 +439,12 @@ CREATE TRIGGER track_updates_of_local_keyed_values AFTER UPDATE OF value ON loca
 WHEN OLD.deleted_at IS NULL AND NEW.timestamp IS NULL AND (NEW.value != OLD.value)
 BEGIN
   INSERT INTO syncable_changes(table_name, row_identifier, change_type) VALUES ('local_keyed_values', NEW.database_identifier, 1);
+END;
+
+CREATE TRIGGER track_updates_of_mutations AFTER UPDATE OF is_synchronized ON mutations
+WHEN NEW.is_synchronized = 1 AND OLD.is_synchronized = 0
+BEGIN
+  INSERT INTO synced_changes(table_name, row_identifier, change_type) VALUES ('mutations', NEW.database_identifier, 0);
 END;
 
 CREATE TRIGGER track_updates_of_remote_keyed_values AFTER UPDATE OF timestamp ON remote_keyed_values
@@ -518,3 +560,5 @@ INSERT INTO schema_migrations (version) VALUES (20151019115229223);
 INSERT INTO schema_migrations (version) VALUES (20151028150015461);
 
 INSERT INTO schema_migrations (version) VALUES (20151120145829172);
+
+INSERT INTO schema_migrations (version) VALUES (20151217104323799);
