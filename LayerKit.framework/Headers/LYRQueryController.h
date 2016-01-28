@@ -162,7 +162,7 @@ typedef NS_ENUM(NSUInteger, LYRQueryControllerChangeType) {
     LYRQueryControllerChangeTypeMove 	= 3,
     
     /**
-     @abstract An object is being deleted from the result set.
+     @abstract An object in the result set has changed state.
      */
     LYRQueryControllerChangeTypeUpdate 	= 4
 };

@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.18.1
+
+#### Bug Fixes
+
+* Fixes an issue that would cause the `LYRQueryController` to broadcast `UPDATE` events with a `newIndexPath` parameter. 
+* Fixes an issue that could lead to a crash when syncing conversations that contain blocked participants. 
+
 ## 0.18.0
 
 #### Public API Changes 
