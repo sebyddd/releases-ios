@@ -156,10 +156,3 @@ typedef NS_ENUM(NSUInteger, LYRCompoundPredicateType) {
 @property (nonatomic, readonly, nonnull) NSArray *subpredicates;
 
 @end
-
-@interface LYRPredicate (Deprecated)
-
-// DEPRECATED: Use `LYRPredicate`'s `predicateWithProperty:predicateOperator:value:` instead.
-+ (nonnull instancetype)predicateWithProperty:(nonnull NSString *)property operator:(LYRPredicateOperator)predicateOperator value:(nullable id)value __deprecated;
-
-@end

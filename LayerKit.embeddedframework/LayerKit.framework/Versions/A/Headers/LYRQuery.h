@@ -135,10 +135,3 @@ typedef NS_ENUM(NSUInteger, LYRQueryResultType) {
 @property (nonatomic) LYRQueryResultType resultType;
 
 @end
-
-@interface LYRQuery (Deprecated)
-
-// DEPRECATED: Use `LYQuery`'s `queryWithQueryableClass:` instead.
-+ (nonnull instancetype)queryWithClass:(nonnull Class<LYRQueryable>)queryableClass __deprecated;
-
-@end

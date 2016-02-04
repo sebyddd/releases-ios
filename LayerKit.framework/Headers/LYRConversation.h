@@ -215,10 +215,3 @@ extern NSString * _Nonnull const LYRConversationOptionsDistinctByParticipantsKey
 - (BOOL)markAllMessagesAsRead:(NSError * _Nullable * _Nullable)error;
 
 @end
-
-@interface LYRConversation (Deprecated_Nonfunctional)
-
-// Deprecated. Use `LYRClient newConversationWithParticipants:options:error:` instead.
-+ (nonnull instancetype)conversationWithParticipants:(nonnull NSSet<NSString *> *)participants __deprecated;
-
-@end

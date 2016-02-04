@@ -224,20 +224,6 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 - (void)layerClientDidDeauthenticate:(nonnull LYRClient *)client;
 
 /**
- @abstract Tells the delegate that a client has finished synchronization and applied a set of changes.
- @param client The client that received the changes.
- @param changes An array of `NSDictionary` objects, each one describing a change.
- */
-- (void)layerClient:(nonnull LYRClient *)client didFinishSynchronizationWithChanges:(nonnull NSArray<LYRObjectChange *> *)changes __deprecated;
-
-/**
- @abstract Tells the delegate the client encountered an error during synchronization.
- @param client The client that failed synchronization.
- @param error An error describing the nature of the sync failure.
- */
-- (void)layerClient:(nonnull LYRClient *)client didFailSynchronizationWithError:(nonnull NSError *)error __deprecated;
-
-/**
  @abstract Tells the delegate that objects associated with the client have changed due to local mutation or synchronization activities.
  @param client The client that received the changes.
  @param changes An array of `LYRObjectChange` objects, each one describing a change.
@@ -392,11 +378,12 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
 /**
  @abstract Inspects an incoming push notification and synchronizes the client if it was sent by Layer.
  @param userInfo The user info dictionary received from the UIApplicaton delegate method application:didReceiveRemoteNotification:fetchCompletionHandler:'s `userInfo` parameter.
- @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given `changes`. Note that this block is only called if the method returns `YES`.
+ @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given objects. Note that this block is only called if the method returns `YES`.
  @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer and the completion block will not be called.
+ @discussion The completion block will either return an error or one or both of the resulting objects depending on the information provided in the userInfo parameter.  In valid cases, just `message` is returned for an announcement payload, and both `message` and `conversation` for a message payload.
  @note The receiver must be authenticated else a warning will be logged and `NO` will be returned. The completion is only invoked if the return value is `YES`.
  */
-- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void(^)(NSArray<LYRObjectChange *> * _Nullable changes, NSError * _Nullable error))completion;
+- (BOOL)synchronizeWithRemoteNotification:(nonnull NSDictionary *)userInfo completion:(nonnull void(^)(LYRConversation * _Nullable conversation, LYRMessage * _Nullable message, NSError * _Nullable error))completion;
 
 ///----------------------------------------------
 /// @name Creating new Conversations and Messages
@@ -566,6 +553,18 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
  */
 @property (nonatomic) LYRSize autodownloadMaximumContentSize;
 
+///---------------------
+/// @name Helper Methods
+///---------------------
+
+/**
+ @abstract Waits for the creation of an object with the specified identifier and calls the completion block with the object if found or an error if it times out.
+ @param objectIdentifier The identifier of the object expected to be created.
+ @param timeout The specified time the method should wait for the object creation before timing out.
+ @param completion The block that will be called once the operation completes with either the expected object or an error.
+ */
+- (void)waitForCreationOfObjectWithIdentifier:(nonnull NSURL *)objectIdentifier timeout:(NSTimeInterval)timeout completion:(nonnull void(^)(id _Nullable object, NSError *_Nullable error))completion;
+
 ///----------------
 /// @name Debugging
 ///----------------
@@ -589,145 +588,5 @@ extern NSString * _Nonnull const LYRClientContentTransferProgressUserInfoKey;
  @param component The component to configure.
  */
 - (void)setLogLevel:(LYRLogLevel)level forComponent:(LYRLogComponent)component;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-@interface LYRClient (Deprecated)
-
-// DEPRECATED: Use `LYRConversation`'s `addParticipants:error:` instead.
-- (BOOL)addParticipants:(nonnull NSSet<NSString *> *)participants toConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRConversation`'s `removeParticipants:error:` instead.
-- (BOOL)removeParticipants:(nonnull NSSet<NSString *> *)participants fromConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRConversation`'s `sendMessage:error:` instead.
-- (BOOL)sendMessage:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRMessage`'s `markAsRead:` instead.
-- (BOOL)markMessageAsRead:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
-- (BOOL)deleteMessage:(nonnull LYRMessage *)message mode:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRMessage`'s `delete:error:` instead.
-- (BOOL)deleteMessage:(nonnull LYRMessage *)message error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
-- (BOOL)deleteConversation:(nonnull LYRConversation *)conversation mode:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `LYRConversation`'s `delete:error:` instead.
-- (BOOL)deleteConversation:(nonnull LYRConversation *)conversation error:(NSError * _Nullable * _Nullable)error __deprecated;
-
-// DEPRECATED: Use `newMessageWithParts:options:error:` instead.
-- (BOOL)setMetadata:(nonnull NSDictionary<NSString *, NSString *> *)metadata onObject:(nonnull id)object __deprecated;
-
-// DEPRECATED: Use `LYRConversation`'s `sendTypingIndicator:` instead.
-- (void)sendTypingIndicator:(LYRTypingIndicator)typingIndicator toConversation:(nonnull LYRConversation *)conversation __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsEqualTo value:identifier];
-    query.limit = 1;
-    LYRConversation *conversation = [[client executeQuery:query error:&error] firstObject];
- */
-- (nullable LYRConversation *)conversationForIdentifier:(nonnull NSURL *)identifier __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    if (conversationIdentifiers != nil) {
-       query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:conversationIdentifiers];
-    }
-    NSSet *conversations = [[client executeQuery:query error:&error] set];
- */
-- (nonnull NSSet<LYRConversation *> *)conversationsForIdentifiers:(nonnull NSSet<NSString *> *)conversationIdentifiers __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    NSSet *participantsIncludingAuthenticatedUser = [participants setByAddingObject:self.authenticatedUserID];
-    query.predicate = [LYRPredicate predicateWithProperty:@"participants" operator:LYRPredicateOperatorIsEqualTo value:participantsIncludingAuthenticatedUser];
-    NSSet *conversations = [[client executeQuery:query error:&error] set];
- */
-- (nonnull NSSet<LYRConversation *> *)conversationsForParticipants:(nonnull NSSet<NSString *> *)participants __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    if (messageIdentifiers != nil) {
-    query.predicate = [LYRPredicate predicateWithProperty:@"identifier" operator:LYRPredicateOperatorIsIn value:messageIdentifiers];
-    }
-    return [[client executeQuery:query error:&error] set];
- */
-- (nonnull NSSet<LYRMessage *> *)messagesForIdentifiers:(nonnull NSSet<NSURL *> *)messageIdentifiers __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    if (conversation) {
-        query.predicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
-    }
-    query.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:YES]];
-    return [client executeQuery:query error:&error];
- */
-- (nonnull NSOrderedSet<LYRMessage *> *)messagesForConversation:(nonnull LYRConversation *)conversation __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRConversation class]];
-    query.predicate = [LYRPredicate predicateWithProperty:@"hasUnreadMessages" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
-    return [client countForQuery:query error:&error];
- */
-- (NSUInteger)countOfConversationsWithUnreadMessages __deprecated;
-
-/*
- DEPRECATED: Use the following query code instead:
- 
-    NSError *error = nil;
-    LYRQuery *query = [LYRQuery queryWithClass:[LYRMessage class]];
-    if (conversation) {
-        LYRPredicate *conversationIsEqualPredicate = [LYRPredicate predicateWithProperty:@"conversation" operator:LYRPredicateOperatorIsEqualTo value:conversation];
-        LYRPredicate *unreadIsEqualPredicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
-        query.predicate = [LYRCompoundPredicate compoundPredicateWithType:LYRCompoundPredicateTypeAnd subpredicates:@[conversationIsEqualPredicate, unreadIsEqualPredicate]];
-    } else {
-        query.predicate = [LYRPredicate predicateWithProperty:@"isUnread" operator:LYRPredicateOperatorIsEqualTo value:@(YES)];
-    }
-    return [client countForQuery:query error:&error];
- */
-- (NSUInteger)countOfUnreadMessagesInConversation:(nonnull LYRConversation *)conversation __deprecated;
-
-// DEPRECATED: Use `LYRClient`'s `queryControllerWithQuery:error:` instead.
-- (nullable LYRQueryController *)queryControllerWithQuery:(nonnull LYRQuery *)query __deprecated;
-
-@end
-
-@interface LYRClient (ObjectIdentifierMigration)
-
-/**
- @abstract Returns the canonical object identifier for a given identifier.
- @discussion This method enables the migration of object identifiers created by LayerKit < v0.9.0 to the canonical
- format emitted by v0.9.0 and higher clients. If the given identifier already is a new style identifier, then it is returned. If
- the input identifier is a legacy identifier, then the canonical identifier is computed and returned. If no conversation or message can
- be found by treating the identifier as a legacy or canonical identifier then `nil` is returned (typically indicating that the content has
- not yet been synchronized).
- @param identifier The object identifier for which to return the canonical identifier.
- @return The canonical object identifier for the given input identifier or `nil` if none could be computed.
- */
-- (nullable NSURL *)canonicalObjectIdentifierForIdentifier:(nonnull NSURL *)identifier;
 
 @end

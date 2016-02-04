@@ -1,5 +1,17 @@
 # LayerKit Change Log
 
+## 0.19.0
+
+#### Public API Changes
+
+* Removed all deprecated `LayerKit` methods. 
+* Replacing the completion block in `synchronizeWithRemoteNotification:completion` to return the `LYRConversation` and `LYRMessage` objects specified in the remote payload instead of the object changes.
+* Introduced `LYRClient` method `waitForCreationOfObjectWithIdentifier:timeout:completion:` that waits the timeout length for creation of the specified identifier's object.
+
+#### Bug Fixes
+
+* Fixes an issue which caused `LYRQueryController` instances to return partially hydrated objects. This could occur when multiple query controllers were attempting to query the same objects from different threads. 
+
 ## 0.18.1
 
 #### Bug Fixes

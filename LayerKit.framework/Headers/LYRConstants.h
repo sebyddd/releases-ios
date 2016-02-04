@@ -113,31 +113,3 @@ typedef NS_ENUM(NSUInteger, LYRLogLevel) {
     LYRLogLevelDebug,
     LYRLogLevelVerbose
 };
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-/*
- DEPRECATED: Use the `type` property on `LYRObjectChange` instead.
- */
-extern NSString * _Nonnull const LYRObjectChangeTypeKey __deprecated;
-
-/*
- DEPRECATED: Use the `object` property on `LYRObjectChange` instead.
- */
-extern NSString * _Nonnull const LYRObjectChangeObjectKey __deprecated;
-
-/*
- DEPRECATED: Use the `property` property on `LYRObjectChange` instead.
- */
-extern NSString * _Nonnull const LYRObjectChangePropertyKey __deprecated;
-
-/*
- DEPRECATED: Use the `beforeValue` property on `LYRObjectChange` instead.
- */
-extern NSString * _Nonnull const LYRObjectChangeOldValueKey __deprecated;
-
-/*
- DEPRECATED: Use the `afterValue` property on `LYRObjectChange` instead.
- */
-extern NSString * _Nonnull const LYRObjectChangeNewValueKey __deprecated;
-
