@@ -1,5 +1,13 @@
 # LayerKit Change Log
 
+## 0.19.1
+
+#### Bug Fixes
+
+* Fixed an issue where `synchronizeWithRemoteNotification:completion:` would return an error when invoked when the app is in an inactive state.
+* Updated keychain items to allow access when executing in the background.
+* LayerKit now uses an alternate global symbol for logging to avoid conflicts with CocoaLumberjack.
+
 ## 0.19.0
 
 #### Public API Changes
