@@ -1,5 +1,17 @@
 # LayerKit Change Log
 
+## 0.19.2
+
+#### Bug Fixes
+
+* Fixes an issue where the cold-sync process could get stuck.
+* Fixes an issue where `LYRMessagePart.index` would always be `0`.
+* Fixes an issue where a crash could occur after a conversation is deleted.
+* Fixed an issue where messages could not be deleted in the `LYRDeletionModeMyDevices` mode after removal from the conversation.
+* Fixes an issue where a message part transfer might get stuck on `LYRContentTransferDownloading` status.
+* Fixes an issue where a message might be stuck in a "pending" state after an application crash, until a new message is sent.
+* Fixes an issue where an `LYRQueryController` could report changes in a non serial manner. Query controller will now report an error if `execute:` is called while an update is currently in flight.
+
 ## 0.19.1
 
 #### Bug Fixes

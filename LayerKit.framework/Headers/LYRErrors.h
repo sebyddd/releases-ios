@@ -37,6 +37,9 @@ typedef NS_ENUM(NSUInteger, LYRError) {
     // Policy Errors
     LYRErrorPolicyValidationFailure                 = 4000,
     LYRErrorPolicyNotFound                          = 4001,
+    
+    // Query Controller Errors
+    LYRErrorQueryControllerExecutionFailure         = 5000
 };
 
 typedef NS_ENUM(NSUInteger, LYRClientError) {
