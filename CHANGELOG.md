@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.19.3
+
+#### Bug Fixes
+
+* Fixes an issue where messages failed to sync in response to push notifications. 
+
 ## 0.19.2
 
 #### Bug Fixes
