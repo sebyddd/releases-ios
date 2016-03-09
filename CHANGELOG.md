@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.19.4
+
+#### Bug Fixes
+
+* Fixes an internal concurrency issue that caused crashes during synchronization.
+
 ## 0.19.3
 
 #### Bug Fixes
