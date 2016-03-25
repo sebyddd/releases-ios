@@ -14,23 +14,27 @@
 		</data>
 		<key>Headers/LYRClient.h</key>
 		<data>
-		55fGRN8bFc82TunRreOeOxNyU1I=
+		ubEY3lYdRVvU6nkBYkzYmOfO6Fw=
 		</data>
 		<key>Headers/LYRConstants.h</key>
 		<data>
-		g8vW58wvo8WXhovYpoHOgMKV/BM=
+		66Q7Pj4xgFvqwHYSQ2JG0Oz4AHQ=
 		</data>
 		<key>Headers/LYRConversation.h</key>
 		<data>
-		DK51mFskbN3d+qnyqg7fY+eH0VQ=
+		CLrr8XWLcQr264s2YEkGZrmXpoE=
 		</data>
 		<key>Headers/LYRErrors.h</key>
 		<data>
-		VYnBwaHrIwp7G7rAP9h5RlKn228=
+		mgRo6Ta6L+HkLkbKvX3nhtPSd8k=
+		</data>
+		<key>Headers/LYRIdentity.h</key>
+		<data>
+		y+lghKKCDnwvrZYl1ul2HE9+fd0=
 		</data>
 		<key>Headers/LYRMessage.h</key>
 		<data>
-		reihGji279yyj4zbYpcnKZIYLaY=
+		1DmlZiZjMnggwef3BFAk6cm12Dg=
 		</data>
 		<key>Headers/LYRMessagePart.h</key>
 		<data>
@@ -46,7 +50,7 @@
 		</data>
 		<key>Headers/LYRPredicate.h</key>
 		<data>
-		ftXwpjzmLtIO+x5/YuOu4dg0zkU=
+		ZWNP2zzXmRSc4/Iy6K2IFWZ0/Ew=
 		</data>
 		<key>Headers/LYRProgress.h</key>
 		<data>
@@ -66,7 +70,7 @@
 		</data>
 		<key>Headers/LayerKit-umbrella.h</key>
 		<data>
-		eVa5i8/WEcFRy4gQOXYXdj0vHkw=
+		r9Eh+0xcC0hBeAOIm0cZj2zLgV0=
 		</data>
 		<key>Headers/LayerKit.h</key>
 		<data>
@@ -74,11 +78,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		AhELPhaD7l3XNRYfhDA2mfrMhes=
+		ordPtJ7vDIGc0Pe8B3gR0zTRNLI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		I7RWd51LkX5GF29DH5HYXnVQx1k=
+		Kkbq7bm0mysY1S0XHFHtPjPSaew=
 		</data>
 		<key>PrivateHeaders/FMReadOnlyDatabasePool.h</key>
 		<data>
@@ -134,7 +138,7 @@
 		</data>
 		<key>PrivateHeaders/LYRCalculateMissingEventsOperation.h</key>
 		<data>
-		qvVjAItkS9lVEy+wtzHocXpk5Ys=
+		MKijxhu+bq447rw0XAfgU2U8lRI=
 		</data>
 		<key>PrivateHeaders/LYRCertificate.h</key>
 		<data>
@@ -142,7 +146,7 @@
 		</data>
 		<key>PrivateHeaders/LYRClient+Private.h</key>
 		<data>
-		tUajrrNm8eFYpwDFcPK5lQJvsg4=
+		bJcFqgcjr1iTkvaIgh84OA3j9vw=
 		</data>
 		<key>PrivateHeaders/LYRConcurrentOperation.h</key>
 		<data>
@@ -158,11 +162,11 @@
 		</data>
 		<key>PrivateHeaders/LYRConversation+Internal.h</key>
 		<data>
-		IJgyIGpy6ezQnF5pM++X5n0kVaE=
+		5FdyDbflJhsGw4eEJz3Py13X6X8=
 		</data>
 		<key>PrivateHeaders/LYRConversationRepository.h</key>
 		<data>
-		D23N6ye+8E8SoeYmaWoWOllQrO4=
+		VfeFW0AVj+X9V6NZXbQtEIVrjmc=
 		</data>
 		<key>PrivateHeaders/LYRCreateExternalContentURLOperation.h</key>
 		<data>
@@ -194,7 +198,7 @@
 		</data>
 		<key>PrivateHeaders/LYRDatabaseManager.h</key>
 		<data>
-		ij0b0Ov1r90sLiqjMvJMUNE4PTQ=
+		WlP42sYKg7oRKhl+Zr/3JV4acV8=
 		</data>
 		<key>PrivateHeaders/LYRDatabaseRepository.h</key>
 		<data>
@@ -242,7 +246,7 @@
 		</data>
 		<key>PrivateHeaders/LYREventFetchingAggregateOperation.h</key>
 		<data>
-		CSWd+OjR9o5jqx3rp0rYyVgPskk=
+		B1RiDKfYj47G0eEa0rzt1B7U8uo=
 		</data>
 		<key>PrivateHeaders/LYREventPublishingAggregateOperation.h</key>
 		<data>
@@ -304,6 +308,10 @@
 		<data>
 		stYt+vj5e2Hr+UE5m8fnNCOTI5g=
 		</data>
+		<key>PrivateHeaders/LYRGetIdentityMutationsOperation.h</key>
+		<data>
+		wpGzbd0D97vRE6vr/LJXoEPzzQo=
+		</data>
 		<key>PrivateHeaders/LYRGetMutationsOperation.h</key>
 		<data>
 		goyEri1VYEgxrMwASBREvyrm8lw=
@@ -340,6 +348,30 @@
 		<data>
 		3r9BbSllKMy4X60lMvJHAbcGPDw=
 		</data>
+		<key>PrivateHeaders/LYRIdentity+Internal.h</key>
+		<data>
+		aOKW9gUrdv65RypvDkuS2gAhcTs=
+		</data>
+		<key>PrivateHeaders/LYRIdentityReconciliationAggregateOperation.h</key>
+		<data>
+		6D3MeKLJMoYHRgy+cfkeCG109+w=
+		</data>
+		<key>PrivateHeaders/LYRIdentityReconciliationOperation.h</key>
+		<data>
+		QHLkTd+pWqODWflXZormtHtJQ48=
+		</data>
+		<key>PrivateHeaders/LYRIdentityRepository.h</key>
+		<data>
+		54vnwaQekDcy7ixOXOURaYojCI4=
+		</data>
+		<key>PrivateHeaders/LYRIdentityStreamMemberCreationAggregateOperation.h</key>
+		<data>
+		gWyUsuHEfPq7Hgceo0Ec8aHxqwI=
+		</data>
+		<key>PrivateHeaders/LYRIdentityStreamMemberCreationOperation.h</key>
+		<data>
+		d6ek5yTAlNysq1kOnhS54C/NyVQ=
+		</data>
 		<key>PrivateHeaders/LYRIdentityToken.h</key>
 		<data>
 		3fDMw2CKxdD+3EfCSmD63F8loVs=
@@ -362,7 +394,7 @@
 		</data>
 		<key>PrivateHeaders/LYRKeyedValueRepository.h</key>
 		<data>
-		fu8YPg0t7rerqnB4BE0OMWoGg70=
+		cdFdyMwa1kammdXMRxylMGG1ZUE=
 		</data>
 		<key>PrivateHeaders/LYRLog.h</key>
 		<data>
@@ -374,7 +406,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessage+Internal.h</key>
 		<data>
-		eXa3aIk+zzZrSGaRB5PelPLh6nA=
+		0Z4ebHU0OOVRRoKsdCDnwx3uIoo=
 		</data>
 		<key>PrivateHeaders/LYRMessagePart+Internal.h</key>
 		<data>
@@ -386,7 +418,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessageRepository.h</key>
 		<data>
-		qf2YYGMiMGcTLaJZg5oH6cuayU0=
+		R5b1mzGrCMpHEqJvDIf0U6caYs4=
 		</data>
 		<key>PrivateHeaders/LYRMultiKeyCache.h</key>
 		<data>
@@ -430,11 +462,11 @@
 		</data>
 		<key>PrivateHeaders/LYRObjectContext.h</key>
 		<data>
-		qUDlJyI5W3Fh26BTXWgJ8ETe29g=
+		O+oUuBdOA13g+myjpbhR5ZdsXiw=
 		</data>
 		<key>PrivateHeaders/LYRObjectIdentifier.h</key>
 		<data>
-		aLauHitibyjZTF+3KMwFqYXUkgI=
+		MwPTaFGm5xcA6FtA2FdDKeLy5QE=
 		</data>
 		<key>PrivateHeaders/LYRObjectRepository.h</key>
 		<data>
@@ -446,7 +478,7 @@
 		</data>
 		<key>PrivateHeaders/LYROperationIdentifier.h</key>
 		<data>
-		uzs4mp0oPB8hzuIPIlWyI1LYQic=
+		wVgGZLXxBsm8zwb6F7raaADrVhA=
 		</data>
 		<key>PrivateHeaders/LYROutboundReconciliationOperation.h</key>
 		<data>
@@ -476,6 +508,10 @@
 		<data>
 		VeODxyMME7chPJMoV9HHNOIoIC4=
 		</data>
+		<key>PrivateHeaders/LYRPlatformAPIManager.h</key>
+		<data>
+		oG1apzoRUjYBqX8CpHTATmx3rxo=
+		</data>
 		<key>PrivateHeaders/LYRPolicy+Internal.h</key>
 		<data>
 		r8OHCF176CZVu1oZKRo3/nY+xo4=
@@ -502,11 +538,27 @@
 		</data>
 		<key>PrivateHeaders/LYRProxiedObjectChange.h</key>
 		<data>
-		7BPRnEW1wqsfURYga2AJLWurvxs=
+		8pcbtNfKd2t0barG69ElfAMhess=
 		</data>
 		<key>PrivateHeaders/LYRPublishEventsOperation.h</key>
 		<data>
 		DJATPgPyicdtT8ZJfSj6x91Ncn8=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityFollowingsAggregateOperation.h</key>
+		<data>
+		95dcRJEa7vWIZrSrcYDEYOucaAo=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityFollowingsOperation.h</key>
+		<data>
+		TkYqa1uFQ8lFQ+G0QtXbBKrk7JI=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityUnfollowingsAggregateOperation.h</key>
+		<data>
+		HnPyYvphntKSGVag345SgNbAqMY=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityUnfollowingsOperation.h</key>
+		<data>
+		e+Q0hwPGkMbI77Xn7YmK1k/aa+8=
 		</data>
 		<key>PrivateHeaders/LYRPublishMutationsAggregateOperation.h</key>
 		<data>
@@ -522,7 +574,7 @@
 		</data>
 		<key>PrivateHeaders/LYRQuery+Internal.h</key>
 		<data>
-		mjF1wTS7Wq2tPwbEGKVUXZhiWUc=
+		arIYMhy/SYaKWOo91wKXB67d0pk=
 		</data>
 		<key>PrivateHeaders/LYRQueryController+Internal.h</key>
 		<data>
@@ -582,11 +634,11 @@
 		</data>
 		<key>PrivateHeaders/LYRStream.h</key>
 		<data>
-		agBHQKrINFpNUQ0HwK0OmFZ4AIo=
+		Zvfs3NuVWDgQW4lz0ka6z8Yrrq4=
 		</data>
 		<key>PrivateHeaders/LYRStreamChangesFetchingAggregateOperation.h</key>
 		<data>
-		lv74UnEcufFQt66dzFBrabLsimM=
+		PeRTqfLUzEJzY07se/jwEJor1V4=
 		</data>
 		<key>PrivateHeaders/LYRStreamChangesPublicationAggregateOperation.h</key>
 		<data>
@@ -602,7 +654,7 @@
 		</data>
 		<key>PrivateHeaders/LYRStreamRepository.h</key>
 		<data>
-		PW8WjUzYybYIlNyh0BS//eZU3zg=
+		Mo1ue2kFByXeCb9/Zos70xXO4Ls=
 		</data>
 		<key>PrivateHeaders/LYRSyncableChange.h</key>
 		<data>
@@ -614,11 +666,19 @@
 		</data>
 		<key>PrivateHeaders/LYRSyncedChange.h</key>
 		<data>
-		EyI3jMkeSuJrWas/+UfmLjJl7eM=
+		xegwUaMBo3aR2LYPx2u+yXc9AV4=
 		</data>
 		<key>PrivateHeaders/LYRSyncedChangeRepository.h</key>
 		<data>
 		zW+Vj0ajBCzbExdo5R+ok58BMHA=
+		</data>
+		<key>PrivateHeaders/LYRSyncedIdentity.h</key>
+		<data>
+		UEHgtlWdlWKpULIYEguDBdyfbKM=
+		</data>
+		<key>PrivateHeaders/LYRSyncedIdentityMutation.h</key>
+		<data>
+		D/2DWzW7Ypu8OdPd5UaDTdDtIaw=
 		</data>
 		<key>PrivateHeaders/LYRSynchronizableOperation.h</key>
 		<data>
@@ -626,7 +686,7 @@
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationContext.h</key>
 		<data>
-		Sj8eJopliIfm6SDMebm8aePIfUU=
+		rs5BWbr4F0ySheOrZ1zMp2sB1M4=
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationErrorHandler.h</key>
 		<data>
@@ -638,7 +698,7 @@
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationManager.h</key>
 		<data>
-		E8qlraz5+WfVHrSPUnWNu9+yBwY=
+		KeuJPtaBDtUxBkPSG3+ULL23H4g=
 		</data>
 		<key>PrivateHeaders/LYRTask.h</key>
 		<data>
@@ -701,23 +761,27 @@
 		</data>
 		<key>Headers/LYRClient.h</key>
 		<data>
-		55fGRN8bFc82TunRreOeOxNyU1I=
+		ubEY3lYdRVvU6nkBYkzYmOfO6Fw=
 		</data>
 		<key>Headers/LYRConstants.h</key>
 		<data>
-		g8vW58wvo8WXhovYpoHOgMKV/BM=
+		66Q7Pj4xgFvqwHYSQ2JG0Oz4AHQ=
 		</data>
 		<key>Headers/LYRConversation.h</key>
 		<data>
-		DK51mFskbN3d+qnyqg7fY+eH0VQ=
+		CLrr8XWLcQr264s2YEkGZrmXpoE=
 		</data>
 		<key>Headers/LYRErrors.h</key>
 		<data>
-		VYnBwaHrIwp7G7rAP9h5RlKn228=
+		mgRo6Ta6L+HkLkbKvX3nhtPSd8k=
+		</data>
+		<key>Headers/LYRIdentity.h</key>
+		<data>
+		y+lghKKCDnwvrZYl1ul2HE9+fd0=
 		</data>
 		<key>Headers/LYRMessage.h</key>
 		<data>
-		reihGji279yyj4zbYpcnKZIYLaY=
+		1DmlZiZjMnggwef3BFAk6cm12Dg=
 		</data>
 		<key>Headers/LYRMessagePart.h</key>
 		<data>
@@ -733,7 +797,7 @@
 		</data>
 		<key>Headers/LYRPredicate.h</key>
 		<data>
-		ftXwpjzmLtIO+x5/YuOu4dg0zkU=
+		ZWNP2zzXmRSc4/Iy6K2IFWZ0/Ew=
 		</data>
 		<key>Headers/LYRProgress.h</key>
 		<data>
@@ -753,7 +817,7 @@
 		</data>
 		<key>Headers/LayerKit-umbrella.h</key>
 		<data>
-		eVa5i8/WEcFRy4gQOXYXdj0vHkw=
+		r9Eh+0xcC0hBeAOIm0cZj2zLgV0=
 		</data>
 		<key>Headers/LayerKit.h</key>
 		<data>
@@ -761,7 +825,7 @@
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		I7RWd51LkX5GF29DH5HYXnVQx1k=
+		Kkbq7bm0mysY1S0XHFHtPjPSaew=
 		</data>
 		<key>PrivateHeaders/FMReadOnlyDatabasePool.h</key>
 		<data>
@@ -817,7 +881,7 @@
 		</data>
 		<key>PrivateHeaders/LYRCalculateMissingEventsOperation.h</key>
 		<data>
-		qvVjAItkS9lVEy+wtzHocXpk5Ys=
+		MKijxhu+bq447rw0XAfgU2U8lRI=
 		</data>
 		<key>PrivateHeaders/LYRCertificate.h</key>
 		<data>
@@ -825,7 +889,7 @@
 		</data>
 		<key>PrivateHeaders/LYRClient+Private.h</key>
 		<data>
-		tUajrrNm8eFYpwDFcPK5lQJvsg4=
+		bJcFqgcjr1iTkvaIgh84OA3j9vw=
 		</data>
 		<key>PrivateHeaders/LYRConcurrentOperation.h</key>
 		<data>
@@ -841,11 +905,11 @@
 		</data>
 		<key>PrivateHeaders/LYRConversation+Internal.h</key>
 		<data>
-		IJgyIGpy6ezQnF5pM++X5n0kVaE=
+		5FdyDbflJhsGw4eEJz3Py13X6X8=
 		</data>
 		<key>PrivateHeaders/LYRConversationRepository.h</key>
 		<data>
-		D23N6ye+8E8SoeYmaWoWOllQrO4=
+		VfeFW0AVj+X9V6NZXbQtEIVrjmc=
 		</data>
 		<key>PrivateHeaders/LYRCreateExternalContentURLOperation.h</key>
 		<data>
@@ -877,7 +941,7 @@
 		</data>
 		<key>PrivateHeaders/LYRDatabaseManager.h</key>
 		<data>
-		ij0b0Ov1r90sLiqjMvJMUNE4PTQ=
+		WlP42sYKg7oRKhl+Zr/3JV4acV8=
 		</data>
 		<key>PrivateHeaders/LYRDatabaseRepository.h</key>
 		<data>
@@ -925,7 +989,7 @@
 		</data>
 		<key>PrivateHeaders/LYREventFetchingAggregateOperation.h</key>
 		<data>
-		CSWd+OjR9o5jqx3rp0rYyVgPskk=
+		B1RiDKfYj47G0eEa0rzt1B7U8uo=
 		</data>
 		<key>PrivateHeaders/LYREventPublishingAggregateOperation.h</key>
 		<data>
@@ -987,6 +1051,10 @@
 		<data>
 		stYt+vj5e2Hr+UE5m8fnNCOTI5g=
 		</data>
+		<key>PrivateHeaders/LYRGetIdentityMutationsOperation.h</key>
+		<data>
+		wpGzbd0D97vRE6vr/LJXoEPzzQo=
+		</data>
 		<key>PrivateHeaders/LYRGetMutationsOperation.h</key>
 		<data>
 		goyEri1VYEgxrMwASBREvyrm8lw=
@@ -1023,6 +1091,30 @@
 		<data>
 		3r9BbSllKMy4X60lMvJHAbcGPDw=
 		</data>
+		<key>PrivateHeaders/LYRIdentity+Internal.h</key>
+		<data>
+		aOKW9gUrdv65RypvDkuS2gAhcTs=
+		</data>
+		<key>PrivateHeaders/LYRIdentityReconciliationAggregateOperation.h</key>
+		<data>
+		6D3MeKLJMoYHRgy+cfkeCG109+w=
+		</data>
+		<key>PrivateHeaders/LYRIdentityReconciliationOperation.h</key>
+		<data>
+		QHLkTd+pWqODWflXZormtHtJQ48=
+		</data>
+		<key>PrivateHeaders/LYRIdentityRepository.h</key>
+		<data>
+		54vnwaQekDcy7ixOXOURaYojCI4=
+		</data>
+		<key>PrivateHeaders/LYRIdentityStreamMemberCreationAggregateOperation.h</key>
+		<data>
+		gWyUsuHEfPq7Hgceo0Ec8aHxqwI=
+		</data>
+		<key>PrivateHeaders/LYRIdentityStreamMemberCreationOperation.h</key>
+		<data>
+		d6ek5yTAlNysq1kOnhS54C/NyVQ=
+		</data>
 		<key>PrivateHeaders/LYRIdentityToken.h</key>
 		<data>
 		3fDMw2CKxdD+3EfCSmD63F8loVs=
@@ -1045,7 +1137,7 @@
 		</data>
 		<key>PrivateHeaders/LYRKeyedValueRepository.h</key>
 		<data>
-		fu8YPg0t7rerqnB4BE0OMWoGg70=
+		cdFdyMwa1kammdXMRxylMGG1ZUE=
 		</data>
 		<key>PrivateHeaders/LYRLog.h</key>
 		<data>
@@ -1057,7 +1149,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessage+Internal.h</key>
 		<data>
-		eXa3aIk+zzZrSGaRB5PelPLh6nA=
+		0Z4ebHU0OOVRRoKsdCDnwx3uIoo=
 		</data>
 		<key>PrivateHeaders/LYRMessagePart+Internal.h</key>
 		<data>
@@ -1069,7 +1161,7 @@
 		</data>
 		<key>PrivateHeaders/LYRMessageRepository.h</key>
 		<data>
-		qf2YYGMiMGcTLaJZg5oH6cuayU0=
+		R5b1mzGrCMpHEqJvDIf0U6caYs4=
 		</data>
 		<key>PrivateHeaders/LYRMultiKeyCache.h</key>
 		<data>
@@ -1113,11 +1205,11 @@
 		</data>
 		<key>PrivateHeaders/LYRObjectContext.h</key>
 		<data>
-		qUDlJyI5W3Fh26BTXWgJ8ETe29g=
+		O+oUuBdOA13g+myjpbhR5ZdsXiw=
 		</data>
 		<key>PrivateHeaders/LYRObjectIdentifier.h</key>
 		<data>
-		aLauHitibyjZTF+3KMwFqYXUkgI=
+		MwPTaFGm5xcA6FtA2FdDKeLy5QE=
 		</data>
 		<key>PrivateHeaders/LYRObjectRepository.h</key>
 		<data>
@@ -1129,7 +1221,7 @@
 		</data>
 		<key>PrivateHeaders/LYROperationIdentifier.h</key>
 		<data>
-		uzs4mp0oPB8hzuIPIlWyI1LYQic=
+		wVgGZLXxBsm8zwb6F7raaADrVhA=
 		</data>
 		<key>PrivateHeaders/LYROutboundReconciliationOperation.h</key>
 		<data>
@@ -1159,6 +1251,10 @@
 		<data>
 		VeODxyMME7chPJMoV9HHNOIoIC4=
 		</data>
+		<key>PrivateHeaders/LYRPlatformAPIManager.h</key>
+		<data>
+		oG1apzoRUjYBqX8CpHTATmx3rxo=
+		</data>
 		<key>PrivateHeaders/LYRPolicy+Internal.h</key>
 		<data>
 		r8OHCF176CZVu1oZKRo3/nY+xo4=
@@ -1185,11 +1281,27 @@
 		</data>
 		<key>PrivateHeaders/LYRProxiedObjectChange.h</key>
 		<data>
-		7BPRnEW1wqsfURYga2AJLWurvxs=
+		8pcbtNfKd2t0barG69ElfAMhess=
 		</data>
 		<key>PrivateHeaders/LYRPublishEventsOperation.h</key>
 		<data>
 		DJATPgPyicdtT8ZJfSj6x91Ncn8=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityFollowingsAggregateOperation.h</key>
+		<data>
+		95dcRJEa7vWIZrSrcYDEYOucaAo=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityFollowingsOperation.h</key>
+		<data>
+		TkYqa1uFQ8lFQ+G0QtXbBKrk7JI=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityUnfollowingsAggregateOperation.h</key>
+		<data>
+		HnPyYvphntKSGVag345SgNbAqMY=
+		</data>
+		<key>PrivateHeaders/LYRPublishIdentityUnfollowingsOperation.h</key>
+		<data>
+		e+Q0hwPGkMbI77Xn7YmK1k/aa+8=
 		</data>
 		<key>PrivateHeaders/LYRPublishMutationsAggregateOperation.h</key>
 		<data>
@@ -1205,7 +1317,7 @@
 		</data>
 		<key>PrivateHeaders/LYRQuery+Internal.h</key>
 		<data>
-		mjF1wTS7Wq2tPwbEGKVUXZhiWUc=
+		arIYMhy/SYaKWOo91wKXB67d0pk=
 		</data>
 		<key>PrivateHeaders/LYRQueryController+Internal.h</key>
 		<data>
@@ -1265,11 +1377,11 @@
 		</data>
 		<key>PrivateHeaders/LYRStream.h</key>
 		<data>
-		agBHQKrINFpNUQ0HwK0OmFZ4AIo=
+		Zvfs3NuVWDgQW4lz0ka6z8Yrrq4=
 		</data>
 		<key>PrivateHeaders/LYRStreamChangesFetchingAggregateOperation.h</key>
 		<data>
-		lv74UnEcufFQt66dzFBrabLsimM=
+		PeRTqfLUzEJzY07se/jwEJor1V4=
 		</data>
 		<key>PrivateHeaders/LYRStreamChangesPublicationAggregateOperation.h</key>
 		<data>
@@ -1285,7 +1397,7 @@
 		</data>
 		<key>PrivateHeaders/LYRStreamRepository.h</key>
 		<data>
-		PW8WjUzYybYIlNyh0BS//eZU3zg=
+		Mo1ue2kFByXeCb9/Zos70xXO4Ls=
 		</data>
 		<key>PrivateHeaders/LYRSyncableChange.h</key>
 		<data>
@@ -1297,11 +1409,19 @@
 		</data>
 		<key>PrivateHeaders/LYRSyncedChange.h</key>
 		<data>
-		EyI3jMkeSuJrWas/+UfmLjJl7eM=
+		xegwUaMBo3aR2LYPx2u+yXc9AV4=
 		</data>
 		<key>PrivateHeaders/LYRSyncedChangeRepository.h</key>
 		<data>
 		zW+Vj0ajBCzbExdo5R+ok58BMHA=
+		</data>
+		<key>PrivateHeaders/LYRSyncedIdentity.h</key>
+		<data>
+		UEHgtlWdlWKpULIYEguDBdyfbKM=
+		</data>
+		<key>PrivateHeaders/LYRSyncedIdentityMutation.h</key>
+		<data>
+		D/2DWzW7Ypu8OdPd5UaDTdDtIaw=
 		</data>
 		<key>PrivateHeaders/LYRSynchronizableOperation.h</key>
 		<data>
@@ -1309,7 +1429,7 @@
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationContext.h</key>
 		<data>
-		Sj8eJopliIfm6SDMebm8aePIfUU=
+		rs5BWbr4F0ySheOrZ1zMp2sB1M4=
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationErrorHandler.h</key>
 		<data>
@@ -1321,7 +1441,7 @@
 		</data>
 		<key>PrivateHeaders/LYRSynchronizationManager.h</key>
 		<data>
-		E8qlraz5+WfVHrSPUnWNu9+yBwY=
+		KeuJPtaBDtUxBkPSG3+ULL23H4g=
 		</data>
 		<key>PrivateHeaders/LYRTask.h</key>
 		<data>

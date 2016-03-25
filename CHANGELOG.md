@@ -1,5 +1,33 @@
 # LayerKit Change Log
 
+## 0.20.0-rc5
+
+#### Enhancements
+
+* Layer client can be configured to avoid fully synchronizing the conversation history. It also provides all the necessary functionallity to load more historic content on demand. See `LYRClientSynchronizationPolicy`.
+* Introduced `LYRIdentity` to synchronize user identity with the Layer Client.
+* `waitForCreationOfObjectWithIdentifier:timeout:completion:` will now query for an existing object with the given identifier in the local database and return it immediately upon invocation. This prevents a timeout from triggering in race condition cases where an object is materialized before the wait invocation is made (typically via transport push).
+
+#### Bug Fixes
+
+* Fixed an issue that would prevent the  `LYRQueryControllerDelegate` from reporting changes to a `conversation.lastMesssage` property.
+* Fixed a performance issue where the client performed extra work when it synchronized conversations, which in case of a high volume of conversations looked like a delay in the initial synchronization process.
+
+### Public API Changes
+
+* Added synchronization policies to the client's initialization method: `+clientWithAppID:options:`, see `LYRClientSynchronizationPolicy`.
+* In case the `LYRClient` is initalized to perform a partial synchronization process, more historic messages can be loaded on demand by either calling `LYRConversation`'s `synchronizeMoreMessages:error:` or `synchronizeAllMessages:` method.
+* `LYRConversation` contains two new properties that tell how many messages in total are available or how many unread messages are available in the conversation (even if the client hasn't fully synchronized the history of a conversation).
+* A set of two new notification are introduced that inform when a synchronization process is about to begin `LYRConversationWillBeginSynchronizingNotification` (handing out an `LYRProgress` instance in the userInfo of the notification), and a notification indicating that the synchronization process has completed `LYRConversationDidFinishSynchronizingNotification`.
+* Introduced `LYRIdentity` which replaces `LYRActor` and represents a first class object synchronized by the provider with the Layer platform.
+* `LYRMessage` property `sender` returns an object of type `LYRIdentity`.
+* `LYRConversation` property `participants` returns objects of type `LYRIdentity`.
+* Added `LYRClient` methods `followUserIDs:error:` and `unfollowUserIDs:error:` that allows for explicit following and unfollowing of userIDs to synchronize available identity information with the client. Followed userIDs will receive updates made to that identity, while unfollowing stops all updates and deletes the identity. All conversation participants are implicitly followed and cannot be explicitly followed or unfollowed.
+* Introduced `LYRPredicateOperatorLike` that allows for `LIKE` wildcard querying on `LYRIdentity` properties `firstName`, `lastName`, `displayName`, and `emailAddress`.
+* `LYRClient` property `authenticatedUserID` has been replaced with `LYRIdentity` object authenticatedUser.
+* `LYRClient` method `authenticateWithIdentityToken:completion:` has its completion block parameter changed from a string to a `LYRIdentity` object.
+* `LYRClient` method `newConversationWithParticipants:options:error:` now checks for blocked participants when creating a 1:1 conversations. An attempt to create a conversation with a blocked participant will result in an error.
+
 ## 0.19.4
 
 #### Bug Fixes
@@ -10,7 +38,7 @@
 
 #### Bug Fixes
 
-* Fixes an issue where messages failed to sync in response to push notifications. 
+* Fixes an issue where messages failed to sync in response to push notifications.
 
 ## 0.19.2
 
@@ -36,32 +64,32 @@
 
 #### Public API Changes
 
-* Removed all deprecated `LayerKit` methods. 
+* Removed all deprecated `LayerKit` methods.
 * Replacing the completion block in `synchronizeWithRemoteNotification:completion` to return the `LYRConversation` and `LYRMessage` objects specified in the remote payload instead of the object changes.
 * Introduced `LYRClient` method `waitForCreationOfObjectWithIdentifier:timeout:completion:` that waits the timeout length for creation of the specified identifier's object.
 
 #### Bug Fixes
 
-* Fixes an issue which caused `LYRQueryController` instances to return partially hydrated objects. This could occur when multiple query controllers were attempting to query the same objects from different threads. 
+* Fixes an issue which caused `LYRQueryController` instances to return partially hydrated objects. This could occur when multiple query controllers were attempting to query the same objects from different threads.
 
 ## 0.18.1
 
 #### Bug Fixes
 
-* Fixes an issue that would cause the `LYRQueryController` to broadcast `UPDATE` events with a `newIndexPath` parameter. 
-* Fixes an issue that could lead to a crash when syncing conversations that contain blocked participants. 
+* Fixes an issue that would cause the `LYRQueryController` to broadcast `UPDATE` events with a `newIndexPath` parameter.
+* Fixes an issue that could lead to a crash when syncing conversations that contain blocked participants.
 
 ## 0.18.0
 
-#### Public API Changes 
+#### Public API Changes
 
-* Introduced a new deletion mode `LYRDeletionModeMyDevices`, which provides for synchronizing a conversation or message deletion among all of a users devices. 
+* Introduced a new deletion mode `LYRDeletionModeMyDevices`, which provides for synchronizing a conversation or message deletion among all of a users devices.
 * Deprecated `LYRDeletionModeLocal` in favor of `LYRDeletionModeMyDevices`.
 
 #### Bug Fixes
 
 * Fixes an issue where attempting to remove a participant would return `TRUE` when the participant was not a participant in the conversation.
-* Fixes an issue that caused the `isSent` property of received messages to not get updated immediately upon receipt. 
+* Fixes an issue that caused the `isSent` property of received messages to not get updated immediately upon receipt.
 
 ## 0.17.7
 

@@ -13,8 +13,8 @@
 /**
  @abstract A type representing an absolute logical position of an object within a sequence.
  */
-typedef uint64_t LYRPosition;
-#define LYRPositionNotDefined UINT64_MAX
+typedef int64_t LYRPosition;
+#define LYRPositionNotDefined INT64_MAX
 
 /**
  @abstract A type representing a content size in bytes.
@@ -76,7 +76,40 @@ typedef NS_ENUM(NSInteger, LYRContentTransferType) {
     LYRContentTransferTypeUpload                = 1
 };
 
+///-------------------------------
+/// @name Synchronization Policies
+///-------------------------------
 
+typedef NS_ENUM(NSUInteger, LYRClientSynchronizationPolicy) {
+    /**
+     @abstract Client will perform the synchronization process by fetching the complete history for all conversations, using this sync policy.
+     */
+    LYRClientSynchronizationPolicyCompleteHistory,
+    
+    /**
+     @abstract Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.
+     */
+    LYRClientSynchronizationPolicyUnreadOnly,
+    
+    /**
+     @abstract Client will perform the synchronization process by fetching last few recent messages -- count is defined with the `LYRClientOptionSynchronizationMessageCount` key.
+     */
+    LYRClientSynchronizationPolicyMessageCount
+};
+
+typedef NS_ENUM(NSUInteger, LYRMessageSyncOptions) {
+    /**
+     @abstract Using this option with `[conversation synchronizeAllMessages:error:] method will
+     tell the client to synchronize all messages for that conversation.
+     */
+    LYRMessageSyncAll,
+
+    /**
+     @abstract Using this option with `[conversation synchronizeAllMessages:error:] method will
+     tell the client to synchronize all messages up to the first unread mesasge in that conversation.
+     */
+    LYRMessageSyncToFirstUnread
+};
 
 ///---------------------
 /// @name Log Components

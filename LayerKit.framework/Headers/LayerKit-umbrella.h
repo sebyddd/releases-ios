@@ -7,6 +7,7 @@
 #import "LYRConstants.h"
 #import "LYRConversation.h"
 #import "LYRErrors.h"
+#import "LYRIdentity.h"
 #import "LYRMessage.h"
 #import "LYRMessagePart.h"
 #import "LYRObjectChange.h"
