@@ -379,7 +379,7 @@ extern NSString * _Nonnull const LYRClientOptionSynchronizationMessageCount;
  @abstract Inspects an incoming push notification and synchronizes the client if it was sent by Layer.
  @param userInfo The user info dictionary received from the UIApplicaton delegate method application:didReceiveRemoteNotification:fetchCompletionHandler:'s `userInfo` parameter.
  @param completion The block that will be called once Layer has successfully downloaded new data associated with the `userInfo` dictionary passed in. It is your responsibility to call the UIApplication delegate method's fetch completion handler with an appropriate fetch result for the given objects. Note that this block is only called if the method returns `YES`.
- @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer and the completion block will not be called.
+ @return A Boolean value that determines whether the push was handled. Will be `NO` if this was not a push notification meant for Layer or if called while the application is active, and the completion block will not be called.
  @discussion The completion block will either return an error or one or both of the resulting objects depending on the information provided in the userInfo parameter.  In valid cases, just `message` is returned for an announcement payload, and both `message` and `conversation` for a message payload.
  @note The receiver must be authenticated else a warning will be logged and `NO` will be returned. The completion is only invoked if the return value is `YES`.
  */

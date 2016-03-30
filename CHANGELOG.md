@@ -1,6 +1,17 @@
 # LayerKit Change Log
 
-## 0.20.0-rc5
+## 0.20.1
+
+#### Bug Fixes
+
+* Fixes a bug where `LYRConversation`'s `-synchronizeMoreMessages:error:` method would allow to pass zero messages as the first argument; it's now enforced with a validation that passes an error and returns `NO`.
+* Fixes a bug that would cause `LYRClient` to ignore the initialization option `LYRClientSynchronizationPolicyUnreadOnly`.
+
+#### Public API Changes
+
+* The client's `synchronizeWithRemoteNotification:completion:` now immediately returns `NO` if the remote notification payload is not meant for the `LYRClient` or if the method has been invoked while the application is in a fully active state -- in this case, the completion handler won't be called. 
+
+## 0.20.0
 
 #### Enhancements
 

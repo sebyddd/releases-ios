@@ -275,7 +275,7 @@ extern NSString * _Nonnull const LYRConversationSynchronizationProgressUserInfoK
 
 /**
  @abstract Tells the client to synchronize more historic messages that are in the conversation.
- @param minimumNumberOfMessages The number of historic messages the client should try to fetch during synchronization.
+ @param minimumNumberOfMessages The number of historic messages the client should try to fetch during synchronization; value should be greated than zero.
  @param error A pointer to an error object that, upon failure, will be set to an error describing why the synchronization process could not be performed.
  @return `YES` in case the request for the operation was successfull; otherwise `NO`.
  */

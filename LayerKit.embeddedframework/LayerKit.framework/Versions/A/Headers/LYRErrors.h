@@ -72,6 +72,7 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorManualSyncFailedNoConnection          = 9004,
     LYRClientErrorManualSyncIgnoredAlreadyInProgress    = 9005,
     LYRClientErrorManualSyncIgnoredAlreadyFullySynced   = 9006,
+    LYRClientErrorManualSyncIgnoredNothingToSync        = 9007,
     
     // Debug Errors
     LYRClientErrorZipArchiveCreationFailure         = 10001,
