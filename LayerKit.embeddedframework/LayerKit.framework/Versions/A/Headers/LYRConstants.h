@@ -89,6 +89,7 @@ typedef NS_ENUM(NSUInteger, LYRClientSynchronizationPolicy) {
     /**
      @abstract Client will perform the synchronization process by fetching all the messages up to first unread message in for each conversation.
      If all messages in a conversations have been marked as read, the client will fetch the last (most recent) message in the conversation in the initial sync.
+     @discussion This is the default synchronization policy, if not specified in the options when initializing the `LYRClient`.
      */
     LYRClientSynchronizationPolicyUnreadOnly,
     

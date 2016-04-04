@@ -244,9 +244,21 @@ extern NSString * _Nonnull const LYRConversationSynchronizationProgressUserInfoK
  @param mode The deletion mode, specifying how the message is to be deleted (i.e. for only the currently authenticated user' devices or synchronized across participants).
  @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
  @return A Boolean value indicating if the request to delete the conversation was submitted for synchronization.
- @raises NSInvalidArgumentException Raised if `message` is `nil`.
  */
 - (BOOL)delete:(LYRDeletionMode)deletionMode error:(NSError * _Nullable * _Nullable)error __attribute__((swift_error(none)));
+
+///--------------------------------
+/// @name Leaving the Conversation
+///--------------------------------
+
+/**
+ @abstract Leaves the conversation.
+ @discussion This method removes the authenticated user from the conversation and deletes the conversation from all of their devices.
+ @param error A pointer to an error that upon failure is set to an error object describing why the deletion failed.
+ @return A Boolean value indicating if the request to leave the conversation was submitted for synchronization.
+ @discussion A user can only leave a conversation if they are a current participant and the conversation has not been deleted.
+ */
+- (BOOL)leave:(NSError * _Nullable * _Nullable)error __attribute__((swift_error(none)));
 
 ///-----------------------------------
 /// @name Marking All Messages as Read

@@ -1,5 +1,25 @@
 # LayerKit Change Log
 
+## 0.20.2
+
+#### Enhancements
+
+* Added functionality to allow users to "leave" a conversation. This has the effect of removing the user from the conversation and and deleting the conversation from all of the authenticated user's devices.
+
+#### Bug Fixes
+
+* Fixed an issue where creating a new unique conversation with the same participants of a deleted conversation caused outgoing messages to be stuck in pending.
+* Fixed an issue where message send could pass validation after participant had been removed from the conversation. 
+
+#### Public API Changes
+
+* Client's default sync policy is now `LYRClientSynchronizationPolicyUnreadOnly`, if the policy is not specified in the options argument of the client's designated initializer. Deprecated initializer however will keep the old behaviour, which is the `LYRClientSynchronizationPolicyCompleteHistory`.
+* Added `leave:` method to `LYRConversation`.
+
+#### Enhancements
+
+* Improvements to synchronization performance when deleting content with `LYRDeletionModeMyDevices`.
+
 ## 0.20.1
 
 #### Bug Fixes
