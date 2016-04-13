@@ -1,5 +1,15 @@
 # LayerKit Change Log
 
+## 0.20.3
+
+#### Bug Fixes
+
+* Fixed an issue where some clients received conversations with `nil` participants.
+* Fixes an issue where properties could be improperly set on `LYRConversation` objects. 
+* Fixes an issue where in some cases the `totalNumberOfMessages` and `totalNumberOfUnreadMessages` values in `LYRConversation` instance wouldn't get updated correctly.
+* Fixes an issue where client wouldn't synchronize the history of a conversation after the user has been added to an existing conversation.
+* Fixes an issue where a client potentially wouldn't delete a message when deleted with the `LYRDeletionModeAllParticipants` option by another participant.
+
 ## 0.20.2
 
 #### Enhancements
