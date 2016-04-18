@@ -1,5 +1,11 @@
 # LayerKit Change Log
 
+## 0.20.4
+
+#### Bug Fixes
+
+* Fixed an issue where some clients had an invalid database state.
+
 ## 0.20.3
 
 #### Bug Fixes
