@@ -1,5 +1,12 @@
 # LayerKit Change Log
 
+## 0.20.5
+
+#### Enhancements
+
+* Added support for querying for `nil` values with the `IsEqualTo` and `IsNotEqual` predicate operators.
+* Performance improvements and enhancements.
+
 ## 0.20.4
 
 #### Bug Fixes
