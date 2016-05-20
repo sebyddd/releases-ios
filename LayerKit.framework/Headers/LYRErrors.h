@@ -51,6 +51,7 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorConnectionTimeout                 = 6003,
     LYRClientErrorAsyncTimeout                      = 6004,
     LYRClientErrorInvalidIdentifier                 = 6005,
+    LYRClientErrorNotConnected                      = 6006,
     
     // Crypto Configuration Errors
     LYRClientErrorKeyPairNotFound                   = 7000,
@@ -60,6 +61,7 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     // Authentication
     LYRClientErrorNotAuthenticated                  = 7004,
     LYRClientErrorAlreadyAuthenticated              = 7005,
+    LYRClientErrorInvalidToken                      = 7006,
     
     // Push Notification Errors
     LYRClientErrorDeviceTokenInvalid                = 8000,
@@ -86,6 +88,10 @@ typedef NS_ENUM(NSUInteger, LYRClientError) {
     LYRClientErrorMessageDeleted                    = 11001,
     LYRClientErrorConversationDeleted               = 11002,
     LYRClientErrorInvalidClassType                  = 11003,
+    
+    // Session Errors
+    LYRClientErrorInvalidSession                    = 12001,
+    LYRClientErrorDuplicateSession                  = 12002,
 };
 
 extern NSString * _Nonnull const LYRErrorAuthenticatedUserIDUserInfoKey;
