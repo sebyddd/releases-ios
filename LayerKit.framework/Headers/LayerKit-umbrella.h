@@ -17,6 +17,7 @@
 #import "LYRPushNotificationConfiguration.h"
 #import "LYRQuery.h"
 #import "LYRQueryController.h"
+#import "LYRSession.h"
 
 FOUNDATION_EXPORT double LayerKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char LayerKitVersionString[];
