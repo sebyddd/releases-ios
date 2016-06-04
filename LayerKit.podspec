@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'LayerKit'
-  s.version = '0.21.0'
+  s.version = '0.20.6'
   s.summary = 'LayerKit is the iOS client interface for the Layer communications cloud.'
   s.license = 'Commercial'
   s.authors = {"Blake Watters"=>"blake@layer.com", "Klemen Verdnik"=>"klemen@layer.com"}
@@ -9,7 +9,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source = { git: 'https://github.com/layerhq/releases-ios.git', tag: "v#{s.version}" }
 
-  s.ios.deployment_target    = '8.0'
+  s.platform = :ios, '8.0'
+  s.ios.platform             = :ios, '8.0'
   s.ios.vendored_framework   = 'LayerKit.framework'
   s.ios.frameworks = ["CFNetwork", "Security", "MobileCoreServices", "SystemConfiguration", "UIKit"]
 end

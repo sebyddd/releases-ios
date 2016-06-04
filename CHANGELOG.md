@@ -1,33 +1,14 @@
 # LayerKit Change Log
 
-## 0.21.0
-
-#### Enhancements
-
-* Introduced `LYRSession` class to provide applications with the ability to manage multiple user sessions simultaneously.
-* Added functionality to allow applications to switch user sessions without deauthenticating.
-* Performance improvement in the synchronization process.
-
-#### Public API Changes
-
-* Added `LYRSession` object.
-* Added `currentSession` property to `LYRClient`.
-* Added `sessions` property to `LYRClient`.
-* Added `newSessionWithIdentifier:` method to `LYRClient`.
-* Added `sessionWithUserIdentifier:` method to `LYRClient`.
-* Added `switchToSession:error:` method to `LYRClient`.
-* Added `destroySession:error:` method to `LYRClient`.
-* Deprecated `addPolicy:error:` in favor of `addPolicies:error:` and `removePolicy:error:` in favor of `removePolicies:error:` which provides for performing bulk policy operations. 
+## 0.20.6
 
 #### Bug Fixes
 
-* Fixes an issue where the client might crash with an exception ('Task created in a session that has been invalidated') during the de-authentication process or then disconnecting the client by hand.
-* Fixes an issue where the client might crash with `EXC_CRASH (SIGABRT)` when it's downloading a lot of message parts at the time.
-* Fixes an issue which caused the client to improperly handle calls to `addPolicy:error` or `removePolicy:error:` when called multiple times in rapid succession.
-* Fixes an issue where the client might crash when trying to handle an internal error.
-* Fixes an issue that could prevent a client from reauthenticating after receiving an authentication challenge.
-* Fixes an issue that could lead to a crash during multiple calls to `deauthenticateWithCompletion:`.
-* Fixes an issue where the client could materialize a deleted conversation with no messages.
+* Fixed an issue where a client would receive a new config bag and ignore overwriting the changes in the synchronization logic, which would result in messages not getting published (stuck in pending).
+
+#### Enhancements
+
+* Added a more descriptive logging to message publication logic.
 
 ## 0.20.5
 
@@ -47,7 +28,7 @@
 #### Bug Fixes
 
 * Fixed an issue where some clients received conversations with `nil` participants.
-* Fixes an issue where properties could be improperly set on `LYRConversation` objects.
+* Fixes an issue where properties could be improperly set on `LYRConversation` objects. 
 * Fixes an issue where in some cases the `totalNumberOfMessages` and `totalNumberOfUnreadMessages` values in `LYRConversation` instance wouldn't get updated correctly.
 * Fixes an issue where client wouldn't synchronize the history of a conversation after the user has been added to an existing conversation.
 * Fixes an issue where a client potentially wouldn't delete a message when deleted with the `LYRDeletionModeAllParticipants` option by another participant.
@@ -61,7 +42,7 @@
 #### Bug Fixes
 
 * Fixed an issue where creating a new unique conversation with the same participants of a deleted conversation caused outgoing messages to be stuck in pending.
-* Fixed an issue where message send could pass validation after participant had been removed from the conversation.
+* Fixed an issue where message send could pass validation after participant had been removed from the conversation. 
 
 #### Public API Changes
 
@@ -81,7 +62,7 @@
 
 #### Public API Changes
 
-* The client's `synchronizeWithRemoteNotification:completion:` now immediately returns `NO` if the remote notification payload is not meant for the `LYRClient` or if the method has been invoked while the application is in a fully active state -- in this case, the completion handler won't be called.
+* The client's `synchronizeWithRemoteNotification:completion:` now immediately returns `NO` if the remote notification payload is not meant for the `LYRClient` or if the method has been invoked while the application is in a fully active state -- in this case, the completion handler won't be called. 
 
 ## 0.20.0
 
