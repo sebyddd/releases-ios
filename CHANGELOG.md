@@ -1,5 +1,29 @@
 # LayerKit Change Log
 
+## 0.22.0
+
+This release includes a number of public API changes to make development with LayerKit easier and more expressive in Swift. We have added real classes and types for configuration `options` that previously accepted dictionaries and modeled typing indicators as a class.
+
+#### Public API Changes
+
+* Introduced the `LYRClientOptions` object which provides for configuring synchronization options for an `LYRClient` instance.
+* The `LYRClient` initialization method has been changed. It now takes an `LYRClientDelegate` instance which is required and the options argument has changed from `NSDictionary` to `LYRClientOptions`.
+* Renamed `LYRClientSynchronizationPolicyMessageCount` to `LYRClientSynchronizationPolicyPartialHistory`.
+* Introduced the `LYRConversationOptions` object meant for configuring conversation instance upon initialization. It replaces the `LYRConversationOptionsMetadataKey`, `LYRConversationOptionsDeliveryReceiptsEnabledKey` and `LYRConversationOptionsDistinctByParticipantsKey` which was previously passed through the options argument with a dictionary.
+* Introduced the `LYRMessageOptions` object meant for configuring message instance upon initialization. It replaces the `LYRMessageOptionsPushNotificationConfigurationKey`, which was previously passed through the options argument with a dictionary.
+* Introduced the `LYRTypingIndicator` object that gets bundles in the `userInfo` of the `LYRConversationDidReceiveTypingIndicatorNotification`. It replaces the previously `NSNumber` wrapped typing indicator ENUM values that were bundled in the notification's `userInfo`.
+
+#### Enhancements
+
+* Improved performance of messaging after the initial synchronization finishes.
+
+#### Bug Fixes
+
+* Fixes an issue where the client wouldn't synchronize a newly received conversation, if the app is brought into the foreground by a remote notification.
+* Fixes a crash that could happen during the synchronization process, when processing deleted conversations.
+* Fixes an issue where the client would synchronize the complete history, even when configured with a different synchronization policy.
+* Fixed a crash in the `LYRExternalContentPreparationOperation` that occurs during cancellation of a Rich Content transfer. [APPS-2476]
+
 ## 0.21.1
 
 #### Bug Fixes
@@ -27,7 +51,7 @@
 * Added `sessionWithUserIdentifier:` method to `LYRClient`.
 * Added `switchToSession:error:` method to `LYRClient`.
 * Added `destroySession:error:` method to `LYRClient`.
-* Deprecated `addPolicy:error:` in favor of `addPolicies:error:` and `removePolicy:error:` in favor of `removePolicies:error:` which provides for performing bulk policy operations. 
+* Deprecated `addPolicy:error:` in favor of `addPolicies:error:` and `removePolicy:error:` in favor of `removePolicies:error:` which provides for performing bulk policy operations.
 
 #### Bug Fixes
 
