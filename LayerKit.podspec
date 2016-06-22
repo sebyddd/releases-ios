@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage = 'http://layer.com'
   s.libraries = ["z", "sqlite3"]
   s.requires_arc = true
-  s.source = { :path => '.' }
+  s.source = { git: 'https://github.com/layerhq/releases-ios.git', tag: "v#{s.version}" }
 
   s.ios.deployment_target    = '8.0'
   s.ios.vendored_framework   = 'LayerKit.framework'
